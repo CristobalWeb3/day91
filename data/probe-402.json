@@ -1,0 +1,47 @@
+{
+  "probedAt": "2026-10-10T20:18:06.165Z",
+  "request": {
+    "method": "GET",
+    "url": "https://tantk-rendergate.hf.space/render?url=https%3A%2F%2Fexample.com"
+  },
+  "status": 402,
+  "headers": {
+    "access-control-expose-headers": "*",
+    "connection": "keep-alive",
+    "content-length": "2",
+    "content-type": "application/json; charset=utf-8",
+    "date": "Sat, 10 Oct 2026 20:18:27 GMT",
+    "etag": "W/\"2-vyGp6PvFo4RvsFtPoIWeCReyIC8\"",
+    "link": "<https://huggingface.co/spaces/tantk/rendergate>;rel=\"canonical\"",
+    "payment-required": "eyJ4NDAyVmVyc2lvbiI6MiwiZXJyb3IiOiJQYXltZW50IHJlcXVpcmVkIiwicmVzb3VyY2UiOnsidXJsIjoiaHR0cDovL3RhbnRrLXJlbmRlcmdhdGUuaGYuc3BhY2UvcmVuZGVyP3VybD1odHRwcyUzQSUyRiUyRmV4YW1wbGUuY29tIiwiZGVzY3JpcHRpb24iOiJSZW5kZXIgYSBKUy1oZWF2eSB3ZWJwYWdlIGFuZCByZXR1cm4gZXh0cmFjdGVkIGNvbnRlbnQiLCJtaW1lVHlwZSI6IiJ9LCJhY2NlcHRzIjpbeyJzY2hlbWUiOiJleGFjdCIsIm5ldHdvcmsiOiJzdGVsbGFyOnRlc3RuZXQiLCJhbW91bnQiOiIxMDAwMCIsImFzc2V0IjoiQ0JJRUxUSzZZQlpKVTVVUDJXV1FFVUNZS0xQVTZBVU5aMkJRNFdXRkVJRTNVU0NJSE1YUURBTUEiLCJwYXlUbyI6IkdBVUo1NEZPSkxPNjJKUEJVUlpNQ0ZJR1I0S1pCMlBWRDZKNlNIS1JUSlhDWktGV1hBVUwyNUdPIiwibWF4VGltZW91dFNlY29uZHMiOjYwLCJleHRyYSI6eyJhcmVGZWVzU3BvbnNvcmVkIjp0cnVlfX1dfQ==",
+    "vary": "origin, access-control-request-method, access-control-request-headers",
+    "x-powered-by": "Express",
+    "x-proxied-host": "http://10.112.169.95",
+    "x-proxied-path": "/render?url=https%3A%2F%2Fexample.com",
+    "x-proxied-replica": "pg8zzap6-xl6lr",
+    "x-request-id": "xu6kyg"
+  },
+  "body": "{}",
+  "paymentRequired": {
+    "x402Version": 2,
+    "error": "Payment required",
+    "resource": {
+      "url": "http://tantk-rendergate.hf.space/render?url=https%3A%2F%2Fexample.com",
+      "description": "Render a JS-heavy webpage and return extracted content",
+      "mimeType": ""
+    },
+    "accepts": [
+      {
+        "scheme": "exact",
+        "network": "stellar:testnet",
+        "amount": "10000",
+        "asset": "CBIELTK6YBZJU5UP2WWQEUCYKLPU6AUNZ2BQ4WWFEIE3USCIHMXQDAMA",
+        "payTo": "GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO",
+        "maxTimeoutSeconds": 60,
+        "extra": {
+          "areFeesSponsored": true
+        }
+      }
+    ]
+  }
+}

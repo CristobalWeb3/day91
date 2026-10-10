@@ -1,0 +1,9 @@
+[
+  {
+    "publicKey": "GBNS6VZIEZEFIXJXIOL2PA4K3WDCF3R2O5IVHYRIJHSERZMJU764Q4PI",
+    "role": "buyer",
+    "createdAt": "2026-10-10T19:56:02Z",
+    "fundingTx": "93ca820becc02e61a632c9c21ce79dfac509be716ca720b8e7af78a6d5aca21e",
+    "trustlineTx": "8858edcd76692b7572709baff4dca34dbc8786236240cbb5435464dd512ad0ff"
+  }
+]

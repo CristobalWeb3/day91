@@ -4,11 +4,13 @@
  *   2. fondeo con friendbot (XLM para la reserva de la trustline)
  *   3. trustline USDC
  * El USDC se saca a mano del faucet de Circle (https://faucet.circle.com, red Stellar).
+ * Cada wallet queda registrada en data/day91-wallets.json (sin secretos), con sus tx de alta tomadas de Horizon.
  * Idempotente: se puede correr varias veces.
  */
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { Asset, BASE_FEE, Horizon, Keypair, Networks, Operation, TransactionBuilder } from "@stellar/stellar-sdk";
 import { FRIENDBOT_URL, HORIZON_URL, USDC_CODE, USDC_ISSUER, txLink } from "../src/config.js";
+import { WALLETS_PATH, upsertWallet } from "../src/ledger-log.js";
 
 const ENV_PATH = ".env";
 const horizon = new Horizon.Server(HORIZON_URL);
@@ -39,6 +41,23 @@ async function loadAccount(publicKey: string) {
   }
 }
 
+/** Registra la wallet con fecha y tx de alta leídas de Horizon (create_account y change_trust USDC). */
+async function registerWallet(publicKey: string) {
+  const ops = await horizon.operations().forAccount(publicKey).order("asc").limit(20).call();
+  const created = ops.records.find((op: any) => op.type === "create_account" && op.account === publicKey) as any;
+  const trust = ops.records.find(
+    (op: any) => op.type === "change_trust" && op.asset_code === USDC_CODE && op.asset_issuer === USDC_ISSUER,
+  ) as any;
+  upsertWallet({
+    publicKey,
+    role: "buyer",
+    createdAt: created?.created_at ?? new Date().toISOString(),
+    fundingTx: created?.transaction_hash,
+    trustlineTx: trust?.transaction_hash,
+  });
+  console.log(`Registrada en ${WALLETS_PATH}`);
+}
+
 async function main() {
   const kp = loadOrCreateKeypair();
   const pub = kp.publicKey();
@@ -66,6 +85,8 @@ async function main() {
     console.log(`Trustline OK: ${txLink(result.hash)}`);
     account = await horizon.loadAccount(pub);
   }
+
+  await registerWallet(pub);
 
   console.log("\nSaldos:");
   for (const b of account.balances as any[]) {
