@@ -68,8 +68,7 @@ Vida completa el 2026-09-20, 00:19–07:44 UTC:
   patrocinadas), no 28. 13 fondeadas con USDC, 5 pagaron algún servicio x402, **1 pagó RenderGate**, 3 hicieron bridge CCTP.
   Servicio x402 más usado por la cohorte: `GAU2MEYD2CWV46OM7W3H7I7BMN34WEXN54EBJ3VNZLE6XJ2EY3GIBTVU` (3 wallets, 14 pagos de 0.01), sin identificar.
   Criterio "x402" en el scan: transferencia USDC enviada por un tercero (facilitator); lo que firma el propio comprador se reporta aparte (p. ej. 491 USDC a `CDGUGN…`, DeFi).
-- Operador GBICCLC…: **28 `create_account`** entre 2026-09-19 23:56 y 2026-09-24 16:08 UTC → alta de wallets en serie
-  (plataforma o harness). Cohorte analizable.
+- Operador GBICCLC…: alta de wallets en serie (plataforma o harness); 28 de las 40 altas caen entre 2026-09-19 23:56 y 2026-09-24 16:08 UTC.
 
 ## Datos de ecosistema (Raven / Scout, 10-oct-2026)
 
@@ -131,17 +130,17 @@ day91/
   scripts/{setup-buyer,buy-render}.ts   reasoning/rendergate-gtm.md   data/   docs/index.html
 ```
 
-## Estado (10-oct-2026, cierre del bloque 2)
+## Estado (10-oct-2026, cierre del bloque 3)
 
-- **Funciona:** wallet compradora `GBNS6VZI…Q4PI` (~19.999 USDC). Un render pagado contra RenderGate con el cliente x402 estándar: HTTP 200,
-  0.0010000 USDC, tx `d8453fc3…945da` (2026-10-10T20:18:37Z = **marca de corte**, en `data/activation.json`). `day91 scan` corre contra el payTo
-  y escribe `data/scan-<payTo>.{json,md}`: línea base antes/después del corte por clase (vinculado/day91/externo), perfil de compradores externos
-  (servicios x402, bridges CCTP con destinatario decodificado), cohorte por operador y sondeo (ficha vs 402, `maxTimeoutSeconds`, latencias).
-- **Ejecutar:** `npm run setup-buyer` · `npm run buy-render -- [url] [agente]` · `npm run day91 -- scan <payTo> [--service <url>] [--cutoff <ISO>]` · `npm run typecheck`.
-- **Evidencia en `data/`:** `probe-402.json`, `paid-calls.jsonl`, `failed-calls.jsonl`, `day91-wallets.json` (sin secretos), `activation.json`, `scan-*`.
-- **Decisiones fuera del plan:** stellar-sdk ^16 (misma major que `@x402/stellar`). Hash desde `payment-response` o, si falta, Horizon por `from`. Settles fallidos aparte.
-  Tiempos con un fetch envoltorio; el cliente x402 no se toca. Montos como BigInt en stroops, siempre 7 decimales. "x402" = transferencia enviada por un facilitator.
-  Horizon `/payments` paginado completo (sin RPC). Se commitea `data/`. `.gitattributes` = `* text=auto`.
-- **Hipótesis abierta (sin medir):** primer intento 402 tras 68 s (`invalid_exact_stellar_payload_simulation_failed`, sin cobro). RenderGate liquida *después* de
-  renderizar y la firma vale 60 s (`maxTimeoutSeconds`). Sospecha: arranque en frío del navegador en HF. El reintento tardó 6,8 s. Latencia ficha/402 en frío ≈ 0,6–0,8 s.
-- **Pendiente:** bloque 3 (agentes A/B/C, tope 3 llamadas pagadas), funnel, README, reporte GTM, video.
+- **Funciona:** wallet `GBNS6VZI…Q4PI` (~19.997 USDC). 3 pagos de Day91 a RenderGate (0.0010000 c/u), todos en `/payments` del payTo: `d8453fc3…` (20:18:37Z,
+  **marca de corte** en `data/activation.json`), `69603878…` (A, Soroswap), `7132753a…` (A, stellarchain). `day91 scan` → `data/scan-<payTo>.{json,md}`; después del corte: 3 day91 / 0 externos.
+- **Agentes (`data/decisions.jsonl`, cliente x402 sin modificar):** C no paga (README estático, 9 561 chars útiles ≥ 500). B no compra: 1 pagador externo en 90 días
+  (política ≥ 3; excluye vinculados y wallets Day91) leído del ledger vivo. A paga si el GET simple trae < 500 chars útiles: Soroswap 176 → render 170 (**−6, cobrado sin aportar**;
+  hallazgo GTM: sugerir devolución cuando el render no mejora el GET) y stellarchain 73 → 693 (+620). `renderGainChars` queda en evidence.
+- **Ejecutar:** `npm run setup-buyer` · `buy-render -- [url] [agente]` · `day91 -- scan <payTo> [--service] [--cutoff]` · `agent-a|b|c` · `funnel-data` · `typecheck`.
+- **Evidencia en `data/`:** `probe-402.json`, `paid-calls.jsonl`, `failed-calls.jsonl`, `decisions.jsonl`, `day91-wallets.json` (sin secretos), `activation.json`, `scan-*`.
+- **Decisiones fuera del plan:** pago x402 compartido en `src/x402/paid-get.ts`. stellar-sdk ^16. Hash desde `payment-response` o Horizon por `from`. Montos BigInt, 7 decimales.
+  "x402" = transferencia enviada por un facilitator. Horizon paginado completo, sin RPC. El motivo de A de la 1.ª corrida se corrigió a mano (campo `note`); evidence y tx intactos.
+- **Hipótesis abierta (sin medir):** 1.er intento 402 tras 68 s (`simulation_failed`, sin cobro); RenderGate liquida *después* de renderizar y la firma vale 60 s. Sospecha: arranque en frío
+  en HF. Corridas posteriores: 6,8 s / 13,3 s / 8,8 s de punta a punta. Remote: `origin` = github.com/CristobalWeb3/day91.
+- **Pendiente:** bloque 4 (funnel `docs/index.html` + `docs/data.json`), README, reporte GTM, video.
