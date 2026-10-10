@@ -121,3 +121,16 @@ day91/
   src/scan/{baseline,profile,cohort,probe,report}.ts   src/buyers/{agent-a,agent-b,agent-c}.ts
   scripts/{setup-buyer,buy-render}.ts   reasoning/rendergate-gtm.md   data/   docs/index.html
 ```
+
+## Estado (10-oct-2026)
+
+- **Funciona:** wallet compradora `GBNS6VZI…Q4PI` (20 USDC del faucet de Circle). Primer render pagado contra RenderGate con el cliente x402
+  estándar: HTTP 200, 0.0010000 USDC, tx `d8453fc3…945da` (2026-10-10T20:18:37Z), visible en `/payments` del payTo.
+- **Ejecutar:** `npm run setup-buyer` (idempotente) y `npm run buy-render -- [url] [agente]`. `npm run typecheck` sin errores.
+- **Evidencia en `data/`:** `probe-402.json` (402 crudo), `paid-calls.jsonl`, `failed-calls.jsonl` y `day91-wallets.json` (sin secretos).
+- **Decisiones fuera del plan:** `@stellar/stellar-sdk` ^16, igual que `@x402/stellar`, para no instalar dos copias. El hash se toma de `payment-response` y, si falta,
+  se busca en Horizon por `from` = comprador. Los settles fallidos se registran aparte. Los tiempos se miden con un fetch envoltorio (el cliente x402 no se toca).
+  Se commitea `data/` como evidencia. `.gitattributes` = `* text=auto`.
+- **Hipótesis abierta:** el primer intento devolvió 402 tras 68 s (`invalid_exact_stellar_payload_simulation_failed`, sin cobro). RenderGate liquida
+  *después* de renderizar y la firma vale ~60 s (`maxTimeoutSeconds`). Sospecha: arranque en frío del navegador en HF. No medido: el reintento tardó 6,8 s.
+- **Pendiente:** bloque 2 (`day91 scan`) en adelante.
