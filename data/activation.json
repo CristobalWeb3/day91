@@ -1,0 +1,8 @@
+{
+  "GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO": {
+    "service": "RenderGate",
+    "cutoff": "2026-10-10T20:18:37Z",
+    "firstDay91Tx": "d8453fc3e3ecf8234606fdb06621629996b98f304fceb9dd5a9b0d9e239945da",
+    "note": "Marca de corte de la activación: primer pago de Day91. La línea base 'antes' usa solo pagos con created_at < cutoff."
+  }
+}

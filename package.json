@@ -1,7 +1,7 @@
 {
   "name": "day91",
   "version": "0.1.0",
-  "description": "Capa de activación de mercado para la oferta dormida del ecosistema Stellar",
+  "description": "Capa de activaciÃ³n de mercado para la oferta dormida del ecosistema Stellar",
   "license": "MIT",
   "private": true,
   "type": "module",
@@ -11,7 +11,8 @@
   "scripts": {
     "setup-buyer": "tsx scripts/setup-buyer.ts",
     "buy-render": "tsx scripts/buy-render.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "day91": "tsx src/cli.ts"
   },
   "dependencies": {
     "@stellar/stellar-sdk": "^16.3.1",

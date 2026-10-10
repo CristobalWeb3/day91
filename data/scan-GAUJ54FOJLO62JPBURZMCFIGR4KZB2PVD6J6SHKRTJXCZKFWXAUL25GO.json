@@ -1,0 +1,766 @@
+{
+  "generatedAt": "2026-10-10T20:46:25.901Z",
+  "payTo": "GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO",
+  "cutoff": {
+    "at": "2026-10-10T20:18:37Z",
+    "firstDay91Tx": "d8453fc3e3ecf8234606fdb06621629996b98f304fceb9dd5a9b0d9e239945da",
+    "source": "data/activation.json"
+  },
+  "baseline": {
+    "payTo": "GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO",
+    "cutoff": "2026-10-10T20:18:37Z",
+    "account": {
+      "createdAt": "2026-04-13T04:11:30Z",
+      "funder": "GAIH3ULLFQ4DGSECF2AR555KZ4KNDGEKN4AFI4SU2M7B43MGK3QJZNSR",
+      "usdcBalance": "0.0760000"
+    },
+    "linked": [
+      {
+        "address": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "evidence": [
+          {
+            "tx": "a3512b3b0719419d88bc5ff9136c57fcfbc1131ffabdf766235ed9233889b8c7",
+            "at": "2026-04-13T12:16:40Z",
+            "amount": "0.0010000",
+            "usdc": true,
+            "memo": "refund:test"
+          },
+          {
+            "tx": "b4d45cac244bfd5c436b055323a71b2e341a7b95ea2553eaebe144c76127d446",
+            "at": "2026-04-13T12:19:30Z",
+            "amount": "0.0010000",
+            "usdc": true,
+            "memo": "refund:blocked_page"
+          },
+          {
+            "tx": "bf68b79248c9ec24ffb40cea72251b86faf065702c7038136d3309f864431831",
+            "at": "2026-04-13T12:19:51Z",
+            "amount": "0.0010000",
+            "usdc": true,
+            "memo": "refund:blocked_page"
+          },
+          {
+            "tx": "3fea90b47a3d873a1ea4482174e7bd9fbedd4d4eead0b92ad6ac556031b52335",
+            "at": "2026-04-13T12:32:12Z",
+            "amount": "0.0010000",
+            "usdc": true,
+            "memo": "refund:blocked_page"
+          },
+          {
+            "tx": "71541d14da567d02b05115f9a82a6f4bb9aca6da74d72163f6b8993dc4a60a60",
+            "at": "2026-04-13T12:32:47Z",
+            "amount": "0.0010000",
+            "usdc": true,
+            "memo": "refund:blocked_page"
+          },
+          {
+            "tx": "2d91f45b09e684c0096bf19eb5482858e7074b3bc143768626daaeb101a94557",
+            "at": "2026-04-13T12:40:38Z",
+            "amount": "0.0010000",
+            "usdc": true,
+            "memo": "refund:blocked_page"
+          }
+        ]
+      }
+    ],
+    "before": {
+      "label": "antes de 2026-10-10T20:18:37Z",
+      "total": {
+        "payments": 81,
+        "payers": 2,
+        "amount": "0.0810000"
+      },
+      "byClass": {
+        "vinculado": {
+          "payments": 79,
+          "payers": 1,
+          "amount": "0.0790000"
+        },
+        "day91": {
+          "payments": 0,
+          "payers": 0,
+          "amount": "0.0000000"
+        },
+        "externo": {
+          "payments": 2,
+          "payers": 1,
+          "amount": "0.0020000"
+        }
+      },
+      "payers": [
+        {
+          "address": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+          "class": "vinculado",
+          "payments": 79,
+          "amount": "0.0790000",
+          "first": "2026-04-13T04:32:22Z",
+          "last": "2026-04-13T23:48:42Z"
+        },
+        {
+          "address": "GBUQ25LH4BARXR4RAJZVA7QYVFTIRZD63YXYVAETETYGKMNZF5PKM3L6",
+          "class": "externo",
+          "payments": 2,
+          "amount": "0.0020000",
+          "first": "2026-09-20T00:57:47Z",
+          "last": "2026-09-20T06:38:57Z"
+        }
+      ],
+      "byDay": [
+        {
+          "day": "2026-04-13",
+          "payments": 79,
+          "byClass": {
+            "vinculado": 79,
+            "day91": 0,
+            "externo": 0
+          }
+        },
+        {
+          "day": "2026-09-20",
+          "payments": 2,
+          "byClass": {
+            "vinculado": 0,
+            "day91": 0,
+            "externo": 2
+          }
+        }
+      ],
+      "firstPayment": "2026-04-13T04:32:22Z",
+      "lastPayment": "2026-09-20T06:38:57Z",
+      "lastExternalPayment": "2026-09-20T06:38:57Z"
+    },
+    "after": {
+      "label": "desde 2026-10-10T20:18:37Z",
+      "total": {
+        "payments": 1,
+        "payers": 1,
+        "amount": "0.0010000"
+      },
+      "byClass": {
+        "vinculado": {
+          "payments": 0,
+          "payers": 0,
+          "amount": "0.0000000"
+        },
+        "day91": {
+          "payments": 1,
+          "payers": 1,
+          "amount": "0.0010000"
+        },
+        "externo": {
+          "payments": 0,
+          "payers": 0,
+          "amount": "0.0000000"
+        }
+      },
+      "payers": [
+        {
+          "address": "GBNS6VZIEZEFIXJXIOL2PA4K3WDCF3R2O5IVHYRIJHSERZMJU764Q4PI",
+          "class": "day91",
+          "payments": 1,
+          "amount": "0.0010000",
+          "first": "2026-10-10T20:18:37Z",
+          "last": "2026-10-10T20:18:37Z"
+        }
+      ],
+      "byDay": [
+        {
+          "day": "2026-10-10",
+          "payments": 1,
+          "byClass": {
+            "vinculado": 0,
+            "day91": 1,
+            "externo": 0
+          }
+        }
+      ],
+      "firstPayment": "2026-10-10T20:18:37Z",
+      "lastPayment": "2026-10-10T20:18:37Z",
+      "lastExternalPayment": null
+    },
+    "daysWithoutExternalSales": 20,
+    "windows": [
+      {
+        "days": 90,
+        "byClass": {
+          "vinculado": 0,
+          "day91": 0,
+          "externo": 2
+        },
+        "payersByClass": {
+          "vinculado": 0,
+          "day91": 0,
+          "externo": 1
+        }
+      },
+      {
+        "days": 180,
+        "byClass": {
+          "vinculado": 4,
+          "day91": 0,
+          "externo": 2
+        },
+        "payersByClass": {
+          "vinculado": 1,
+          "day91": 0,
+          "externo": 1
+        }
+      }
+    ]
+  },
+  "externalBuyers": [
+    {
+      "address": "GBUQ25LH4BARXR4RAJZVA7QYVFTIRZD63YXYVAETETYGKMNZF5PKM3L6",
+      "createdAt": "2026-09-20T00:19:57Z",
+      "funder": "GBICCLC22HBCJTUBWHVDZ4KMXT4HJQZRQHFJPO7KW27PCOW4JEAFJU6V",
+      "sponsor": "GBICCLC22HBCJTUBWHVDZ4KMXT4HJQZRQHFJPO7KW27PCOW4JEAFJU6V",
+      "firstActivity": "2026-09-20T00:19:57Z",
+      "lastActivity": "2026-09-20T07:44:07Z",
+      "fundedWith": [
+        {
+          "from": "CCAML62QF5D6ZV2CNIFBSKJK7HMTX4K473P7NGNNRAWVVLRNTOCFVSGI",
+          "label": null,
+          "amount": "2.0000000",
+          "at": "2026-09-20T00:22:47Z",
+          "tx": "73ff4150c80dbe59bf008031db6597c2d09eb01e7f5fff6fcf9092dc48bfa58c"
+        }
+      ],
+      "services": [
+        {
+          "to": "GDXKBOCCIUWIJ4O355O3YUSB46G5TGCOJ2LSADU7KB67EBT23KMAGWQU",
+          "label": null,
+          "payments": 8,
+          "amount": "0.0800000",
+          "unitPrices": [
+            "0.0100000"
+          ],
+          "facilitators": [
+            "GC6CSXBV4C6RL3HEDTW57KXYXSSXKAWKGYDEOSATXM3XNKXSR2VRYN3K"
+          ],
+          "first": "2026-09-20T00:29:02Z",
+          "last": "2026-09-20T07:44:07Z"
+        },
+        {
+          "to": "GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO",
+          "label": "RenderGate (payTo)",
+          "payments": 2,
+          "amount": "0.0020000",
+          "unitPrices": [
+            "0.0010000"
+          ],
+          "facilitators": [
+            "GC6CSXBV4C6RL3HEDTW57KXYXSSXKAWKGYDEOSATXM3XNKXSR2VRYN3K"
+          ],
+          "first": "2026-09-20T00:57:47Z",
+          "last": "2026-09-20T06:38:57Z"
+        },
+        {
+          "to": "GCHEI4PQEFJOA27MNZRPQNLGURS6KASW76X5UZCUZIXCOJLKXYCXOR2W",
+          "label": "payTo de ejemplo de los tests oficiales x402/Stellar",
+          "payments": 2,
+          "amount": "0.0200000",
+          "unitPrices": [
+            "0.0100000"
+          ],
+          "facilitators": [
+            "GCGKCIJE7S22OLQUWURUIL7OFMTVJY77RDZIO6ZJADVFLRUMRW6MNDYL",
+            "GA6QLQOQFN36EV6NRIZAGMNA42MFG2XGCX23KYF6VE5DTBXPPS5RO67I"
+          ],
+          "first": "2026-09-20T00:58:27Z",
+          "last": "2026-09-20T06:38:42Z"
+        }
+      ],
+      "otherOutflows": [],
+      "bridges": [
+        {
+          "tx": "f37b4310bd74fd9ee39ccda806ce982919020c55100bd76b80050dfbd1289df0",
+          "at": "2026-09-20T06:42:37Z",
+          "amount": "1.0000000",
+          "contract": "CDNG7HXAPBWICI2E3AUBP3YZWZELJLYSB6F5CC7WLDTLTHVM74SLRTHP",
+          "domain": 6,
+          "chain": "Base",
+          "mintRecipient": "0xc97c1ca97df407f7ca9039c5d392e8868f234b4f"
+        }
+      ],
+      "totalServiceSpend": "0.1020000",
+      "spendOnTarget": "0.0020000",
+      "targetShare": 0.0196078431372549
+    }
+  ],
+  "cohorts": [
+    {
+      "operator": "GBICCLC22HBCJTUBWHVDZ4KMXT4HJQZRQHFJPO7KW27PCOW4JEAFJU6V",
+      "operatorLabel": null,
+      "via": [
+        "GBUQ25LH4BARXR4RAJZVA7QYVFTIRZD63YXYVAETETYGKMNZF5PKM3L6"
+      ],
+      "createAccounts": 40,
+      "firstCreate": "2026-09-19T20:20:12Z",
+      "lastCreate": "2026-09-24T16:08:57Z",
+      "sponsoredReserves": 40,
+      "walletsFunded": 13,
+      "walletsThatPaidServices": 5,
+      "walletsThatPaidTarget": 1,
+      "walletsThatBridged": 3,
+      "services": [
+        {
+          "to": "GAU2MEYD2CWV46OM7W3H7I7BMN34WEXN54EBJ3VNZLE6XJ2EY3GIBTVU",
+          "label": null,
+          "wallets": 3,
+          "payments": 14,
+          "amount": "0.1400000"
+        },
+        {
+          "to": "GDXKBOCCIUWIJ4O355O3YUSB46G5TGCOJ2LSADU7KB67EBT23KMAGWQU",
+          "label": null,
+          "wallets": 2,
+          "payments": 9,
+          "amount": "0.0900000"
+        },
+        {
+          "to": "GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO",
+          "label": "RenderGate (payTo)",
+          "wallets": 1,
+          "payments": 2,
+          "amount": "0.0020000"
+        },
+        {
+          "to": "GCHEI4PQEFJOA27MNZRPQNLGURS6KASW76X5UZCUZIXCOJLKXYCXOR2W",
+          "label": "payTo de ejemplo de los tests oficiales x402/Stellar",
+          "wallets": 1,
+          "payments": 2,
+          "amount": "0.0200000"
+        }
+      ],
+      "otherOutflows": [
+        {
+          "to": "CDGUGNN7HMTLOLCANFSECMSBN5MCIEMDRPZU4RXF6BDO5LRTSYW2E6XV",
+          "label": null,
+          "wallets": 3,
+          "payments": 8,
+          "amount": "491.5810465"
+        },
+        {
+          "to": "CDQ4AKWX7D7C7GFEGWQUCALUUUYFOJFY56HRST36M2NE5XB2GPWV2SKF",
+          "label": null,
+          "wallets": 1,
+          "payments": 13,
+          "amount": "13.0900000"
+        },
+        {
+          "to": "CBTDTUQ4I5C5VHUGQW3YLZWLGJCUSTOSO4433KLEUIWPACYJDYG44UJ2",
+          "label": null,
+          "wallets": 1,
+          "payments": 2,
+          "amount": "2.0400000"
+        },
+        {
+          "to": "CB6JVJPBFHZFN6JLDJFR62U2OBTK66RK3YV3KVWIJTBAL23W636535ZH",
+          "label": null,
+          "wallets": 1,
+          "payments": 1,
+          "amount": "16.0000000"
+        },
+        {
+          "to": "CDC4KP6R2IUU2O7GGDGR3525YFZT74VOLSBVVHBWFP6KGATQKQVGTONO",
+          "label": null,
+          "wallets": 1,
+          "payments": 1,
+          "amount": "1.0100000"
+        },
+        {
+          "to": "CCAML62QF5D6ZV2CNIFBSKJK7HMTX4K473P7NGNNRAWVVLRNTOCFVSGI",
+          "label": null,
+          "wallets": 1,
+          "payments": 1,
+          "amount": "4.5000000"
+        }
+      ],
+      "wallets": [
+        {
+          "address": "GCAJSVSKAN5Y2J75CXDNO22NH7DMQ2CSVWNCCEN4DNDAYTJLSCZWE2ZB",
+          "createdAt": "2026-09-19T20:20:12Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GDOLQHLGNRPCMU7J3NXONJMNZBFIUQ7XGLA5VZBHUFYBLBMO6RP5UO4G",
+          "createdAt": "2026-09-19T20:20:17Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GBVJ5CQPTPXETP34VSLSSCRM6QCWJ4OYKCKUDFJUPVOBNIKB33N2SKUN",
+          "createdAt": "2026-09-19T20:27:37Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GBLT6OBXL665JPJRNEAK5JTMO26D6K3X76QAQLFS6OD6WPWBH7XYKCOW",
+          "createdAt": "2026-09-19T20:27:42Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GDXV2H3RJ7K4HS5IYQ577FZW4D5BVD7IWW4OMXEOSW3Z7WMWS5PALECH",
+          "createdAt": "2026-09-19T20:35:47Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GCUUX2GXAZE3BNCYWZDEEAC7IAEINEYISBZONZL3HOENPSDD2NBDAVNA",
+          "createdAt": "2026-09-19T20:35:52Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GDLQ2VQQH4ZSFYHMM7S7RIOX77NKR5WBAZOJQNQPBE6LGHPB3BA7IW23",
+          "createdAt": "2026-09-19T20:42:02Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GCISAO2ZXPP4YB5AX5Q7BDASB4KLGC5J746QYSSCWALHEESKS7NAKNYG",
+          "createdAt": "2026-09-19T20:42:07Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GBBIL63MZIALOGCLLT2IDHQBLC5MVBQF3AIQW2WTQVVRJSWKOJTCYH3A",
+          "createdAt": "2026-09-19T20:44:57Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GCMOXTQ4JTG7CNALYDMYZNI2KAQRGDZV3RTWNMVBNJAROZSPSFAGLYZI",
+          "createdAt": "2026-09-19T20:45:02Z",
+          "paidServices": 1,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0100000"
+        },
+        {
+          "address": "GD6RCDYECINJW55JKSS3KJ2CTTJE2HVGWQN7MZ5X45SNQX24XR6FB6G4",
+          "createdAt": "2026-09-19T21:19:02Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GBITZVN6YRVTBKNPSESTT3NGXLRPKHBNEE4Y5L2WY4NE3RXYAUART5GX",
+          "createdAt": "2026-09-19T21:19:07Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GAU2MEYD2CWV46OM7W3H7I7BMN34WEXN54EBJ3VNZLE6XJ2EY3GIBTVU",
+          "createdAt": "2026-09-19T23:56:07Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GDZWRJ566ZWGG3FPKKCBNGGNFHGGWIKWVN4QHCBHCBBSXGRHVGSNUYOL",
+          "createdAt": "2026-09-19T23:56:12Z",
+          "paidServices": 1,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0200000"
+        },
+        {
+          "address": "GCCAGEVSNQOQMFJHOKDKWFXE7Y7TN6DXOME2M2GX7QAI6IYXJ226TDHG",
+          "createdAt": "2026-09-20T00:19:52Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GBUQ25LH4BARXR4RAJZVA7QYVFTIRZD63YXYVAETETYGKMNZF5PKM3L6",
+          "createdAt": "2026-09-20T00:19:57Z",
+          "paidServices": 3,
+          "paidTarget": true,
+          "bridged": true,
+          "spend": "0.1020000"
+        },
+        {
+          "address": "GBPWPCNRUTX7JQGP4G4Q6NLPUZDYVWRCKWE4UF32NETTEXN7A5PWDH4P",
+          "createdAt": "2026-09-20T01:49:32Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GDTY5FUA7L6XOB6UIT7ZQUU6OMBQINE3MGL3QYXDCIQIAVULKAYSAYPD",
+          "createdAt": "2026-09-20T01:49:37Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GCSRIFDPIV7AFB2VH3EOIIKCTSZ2TGQLEFJHSKC6U7MCUOUTAY5F4FDY",
+          "createdAt": "2026-09-20T02:30:47Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GDPZ6EDYL5S67JI2664FP3A7DIKUTPSELMWAWWW2XBCJGLJLOCKJGUWD",
+          "createdAt": "2026-09-20T02:30:52Z",
+          "paidServices": 1,
+          "paidTarget": false,
+          "bridged": true,
+          "spend": "0.0800000"
+        },
+        {
+          "address": "GBQNRF657HNPRC5MLJ652QOC3HGX6X54OLRXBGY3YDMJCW3S3ZO5J7P5",
+          "createdAt": "2026-09-20T03:39:57Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GCWFOPJKN662SRHGAPWHGKUINV2AGD52W4XGYUIU2AVYRNKL2SIA3HQA",
+          "createdAt": "2026-09-20T03:40:02Z",
+          "paidServices": 1,
+          "paidTarget": false,
+          "bridged": true,
+          "spend": "0.0400000"
+        },
+        {
+          "address": "GCSOZZCHV4SOHWNQEVAAYKBCSEOLP7ALIMYXHN3SDPDOYYNM2B4Q27AL",
+          "createdAt": "2026-09-20T04:10:22Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GDBVFUI36Z5MMJLRMS2IHWFHPBCVQ3AFGBLDUZKYZT2HX5WP3PYAEFBA",
+          "createdAt": "2026-09-20T04:10:27Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GAAGMBSKRACTRTFJZNFSFHVUHQC76QLZBQFD5CPRPK56FALMUXTZLC4A",
+          "createdAt": "2026-09-20T06:28:27Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GBONCI6KEMVP7UNRMSRIKIGLG6XPYOM323CREZCBL4KPHKNHPVQE5G4S",
+          "createdAt": "2026-09-20T06:28:32Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GAQS55C3D5KMLYXMQPVWRNKEJK5PCYDB7ULQ3PTBKADCKQNVREA4SIRS",
+          "createdAt": "2026-09-20T08:21:57Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GBFIWHSEYYSKAZZRI5OKCSQLD6TZMCEKOYDU5ZKIUGEK2WHXOYC3YWH7",
+          "createdAt": "2026-09-20T08:22:02Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GB7MVY7PUKC6NQR2HRYUEPOU6ITKUT4UIVQIKIQ4HFFBOK6SNVOG2VFR",
+          "createdAt": "2026-09-20T12:37:32Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GDDMVO2NQTC2NV6OPYH7IHPWJTSUNVCSIF6EXFLXMSTNDERSWTSGP45E",
+          "createdAt": "2026-09-20T12:37:37Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GDGM5QOLF2DTFUUG7ZYNWMSMXYC23OC33BN7JYLKBUEASFONM5KLE36E",
+          "createdAt": "2026-09-22T09:04:07Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GDPAEQSSIA3EB6JRSH3ZKNWW5TC5GXNH6TDHIFNQSOESL5XHCEWLD3ZP",
+          "createdAt": "2026-09-22T09:04:12Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GBLDQHM6NG55637DF5QE3FACVJ5HTP3GS74GBVWKDJ2MOVT26I7T3KJ4",
+          "createdAt": "2026-09-22T13:14:27Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GCNFBF2GZ5HYWHSV4MI4YN75U65GW4DY3PLBU5P6IB6EE6TYR6HCVEOP",
+          "createdAt": "2026-09-22T13:14:32Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GBPHXOWM7JLEFCG7KMNM5GVSHOWHCYNWTLQY3UFFDDLONGVKXY7W5Z2I",
+          "createdAt": "2026-09-22T13:17:22Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GC37QRZQ5R6OKW25K645JMHF2OXR4AQBYBI25ZRQBBJDCJHE5FKYNTJL",
+          "createdAt": "2026-09-22T13:17:27Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GCY4N32ZZNBFRKYTA2HDI6GQHAR2OR6Z7RN3K2TJDCM4GMX5TTN3NB7T",
+          "createdAt": "2026-09-24T00:12:42Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GADFP45TOIKOUSKB4T5I6O3FG4ZBLJT5J6KTRU3WPVW7FLNIGBPF5K6F",
+          "createdAt": "2026-09-24T00:12:47Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GDX33C4YFCCKAKNRC2C5LQ232IQOV32REFCJU7BMBPOXIZU5CARBNH4D",
+          "createdAt": "2026-09-24T16:08:52Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        },
+        {
+          "address": "GDZLP4CPTUF2C34JD6W4YWDTETXJLYM53ZB5DC6PLETDR3IHEF6U4NUP",
+          "createdAt": "2026-09-24T16:08:57Z",
+          "paidServices": 0,
+          "paidTarget": false,
+          "bridged": false,
+          "spend": "0.0000000"
+        }
+      ]
+    }
+  ],
+  "probe": {
+    "serviceUrl": "https://tantk-rendergate.hf.space",
+    "probedAt": "2026-10-10T20:46:23.123Z",
+    "listing": {
+      "status": 200,
+      "latencyMs": 579,
+      "body": {
+        "service": "RenderGate",
+        "description": "Pay-per-render headless browser API on Stellar x402",
+        "price": "$0.001",
+        "network": "stellar:testnet",
+        "usage": "GET /render?url=<encoded_url>"
+      }
+    },
+    "challenge": {
+      "url": "https://tantk-rendergate.hf.space/render?url=https%3A%2F%2Fexample.com",
+      "status": 402,
+      "latencyMs": 529,
+      "x402Version": 2,
+      "resource": {
+        "url": "http://tantk-rendergate.hf.space/render?url=https%3A%2F%2Fexample.com",
+        "description": "Render a JS-heavy webpage and return extracted content",
+        "mimeType": ""
+      },
+      "accepts": [
+        {
+          "scheme": "exact",
+          "network": "stellar:testnet",
+          "asset": "CBIELTK6YBZJU5UP2WWQEUCYKLPU6AUNZ2BQ4WWFEIE3USCIHMXQDAMA",
+          "payTo": "GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO",
+          "amountRaw": "10000",
+          "amount": "0.0010000",
+          "maxTimeoutSeconds": 60,
+          "extra": {
+            "areFeesSponsored": true
+          }
+        }
+      ]
+    },
+    "checks": [
+      {
+        "name": "precio ficha = precio 402",
+        "ok": true,
+        "detail": "ficha $0.001 · 402 0.0010000 USDC (raw 10000, 7 decimales)"
+      },
+      {
+        "name": "red ficha = red 402",
+        "ok": true,
+        "detail": "stellar:testnet · stellar:testnet"
+      },
+      {
+        "name": "payTo 402 = payTo analizado",
+        "ok": true,
+        "detail": "GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO"
+      },
+      {
+        "name": "asset 402 = USDC SAC testnet",
+        "ok": true,
+        "detail": "CBIELTK6YBZJU5UP2WWQEUCYKLPU6AUNZ2BQ4WWFEIE3USCIHMXQDAMA"
+      }
+    ]
+  },
+  "warnings": []
+}
