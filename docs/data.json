@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-10T22:17:19.742Z",
+  "generatedAt": "2026-10-10T23:12:05.687Z",
   "network": "testnet",
   "service": {
     "name": "RenderGate",
@@ -28,6 +28,7 @@
       "agent": "agent-c",
       "timestamp": "2026-10-10T21:04:50.212Z",
       "task": "Leer la documentación de un servicio x402 (página estática) para resumir su API y precio",
+      "taskSummary": "Needs a static page (the service's README). A plain GET is enough, so it never pays.",
       "target": "https://raw.githubusercontent.com/tantk/rendergate/HEAD/README.md",
       "decision": "skip",
       "reason": "página estática: el GET simple trae todo el texto; renderizar no aporta nada",
@@ -40,6 +41,7 @@
       "agent": "agent-b",
       "timestamp": "2026-10-10T21:04:53.182Z",
       "task": "Comprar un render solo si el servicio muestra demanda independiente: ≥ 3 pagadores externos en 90 días",
+      "taskSummary": "Buys only with evidence of independent demand: ≥ 3 external payers in the last 90 days, excluding linked and Day91 wallets, read live from Horizon.",
       "target": "GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO",
       "decision": "skip",
       "reason": "solo 1 pagador(es) externo(s) en 90 días; la política exige ≥ 3",
@@ -52,6 +54,7 @@
       "agent": "agent-a",
       "timestamp": "2026-10-10T21:05:16.626Z",
       "task": "Extraer el contenido visible de un SPA (tokens, pools y navegación) para alimentar una tarea posterior",
+      "taskSummary": "Needs the visible content of a JS-rendered page (SPA). Tries a plain GET first; pays for a render only if the useful text is below 500 chars.",
       "target": "https://app.soroswap.finance/",
       "decision": "pay",
       "reason": "el GET simple no trae el contenido del SPA (176 chars); pagó el render y tampoco alcanzó el umbral (170 chars)",
@@ -64,6 +67,7 @@
       "agent": "agent-a",
       "timestamp": "2026-10-10T21:50:45.495Z",
       "task": "Extraer el contenido visible de un SPA (tokens, pools y navegación) para alimentar una tarea posterior",
+      "taskSummary": "Needs the visible content of a JS-rendered page (SPA). Tries a plain GET first; pays for a render only if the useful text is below 500 chars.",
       "target": "https://testnet.stellarchain.io/accounts/GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO",
       "decision": "pay",
       "reason": "el GET simple no trae el contenido del SPA (73 chars); el render sí (693 chars)",

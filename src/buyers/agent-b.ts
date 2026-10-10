@@ -20,13 +20,13 @@ const task = `Buy a render only if the service shows independent demand: ≥ ${M
 async function main() {
   console.log(`[${AGENT}] ${task}`);
   const day91 = new Set(readWallets().map((w) => w.publicKey));
-  console.log(`[${AGENT}] Leyendo /payments de ${payTo} (ledger vivo, sin marca de corte)...`);
+  console.log(`[${AGENT}] reading /payments of ${payTo} from Horizon (live ledger, no cutoff)...`);
   const b = await baseline(payTo, null, day91);
   const w = b.windows.find((x) => x.days === WINDOW_DAYS)!;
   const external = w.payersByClass.externo;
 
-  console.log(`[${AGENT}] Últimos ${WINDOW_DAYS} días: externo ${w.byClass.externo} pagos / ${external} pagadores · vinculado ${w.byClass.vinculado}/${w.payersByClass.vinculado} · day91 ${w.byClass.day91}/${w.payersByClass.day91}`);
-  console.log(`[${AGENT}] Historial: ${b.before.total.payments} pagos, ${b.before.total.payers} pagadores; vinculados excluidos: ${b.linked.map((l) => l.address).join(", ") || "ninguno"}; wallets Day91 excluidas: ${day91.size}`);
+  console.log(`[${AGENT}] last ${WINDOW_DAYS} days: external ${w.byClass.externo} payments / ${external} payers · linked ${w.byClass.vinculado}/${w.payersByClass.vinculado} · day91 ${w.byClass.day91}/${w.payersByClass.day91}`);
+  console.log(`[${AGENT}] all time: ${b.before.total.payments} payments, ${b.before.total.payers} payers; excluded as linked: ${b.linked.map((l) => l.address).join(", ") || "none"}; excluded Day91 wallets: ${day91.size}`);
 
   const evidence = {
     payTo,
@@ -57,7 +57,7 @@ async function main() {
     return;
   }
 
-  console.log(`[${AGENT}] Demanda suficiente (${external} ≥ ${MIN_EXTERNAL_PAYERS}): compro un render`);
+  console.log(`[${AGENT}] enough independent demand (${external} ≥ ${MIN_EXTERNAL_PAYERS}): buying one render`);
   const r = await paidGet(renderEndpoint("https://example.com"), payTo, AGENT);
   appendDecision({
     timestamp: new Date().toISOString(),

@@ -6,6 +6,9 @@ export const DECISIONS_PATH = "data/decisions.jsonl";
 /** Umbral de texto útil (chars sin etiquetas, scripts ni estilos) para considerar que un GET simple alcanza. */
 export const MIN_USEFUL_CHARS = 500;
 
+/** Con DAY91_DRY_RUN=1 el agente decide e imprime, pero no escribe en decisions.jsonl (para demos y pruebas de salida). */
+export const DRY_RUN = process.env.DAY91_DRY_RUN === "1";
+
 export interface Decision {
   timestamp: string;
   agent: string;
@@ -20,9 +23,13 @@ export interface Decision {
 }
 
 export function appendDecision(d: Decision) {
+  if (DRY_RUN) {
+    console.log(`\n[dry run] decision not recorded: ${d.agent} → ${d.decision} (${d.reason})`);
+    return;
+  }
   mkdirSync("data", { recursive: true });
   appendFileSync(DECISIONS_PATH, JSON.stringify(d) + "\n");
-  console.log(`\nDecisión registrada en ${DECISIONS_PATH}: ${d.agent} → ${d.decision} (${d.reason})`);
+  console.log(`\nDecision recorded in ${DECISIONS_PATH}: ${d.agent} → ${d.decision} (${d.reason})`);
 }
 
 export function usefulText(html: string): string {

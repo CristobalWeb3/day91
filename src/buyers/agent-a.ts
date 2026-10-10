@@ -13,10 +13,10 @@ const task = "Extract the visible content of a SPA (tokens, pools, navigation) f
 
 async function main() {
   console.log(`[${AGENT}] ${task}`);
-  console.log(`[${AGENT}] GET simple ${target}`);
+  console.log(`[${AGENT}] plain GET ${target}`);
   const plain = await plainGet(target);
-  console.log(`[${AGENT}] HTTP ${plain.status} · ${plain.bytes} bytes · ${plain.usefulChars} chars útiles (umbral ${MIN_USEFUL_CHARS}) · ${plain.ms} ms`);
-  console.log(`[${AGENT}] muestra: ${JSON.stringify(plain.sample)}`);
+  console.log(`[${AGENT}] HTTP ${plain.status} · ${plain.bytes} bytes · ${plain.usefulChars} useful chars (threshold ${MIN_USEFUL_CHARS}) · ${plain.ms} ms`);
+  console.log(`[${AGENT}] sample: ${JSON.stringify(plain.sample)}`);
 
   if (plain.status === 200 && plain.usefulChars >= MIN_USEFUL_CHARS) {
     appendDecision({
@@ -33,17 +33,17 @@ async function main() {
     return;
   }
 
-  console.log(`[${AGENT}] Texto útil insuficiente: pago un render a RenderGate`);
+  console.log(`[${AGENT}] not enough useful text: paying RenderGate for a render`);
   const r = await paidGet(renderEndpoint(target), RENDERGATE_PAYTO, AGENT);
   let rendered: any = null;
   try {
     rendered = JSON.parse(r.body);
   } catch {}
   const renderedChars = rendered?.content ? usefulText(String(rendered.content)).length : 0;
-  console.log(`[${AGENT}] HTTP ${r.status} en ${(r.totalMs / 1000).toFixed(1)} s · ${renderedChars} chars útiles tras el render · renderTimeMs=${rendered?.renderTimeMs ?? "?"}`);
-  if (rendered?.title) console.log(`[${AGENT}] título: ${rendered.title}`);
-  if (rendered?.refund) console.log(`[${AGENT}] el servicio devolvió el pago: ${JSON.stringify(rendered.refund)}`);
-  console.log(`[${AGENT}] tiempos por request: ${JSON.stringify(r.timings)}`);
+  console.log(`[${AGENT}] HTTP ${r.status} in ${(r.totalMs / 1000).toFixed(1)} s · ${renderedChars} useful chars after render (${renderedChars - plain.usefulChars >= 0 ? "+" : ""}${renderedChars - plain.usefulChars} vs plain GET) · renderTimeMs=${rendered?.renderTimeMs ?? "?"}`);
+  if (rendered?.title) console.log(`[${AGENT}] title: ${rendered.title}`);
+  if (rendered?.refund) console.log(`[${AGENT}] the service refunded the payment: ${JSON.stringify(rendered.refund)}`);
+  console.log(`[${AGENT}] request timings: ${JSON.stringify(r.timings)}`);
   if (r.txHash) console.log(`[${AGENT}] tx ${txLink(r.txHash)}`);
 
   appendDecision({

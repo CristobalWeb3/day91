@@ -27,6 +27,14 @@ const decisions = existsSync("data/decisions.jsonl")
       .map((l) => JSON.parse(l))
   : [];
 
+/** Descripción fija en inglés de la tarea de cada agente (los `task` del log quedan como están). */
+const TASK_SUMMARY: Record<string, string> = {
+  "agent-a": "Needs the visible content of a JS-rendered page (SPA). Tries a plain GET first; pays for a render only if the useful text is below 500 chars.",
+  "agent-b": "Buys only with evidence of independent demand: ≥ 3 external payers in the last 90 days, excluding linked and Day91 wallets, read live from Horizon.",
+  "agent-c": "Needs a static page (the service's README). A plain GET is enough, so it never pays.",
+  "buy-render": "Manual end-to-end check: one paid render with the standard x402 client.",
+};
+
 /** Resumen en inglés construido solo desde los números de `evidence` (los `reason` del log quedan como están). */
 function summarize(d: any): string {
   const e = d.evidence ?? {};
@@ -64,6 +72,7 @@ const data = {
     agent: d.agent,
     timestamp: d.timestamp,
     task: d.task,
+    taskSummary: TASK_SUMMARY[d.agent] ?? d.task,
     target: d.target,
     decision: d.decision,
     reason: d.reason,

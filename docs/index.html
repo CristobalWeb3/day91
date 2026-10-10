@@ -163,7 +163,7 @@
 
     const decisions = [...data.decisions].sort((a, b) => a.agent.localeCompare(b.agent) || a.timestamp.localeCompare(b.timestamp));
     $("decisions").innerHTML = `<thead><tr><th>agent</th><th>task</th><th>decision</th><th>evidence</th><th>payment</th></tr></thead><tbody>` +
-      decisions.map((d) => `<tr><td class="mono">${esc(d.agent)}</td><td>${esc(d.task)}<br><span class="muted mono">${esc(d.target)}</span></td><td><span class="tag ${d.decision}">${d.decision === "pay" ? "paid" : "did not pay"}</span></td><td>${esc(d.summary ?? d.reason)}</td><td>${d.tx ? `${txLink(d.tx)}<br><span class="mono muted">${esc(d.amount)} USDC</span>` : "—"}</td></tr>`).join("") + `</tbody>`;
+      decisions.map((d) => `<tr><td class="mono">${esc(d.agent)}</td><td>${esc(d.taskSummary ?? d.task)}<br><span class="muted mono">${esc(d.target)}</span></td><td><span class="tag ${d.decision}">${d.decision === "pay" ? "paid" : "did not pay"}</span></td><td>${esc(d.summary ?? d.reason)}</td><td>${d.tx ? `${txLink(d.tx)}<br><span class="mono muted">${esc(d.amount)} USDC</span>` : "—"}</td></tr>`).join("") + `</tbody>`;
 
     $("status").textContent = `Live from Horizon: ${records.length} payment records, ${payments.length} USDC payments received · data.json generated ${data.generatedAt}`;
   } catch (err) {

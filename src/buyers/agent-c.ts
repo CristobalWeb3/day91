@@ -11,10 +11,10 @@ const task = "Read the docs of an x402 service (static page) to summarize its AP
 
 async function main() {
   console.log(`[${AGENT}] ${task}`);
-  console.log(`[${AGENT}] GET simple ${target}`);
+  console.log(`[${AGENT}] plain GET ${target}`);
   const plain = await plainGet(target);
-  console.log(`[${AGENT}] HTTP ${plain.status} · ${plain.bytes} bytes · ${plain.usefulChars} chars útiles (umbral ${MIN_USEFUL_CHARS}) · ${plain.ms} ms`);
-  console.log(`[${AGENT}] muestra: ${JSON.stringify(plain.sample)}`);
+  console.log(`[${AGENT}] HTTP ${plain.status} · ${plain.bytes} bytes · ${plain.usefulChars} useful chars (threshold ${MIN_USEFUL_CHARS}) · ${plain.ms} ms`);
+  console.log(`[${AGENT}] sample: ${JSON.stringify(plain.sample)}`);
 
   const enough = plain.status === 200 && plain.usefulChars >= MIN_USEFUL_CHARS;
   appendDecision({

@@ -29,7 +29,7 @@ async function probe402() {
     body: await res.text(),
     paymentRequired: decoded,
   });
-  console.log(`402 crudo guardado en ${PROBE_402_PATH} (status ${res.status})`);
+  console.log(`raw 402 saved to ${PROBE_402_PATH} (status ${res.status})`);
   for (const a of decoded?.accepts ?? []) {
     const human = Number(a.amount) / 10 ** USDC_DECIMALS;
     console.log(`  ${a.scheme} ${a.network} amount=${a.amount} (${human} USDC) payTo=${a.payTo}`);
@@ -37,31 +37,31 @@ async function probe402() {
 }
 
 async function main() {
-  console.log(`Comprador: ${buyerFromEnv().publicKey}  Agente: ${agent}`);
+  console.log(`buyer: ${buyerFromEnv().publicKey}  agent: ${agent}`);
   console.log(`GET ${endpoint}`);
   await probe402();
 
   const r = await paidGet(endpoint, RENDERGATE_PAYTO, agent);
-  console.log(`\nHTTP ${r.status} en ${(r.totalMs / 1000).toFixed(1)} s, ${r.body.length} bytes`);
+  console.log(`\nHTTP ${r.status} in ${(r.totalMs / 1000).toFixed(1)} s, ${r.body.length} bytes`);
   console.log(r.body.slice(0, 400) + (r.body.length > 400 ? "..." : ""));
-  if (r.settle) console.log("\nLiquidación:", JSON.stringify(r.settle));
-  console.log("Tiempos por request:", JSON.stringify(r.timings));
+  if (r.settle) console.log("\nsettlement:", JSON.stringify(r.settle));
+  console.log("request timings:", JSON.stringify(r.timings));
 
   if (r.settle?.success === false) {
-    console.error(`\nEl servidor no liquidó el pago (${r.settle.errorReason}). Registrado en ${FAILED_CALLS_PATH}`);
+    console.error(`\nthe server did not settle the payment (${r.settle.errorReason}). Recorded in ${FAILED_CALLS_PATH}`);
     process.exit(1);
   }
   if (!r.txHash) {
-    console.error("\nNo se encontró la transacción del pago.");
+    console.error("\npayment transaction not found.");
     process.exit(1);
   }
   if (!r.record) {
-    console.error(`Tx ${r.txHash} no aparece en /payments del payTo.`);
+    console.error(`tx ${r.txHash} does not appear in the payTo's /payments yet.`);
     process.exit(1);
   }
-  console.log(`\nLlamada registrada en ${PAID_CALLS_PATH}`);
-  console.log(`Tx: ${txLink(r.txHash)}`);
-  console.log("\nRegistro en Horizon (/accounts/<payTo>/payments):");
+  console.log(`\ncall recorded in ${PAID_CALLS_PATH}`);
+  console.log(`tx: ${txLink(r.txHash)}`);
+  console.log("\nHorizon record (/accounts/<payTo>/payments):");
   console.log(JSON.stringify(r.record, null, 2));
   if (r.status !== 200) process.exit(1);
 }
