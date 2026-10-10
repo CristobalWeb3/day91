@@ -1,0 +1,72 @@
+{
+  "generatedAt": "2026-10-10T21:55:48.392Z",
+  "network": "testnet",
+  "service": {
+    "name": "RenderGate",
+    "url": "https://tantk-rendergate.hf.space",
+    "payTo": "GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO"
+  },
+  "cutoff": "2026-10-10T20:18:37Z",
+  "firstDay91Tx": "d8453fc3e3ecf8234606fdb06621629996b98f304fceb9dd5a9b0d9e239945da",
+  "day91Wallets": [
+    "GBNS6VZIEZEFIXJXIOL2PA4K3WDCF3R2O5IVHYRIJHSERZMJU764Q4PI"
+  ],
+  "linked": [
+    {
+      "address": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+      "transfersFromPayTo": 6,
+      "memos": [
+        "refund:test",
+        "refund:blocked_page"
+      ],
+      "createdSecondsAfterPayTo": 5
+    }
+  ],
+  "scanGeneratedAt": "2026-10-10T21:54:40.395Z",
+  "decisions": [
+    {
+      "agent": "agent-c",
+      "timestamp": "2026-10-10T21:04:50.212Z",
+      "task": "Leer la documentación de un servicio x402 (página estática) para resumir su API y precio",
+      "target": "https://raw.githubusercontent.com/tantk/rendergate/HEAD/README.md",
+      "decision": "skip",
+      "reason": "página estática: el GET simple trae todo el texto; renderizar no aporta nada",
+      "tx": null,
+      "amount": null,
+      "renderGainChars": null
+    },
+    {
+      "agent": "agent-b",
+      "timestamp": "2026-10-10T21:04:53.182Z",
+      "task": "Comprar un render solo si el servicio muestra demanda independiente: ≥ 3 pagadores externos en 90 días",
+      "target": "GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO",
+      "decision": "skip",
+      "reason": "solo 1 pagador(es) externo(s) en 90 días; la política exige ≥ 3",
+      "tx": null,
+      "amount": null,
+      "renderGainChars": null
+    },
+    {
+      "agent": "agent-a",
+      "timestamp": "2026-10-10T21:05:16.626Z",
+      "task": "Extraer el contenido visible de un SPA (tokens, pools y navegación) para alimentar una tarea posterior",
+      "target": "https://app.soroswap.finance/",
+      "decision": "pay",
+      "reason": "el GET simple no trae el contenido del SPA (176 chars); pagó el render y tampoco alcanzó el umbral (170 chars)",
+      "tx": "69603878693153fca79d0ffcf46356370087dcf9ee3dfb5f9c488413bc85c886",
+      "amount": "0.0010000",
+      "renderGainChars": -6
+    },
+    {
+      "agent": "agent-a",
+      "timestamp": "2026-10-10T21:50:45.495Z",
+      "task": "Extraer el contenido visible de un SPA (tokens, pools y navegación) para alimentar una tarea posterior",
+      "target": "https://testnet.stellarchain.io/accounts/GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO",
+      "decision": "pay",
+      "reason": "el GET simple no trae el contenido del SPA (73 chars); el render sí (693 chars)",
+      "tx": "7132753a567a78e7b832e4c0e88c44b0b40f6d4e6a0c333922da5f526a318255",
+      "amount": "0.0010000",
+      "renderGainChars": 620
+    }
+  ]
+}

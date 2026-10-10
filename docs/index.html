@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day91 Funnel</title>
+<meta name="description" content="Before/after view of a dormant x402 service on Stellar testnet, read live from Horizon." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%230b5fff'/%3E%3Ctext x='16' y='21' font-size='14' font-family='sans-serif' font-weight='700' fill='white' text-anchor='middle'%3E91%3C/text%3E%3C/svg%3E" />
+<style>
+  :root {
+    --bg: #f7f7f5; --fg: #1a1a1a; --muted: #6b6b66; --line: #e2e2dd; --card: #ffffff;
+    --accent: #0b5fff; --day91: #0b5fff; --linked: #b45309; --external: #15803d; --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #121214; --fg: #ececea; --muted: #9a9a94; --line: #2a2a2e; --card: #1b1b1f;
+      --accent: #6b9bff; --day91: #6b9bff; --linked: #f0a44a; --external: #4ade80;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #121214; --fg: #ececea; --muted: #9a9a94; --line: #2a2a2e; --card: #1b1b1f;
+    --accent: #6b9bff; --day91: #6b9bff; --linked: #f0a44a; --external: #4ade80;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+  main { max-width: 960px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  h2 { font-size: 1.1rem; margin: 32px 0 12px; }
+  p { margin: 0 0 8px; }
+  .muted { color: var(--muted); }
+  .mono { font-family: var(--mono); font-size: 0.85em; word-break: break-all; }
+  .grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+  @media (min-width: 720px) { .grid { grid-template-columns: 1fr 1fr; } }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
+  .card h3 { margin: 0 0 4px; font-size: 1rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.03em; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr.total td { font-weight: 600; border-bottom: none; }
+  .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: baseline; }
+  .day91 .dot { background: var(--day91); } .linked .dot { background: var(--linked); } .external .dot { background: var(--external); }
+  .tag { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 0.78rem; border: 1px solid var(--line); white-space: nowrap; }
+  td:first-child.mono { white-space: nowrap; }
+  .tag.pay { color: var(--day91); border-color: var(--day91); } .tag.skip { color: var(--muted); }
+  a { color: var(--accent); }
+  .status { font-size: 0.9rem; }
+  .tablewrap { overflow-x: auto; }
+  dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; margin: 0; font-size: 0.92rem; }
+  dt { color: var(--muted); } dd { margin: 0; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Day91 · <span id="svc-name">…</span></h1>
+  <p class="muted">Market activation for a dormant x402 service. Everything below is read live from Horizon (Stellar testnet); only the activation cutoff, Day91's own wallets and the linked addresses come from <a href="data.json">data.json</a>.</p>
+  <p class="status muted" id="status">Loading…</p>
+
+  <dl id="facts" hidden>
+    <dt>Service</dt><dd><a id="svc-url" target="_blank" rel="noopener"></a></dd>
+    <dt>payTo</dt><dd><a id="payto" class="mono" target="_blank" rel="noopener"></a></dd>
+    <dt>Cutoff</dt><dd><span id="cutoff" class="mono"></span> <span class="muted">(first Day91 payment)</span></dd>
+    <dt>Classes</dt><dd><span class="day91"><span class="dot"></span>day91</span> = Day91's buyer wallets · <span class="linked"><span class="dot"></span>linked</span> = received funds from the payTo itself · <span class="external"><span class="dot"></span>external</span> = everyone else</dd>
+  </dl>
+
+  <h2>Payments by class</h2>
+  <div class="grid">
+    <div class="card"><h3>Before the cutoff</h3><p class="muted" id="before-range"></p><div class="tablewrap"><table id="before"></table></div></div>
+    <div class="card"><h3>After the cutoff</h3><p class="muted" id="after-range"></p><div class="tablewrap"><table id="after"></table></div></div>
+  </div>
+
+  <h2>Day91 payments</h2>
+  <div class="card tablewrap"><table id="day91-payments"></table></div>
+
+  <h2>Agent decisions</h2>
+  <div class="card tablewrap"><table id="decisions"></table></div>
+</main>
+
+<script>
+(async () => {
+  const HORIZON = "https://horizon-testnet.stellar.org";
+  const EXPLORER = "https://stellar.expert/explorer/testnet";
+  const USDC_ISSUER = "GBBD47IF6LWK7P7MDEVSCWR7DPUWV3NY3DTQEVFL4NAT4AQH3ZLLFLA5";
+  const CLASSES = ["day91", "linked", "external"];
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const short = (a) => a.slice(0, 6) + "…" + a.slice(-4);
+  const acct = (a) => `<a class="mono" target="_blank" rel="noopener" href="${EXPLORER}/account/${a}">${short(a)}</a>`;
+  const txLink = (h) => `<a class="mono" target="_blank" rel="noopener" href="${EXPLORER}/tx/${h}">${h.slice(0, 8)}…</a>`;
+
+  // Amounts as BigInt stroops (7 decimals) so sums are exact.
+  const toStroops = (s) => { const [i, f = ""] = s.split("."); return BigInt(i) * 10000000n + BigInt((f + "0000000").slice(0, 7)); };
+  const fmt = (n) => `${n / 10000000n}.${(n % 10000000n).toString().padStart(7, "0")}`;
+
+  async function allPayments(account) {
+    let url = `${HORIZON}/accounts/${account}/payments?limit=200&order=asc`;
+    const out = [];
+    for (let i = 0; i < 50; i++) {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`Horizon ${res.status}`);
+      const body = await res.json();
+      const records = body._embedded.records;
+      out.push(...records);
+      $("status").textContent = `Loading… ${out.length} records`;
+      if (records.length < 200) break;
+      url = body._links.next.href;
+    }
+    return out;
+  }
+
+  function incomingUsdc(records, payTo) {
+    const out = [];
+    for (const r of records) {
+      if (r.transaction_successful === false) continue;
+      if (r.type === "payment" && r.to === payTo && r.asset_code === "USDC" && r.asset_issuer === USDC_ISSUER) {
+        out.push({ at: r.created_at, tx: r.transaction_hash, from: r.from, amount: toStroops(r.amount) });
+      } else if (r.type === "invoke_host_function") {
+        for (const c of r.asset_balance_changes ?? []) {
+          if (c.type === "transfer" && c.to === payTo && c.from !== payTo && c.asset_code === "USDC" && c.asset_issuer === USDC_ISSUER) {
+            out.push({ at: r.created_at, tx: r.transaction_hash, from: c.from, amount: toStroops(c.amount) });
+          }
+        }
+      }
+    }
+    return out;
+  }
+
+  function classTable(el, list) {
+    const rows = CLASSES.map((cls) => {
+      const sub = list.filter((p) => p.cls === cls);
+      const total = list.length || 1;
+      return `<tr class="${cls}"><td><span class="dot"></span>${cls}</td><td class="num">${sub.length}</td><td class="num">${new Set(sub.map((p) => p.from)).size}</td><td class="num mono">${fmt(sub.reduce((a, p) => a + p.amount, 0n))}</td><td class="num">${list.length ? (100 * sub.length / total).toFixed(1) + "%" : "—"}</td></tr>`;
+    });
+    el.innerHTML = `<thead><tr><th>class</th><th class="num">payments</th><th class="num">payers</th><th class="num">USDC</th><th class="num">share</th></tr></thead><tbody>${rows.join("")}<tr class="total"><td>total</td><td class="num">${list.length}</td><td class="num">${new Set(list.map((p) => p.from)).size}</td><td class="num mono">${fmt(list.reduce((a, p) => a + p.amount, 0n))}</td><td class="num">${list.length ? "100%" : "—"}</td></tr></tbody>`;
+  }
+
+  try {
+    const data = await (await fetch("data.json", { cache: "no-store" })).json();
+    const payTo = data.service.payTo;
+    $("svc-name").textContent = data.service.name;
+    $("svc-url").textContent = data.service.url; $("svc-url").href = data.service.url;
+    $("payto").textContent = payTo; $("payto").href = `${EXPLORER}/account/${payTo}`;
+    $("cutoff").textContent = data.cutoff;
+    $("facts").hidden = false;
+
+    const day91 = new Set(data.day91Wallets);
+    const linked = new Set(data.linked.map((l) => l.address));
+    const classify = (from) => (day91.has(from) ? "day91" : linked.has(from) ? "linked" : "external");
+
+    const records = await allPayments(payTo);
+    const payments = incomingUsdc(records, payTo).map((p) => ({ ...p, cls: classify(p.from) }));
+    const before = payments.filter((p) => p.at < data.cutoff);
+    const after = payments.filter((p) => p.at >= data.cutoff);
+
+    classTable($("before"), before);
+    classTable($("after"), after);
+    $("before-range").textContent = before.length ? `${before[0].at} → ${before.at(-1).at}` : "no payments";
+    $("after-range").textContent = after.length ? `${after[0].at} → ${after.at(-1).at}` : "no payments yet";
+
+    const mine = payments.filter((p) => p.cls === "day91");
+    $("day91-payments").innerHTML = `<thead><tr><th>time (UTC)</th><th>from</th><th class="num">USDC</th><th>transaction</th></tr></thead><tbody>` +
+      (mine.length ? mine.map((p) => `<tr><td class="mono">${p.at}</td><td>${acct(p.from)}</td><td class="num mono">${fmt(p.amount)}</td><td>${txLink(p.tx)}</td></tr>`).join("") : `<tr><td colspan="4" class="muted">none</td></tr>`) + `</tbody>`;
+
+    const decisions = [...data.decisions].sort((a, b) => a.agent.localeCompare(b.agent) || a.timestamp.localeCompare(b.timestamp));
+    $("decisions").innerHTML = `<thead><tr><th>agent</th><th>task</th><th>decision</th><th>reason</th><th>payment</th></tr></thead><tbody>` +
+      decisions.map((d) => `<tr><td class="mono">${esc(d.agent)}</td><td>${esc(d.task)}<br><span class="muted mono">${esc(d.target)}</span></td><td><span class="tag ${d.decision}">${d.decision === "pay" ? "paid" : "did not pay"}</span></td><td>${esc(d.reason)}${d.renderGainChars !== null && d.renderGainChars !== undefined ? `<br><span class="muted">render gain: ${d.renderGainChars > 0 ? "+" : ""}${d.renderGainChars} chars</span>` : ""}</td><td>${d.tx ? `${txLink(d.tx)}<br><span class="mono muted">${esc(d.amount)} USDC</span>` : "—"}</td></tr>`).join("") + `</tbody>`;
+
+    $("status").textContent = `Live from Horizon: ${records.length} payment records, ${payments.length} USDC payments received · data.json generated ${data.generatedAt}`;
+  } catch (err) {
+    $("status").textContent = `Error: ${err.message}`;
+    console.error(err);
+  }
+})();
+</script>
+</body>
+</html>

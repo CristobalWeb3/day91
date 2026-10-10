@@ -15,7 +15,8 @@
     "day91": "tsx src/cli.ts",
     "agent-a": "tsx src/buyers/agent-a.ts",
     "agent-b": "tsx src/buyers/agent-b.ts",
-    "agent-c": "tsx src/buyers/agent-c.ts"
+    "agent-c": "tsx src/buyers/agent-c.ts",
+    "funnel-data": "tsx scripts/funnel-data.ts"
   },
   "dependencies": {
     "@stellar/stellar-sdk": "^16.3.1",
