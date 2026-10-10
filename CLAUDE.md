@@ -46,7 +46,7 @@ NO usar en el pitch ni en el README las palabras: marketplace, registry, discove
 
 - Cuenta payTo creada 2026-04-13 04:11:30 UTC (friendbot). Nunca firmó transacciones después del 13-abr salvo 6 pagos salientes.
 - **81 pagos recibidos**, todos de 0.001 USDC. **79 (97,5%) el 13-abr-2026**, todos desde `GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3` (harness del autor;
-  creada por friendbot 25 s después del payTo, 04:11:55 UTC).
+  creada por friendbot 5 s después del payTo, 04:11:35 UTC; a las 04:11:55 lo que hay es la trustline del propio payTo).
 - Los 6 pagos salientes del payTo a GDMJ… son **devoluciones automáticas** del servicio (memos `refund:blocked_page` ×5, `refund:test` ×1),
   no pagos de prueba. Saldo 0.076 USDC tras el pago de Day91 (cuadra exacto).
 - **Regla "vinculado"** = recibió fondos del propio payTo, devoluciones incluidas. Limitación conocida: marcaría a un comprador real
