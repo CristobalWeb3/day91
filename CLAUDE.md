@@ -44,9 +44,13 @@ NO usar en el pitch ni en el README las palabras: marketplace, registry, discove
 
 ## Línea base verificada (Horizon testnet, 10-oct-2026)
 
-- Cuenta payTo creada 2026-04-13 04:11 UTC (friendbot). Nunca firmó transacciones después del 13-abr salvo 6 pagos salientes.
-- **81 pagos recibidos**, todos de 0.001 USDC. **79 (97,5%) el 13-abr-2026**, todos desde `GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3` (harness del autor).
-- 6 pagos salientes de prueba de la cuenta payTo hacia GDMJ… Saldo actual 0.075 USDC (cuadra exacto).
+- Cuenta payTo creada 2026-04-13 04:11:30 UTC (friendbot). Nunca firmó transacciones después del 13-abr salvo 6 pagos salientes.
+- **81 pagos recibidos**, todos de 0.001 USDC. **79 (97,5%) el 13-abr-2026**, todos desde `GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3` (harness del autor;
+  creada por friendbot 25 s después del payTo, 04:11:55 UTC).
+- Los 6 pagos salientes del payTo a GDMJ… son **devoluciones automáticas** del servicio (memos `refund:blocked_page` ×5, `refund:test` ×1),
+  no pagos de prueba. Saldo 0.076 USDC tras el pago de Day91 (cuadra exacto).
+- **Regla "vinculado"** = recibió fondos del propio payTo, devoluciones incluidas. Limitación conocida: marcaría a un comprador real
+  al que el servicio le devolvió un render fallido. Se mantiene por ser la lectura conservadora; el reporte muestra la evidencia (tx, monto, memo) de cada vínculo.
 - **Desde la hackathon: 2 pagos en 180 días**, ambos 2026-09-20 desde `GBUQ25LH4BARXR4RAJZVA7QYVFTIRZD63YXYVAETETYGKMNZF5PKM3L6`.
 
 ## Perfil del único comprador externo (GBUQ25LH…)
@@ -60,6 +64,10 @@ Vida completa el 2026-09-20, 00:19–07:44 UTC:
 - `deposit_for_burn` de 1 USDC en el contrato CCTP `CDNG7HXAPBWICI2E3AUBP3YZWZELJLYSB6F5CC7WLDTLTHVM74SLRTHP`, dominio destino 6 (= Base).
 - Lectura honesta: probablemente un desarrollador o su agente evaluando el ecosistema x402. Probó RenderGate 2 veces y no volvió;
   gastó 40x más en GDXKBOCC.
+- **Cohorte del operador GBICCLC… (scan 10-oct-2026):** **40 `create_account`** (19-sep 20:20 → 24-sep 16:08 UTC, de a dos, todas con reservas
+  patrocinadas), no 28. 13 fondeadas con USDC, 5 pagaron algún servicio x402, **1 pagó RenderGate**, 3 hicieron bridge CCTP.
+  Servicio x402 más usado por la cohorte: `GAU2MEYD2CWV46OM7W3H7I7BMN34WEXN54EBJ3VNZLE6XJ2EY3GIBTVU` (3 wallets, 14 pagos de 0.01), sin identificar.
+  Criterio "x402" en el scan: transferencia USDC enviada por un tercero (facilitator); lo que firma el propio comprador se reporta aparte (p. ej. 491 USDC a `CDGUGN…`, DeFi).
 - Operador GBICCLC…: **28 `create_account`** entre 2026-09-19 23:56 y 2026-09-24 16:08 UTC → alta de wallets en serie
   (plataforma o harness). Cohorte analizable.
 
@@ -98,7 +106,7 @@ const fetchWithPayment = wrapFetchWithPayment(fetch, client);
    en `/payments` del payTo. Si el cliente estándar falla contra el 402 de RenderGate, documentar el error antes de improvisar.
 2. **(3 h) `day91 scan <payTo>`** (CLI, TypeScript): línea base (pagos, pagadores únicos, % del autor, último pago, días sin ventas),
    perfil de compradores externos (otros servicios que pagan, gasto por servicio, bridging CCTP), cohorte por operador
-   (las 28 wallets de GBICCLC…), y sondeo del servicio (ficha y 402: precio, red, asset y payTo, con montos convertidos a 7 decimales;
+   (las 40 wallets de GBICCLC…), y sondeo del servicio (ficha y 402: precio, red, asset y payTo, con montos convertidos a 7 decimales;
    se reporta como chequeo de consistencia, no como hallazgo). Salida JSON + Markdown en `data/`.
 3. **(1,5 h) Activación:** 3 agentes compradores con políticas distintas usando el cliente x402 estándar sin modificar:
    A necesita renderizar un SPA y paga; B exige evidencia de demanda independiente: compra solo si el payTo tiene ≥ 3 pagadores
@@ -111,7 +119,8 @@ const fetchWithPayment = wrapFetchWithPayment(fetch, client);
 
 ## Fuera de alcance (roadmap en el README)
 
-Contrato Soroban de cashback, comprador en Base, directorio completo payTo → servicio, Hubble/BigQuery.
+Contrato Soroban de cashback; comprador en Base (el único comprador externo bridgeó 1 USDC vía CCTP al destinatario
+`0xc97c1ca97df407f7ca9039c5d392e8868f234b4f` en Base: punto de partida para seguirlo allá); directorio completo payTo → servicio; Hubble/BigQuery.
 
 ## Estructura sugerida
 
@@ -122,15 +131,17 @@ day91/
   scripts/{setup-buyer,buy-render}.ts   reasoning/rendergate-gtm.md   data/   docs/index.html
 ```
 
-## Estado (10-oct-2026)
+## Estado (10-oct-2026, cierre del bloque 2)
 
-- **Funciona:** wallet compradora `GBNS6VZI…Q4PI` (20 USDC del faucet de Circle). Primer render pagado contra RenderGate con el cliente x402
-  estándar: HTTP 200, 0.0010000 USDC, tx `d8453fc3…945da` (2026-10-10T20:18:37Z), visible en `/payments` del payTo.
-- **Ejecutar:** `npm run setup-buyer` (idempotente) y `npm run buy-render -- [url] [agente]`. `npm run typecheck` sin errores.
-- **Evidencia en `data/`:** `probe-402.json` (402 crudo), `paid-calls.jsonl`, `failed-calls.jsonl` y `day91-wallets.json` (sin secretos).
-- **Decisiones fuera del plan:** `@stellar/stellar-sdk` ^16, igual que `@x402/stellar`, para no instalar dos copias. El hash se toma de `payment-response` y, si falta,
-  se busca en Horizon por `from` = comprador. Los settles fallidos se registran aparte. Los tiempos se miden con un fetch envoltorio (el cliente x402 no se toca).
-  Se commitea `data/` como evidencia. `.gitattributes` = `* text=auto`.
-- **Hipótesis abierta:** el primer intento devolvió 402 tras 68 s (`invalid_exact_stellar_payload_simulation_failed`, sin cobro). RenderGate liquida
-  *después* de renderizar y la firma vale ~60 s (`maxTimeoutSeconds`). Sospecha: arranque en frío del navegador en HF. No medido: el reintento tardó 6,8 s.
-- **Pendiente:** bloque 2 (`day91 scan`) en adelante.
+- **Funciona:** wallet compradora `GBNS6VZI…Q4PI` (~19.999 USDC). Un render pagado contra RenderGate con el cliente x402 estándar: HTTP 200,
+  0.0010000 USDC, tx `d8453fc3…945da` (2026-10-10T20:18:37Z = **marca de corte**, en `data/activation.json`). `day91 scan` corre contra el payTo
+  y escribe `data/scan-<payTo>.{json,md}`: línea base antes/después del corte por clase (vinculado/day91/externo), perfil de compradores externos
+  (servicios x402, bridges CCTP con destinatario decodificado), cohorte por operador y sondeo (ficha vs 402, `maxTimeoutSeconds`, latencias).
+- **Ejecutar:** `npm run setup-buyer` · `npm run buy-render -- [url] [agente]` · `npm run day91 -- scan <payTo> [--service <url>] [--cutoff <ISO>]` · `npm run typecheck`.
+- **Evidencia en `data/`:** `probe-402.json`, `paid-calls.jsonl`, `failed-calls.jsonl`, `day91-wallets.json` (sin secretos), `activation.json`, `scan-*`.
+- **Decisiones fuera del plan:** stellar-sdk ^16 (misma major que `@x402/stellar`). Hash desde `payment-response` o, si falta, Horizon por `from`. Settles fallidos aparte.
+  Tiempos con un fetch envoltorio; el cliente x402 no se toca. Montos como BigInt en stroops, siempre 7 decimales. "x402" = transferencia enviada por un facilitator.
+  Horizon `/payments` paginado completo (sin RPC). Se commitea `data/`. `.gitattributes` = `* text=auto`.
+- **Hipótesis abierta (sin medir):** primer intento 402 tras 68 s (`invalid_exact_stellar_payload_simulation_failed`, sin cobro). RenderGate liquida *después* de
+  renderizar y la firma vale 60 s (`maxTimeoutSeconds`). Sospecha: arranque en frío del navegador en HF. El reintento tardó 6,8 s. Latencia ficha/402 en frío ≈ 0,6–0,8 s.
+- **Pendiente:** bloque 3 (agentes A/B/C, tope 3 llamadas pagadas), funnel, README, reporte GTM, video.
