@@ -15,7 +15,7 @@ const AGENT = "agent-b";
 const MIN_EXTERNAL_PAYERS = 3;
 const WINDOW_DAYS = 90;
 const payTo = process.argv[2] ?? RENDERGATE_PAYTO;
-const task = `Comprar un render solo si el servicio muestra demanda independiente: ≥ ${MIN_EXTERNAL_PAYERS} pagadores externos en ${WINDOW_DAYS} días`;
+const task = `Buy a render only if the service shows independent demand: ≥ ${MIN_EXTERNAL_PAYERS} external payers in ${WINDOW_DAYS} days`;
 
 async function main() {
   console.log(`[${AGENT}] ${task}`);
@@ -49,7 +49,7 @@ async function main() {
       task,
       target: payTo,
       decision: "skip",
-      reason: `solo ${external} pagador(es) externo(s) en ${WINDOW_DAYS} días; la política exige ≥ ${MIN_EXTERNAL_PAYERS}`,
+      reason: `only ${external} external payer(s) in ${WINDOW_DAYS} days; policy requires ≥ ${MIN_EXTERNAL_PAYERS}`,
       evidence,
       tx: null,
       amount: null,
@@ -65,7 +65,7 @@ async function main() {
     task,
     target: payTo,
     decision: "pay",
-    reason: `${external} pagadores externos en ${WINDOW_DAYS} días cumplen la política`,
+    reason: `${external} external payers in ${WINDOW_DAYS} days satisfy the policy`,
     evidence: { ...evidence, renderStatus: r.status, settle: r.settle },
     tx: r.txHash,
     amount: r.amount,

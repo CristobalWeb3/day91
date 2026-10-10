@@ -1,0 +1,74 @@
+# Render LOCAL de referencia (Playwright/Chromium en la máquina de Day91), NO la respuesta de RenderGate.
+# Propósito: verificar sin pagar qué contenido expone el SPA que el agente A mandó a renderizar en su 2.ª corrida
+# (tx 7132753a567a78e7b832e4c0e88c44b0b40f6d4e6a0c333922da5f526a318255, render de RenderGate = 693 chars útiles).
+# URL: https://testnet.stellarchain.io/accounts/GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO
+# Capturado: 2026-10-10T22:17Z, document.body.innerText tras 8 s de espera después de la carga.
+# Texto útil (espacios colapsados): 689 chars. GET simple sin JS: 73 chars.
+# Contiene: dirección completa, saldo XLM, saldo USDC (0,078, issuer GBBD...FLA5), sequence number, sub-entries, signers.
+# No contiene: lista de pagos/transacciones (pestaña "Transactions" no expandida) ni montos de pagos x402.
+# Incluye el banner de cookies del sitio.
+
+Skip to content
+Home
+Blockchain
+Accounts
+Statistics
+Markets
+News
+Testnet
+Donate
+Address
+GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO
+Add to Favorites
+OVERVIEW
+XLM BALANCE
+9999,9999 XLM
+XLM VALUE
+$1000,00(@ $0.1000/XLM)
+24H BALANCE CHANGE
++$0,00(+0.00%)
+TOKEN HOLDINGS
+$0,08
+(1 tokens)
+MORE INFO
+ACCOUNT LABEL
++ Add label
+TRANSACTIONS
+ACCOUNT DETAILS
+SEQUENCE NUMBER
+8632334509146119
+SUB-ENTRIES
+1
+SIGNERS
+1
+Assets
+Transactions
+Operations
+Details
+ASSET	BALANCE	VALUE	PRICE	24H %
+
+XLM
+Stellar Lumens
+
+9999,9999
+
+$1000,00
+
+$0.1000
+	+1.79%
+
+US
+USDC
+GBBD...FLA5
+
+0,078
+
+$0,08
+
+$1.0000
+	+0.00%
+
+We use cookies to improve your experience. Choose whether to allow optional cookies.
+
+Accept
+Decline

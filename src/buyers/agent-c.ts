@@ -7,7 +7,7 @@ import { MIN_USEFUL_CHARS, appendDecision, plainGet } from "./common.js";
 
 const AGENT = "agent-c";
 const target = process.argv[2] ?? "https://raw.githubusercontent.com/tantk/rendergate/HEAD/README.md";
-const task = "Leer la documentación de un servicio x402 (página estática) para resumir su API y precio";
+const task = "Read the docs of an x402 service (static page) to summarize its API and price";
 
 async function main() {
   console.log(`[${AGENT}] ${task}`);
@@ -24,8 +24,8 @@ async function main() {
     target,
     decision: "skip",
     reason: enough
-      ? "página estática: el GET simple trae todo el texto; renderizar no aporta nada"
-      : "texto útil insuficiente, pero la tarea no justifica pagar un render",
+      ? "static page: the plain GET returns the full text; rendering adds nothing"
+      : "not enough useful text, but the task does not justify paying for a render",
     evidence: { plainStatus: plain.status, plainUsefulChars: plain.usefulChars, threshold: MIN_USEFUL_CHARS, bytes: plain.bytes, ms: plain.ms },
     tx: null,
     amount: null,

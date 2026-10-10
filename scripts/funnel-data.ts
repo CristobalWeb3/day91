@@ -27,6 +27,25 @@ const decisions = existsSync("data/decisions.jsonl")
       .map((l) => JSON.parse(l))
   : [];
 
+/** Resumen en inglés construido solo desde los números de `evidence` (los `reason` del log quedan como están). */
+function summarize(d: any): string {
+  const e = d.evidence ?? {};
+  const sign = (n: number) => (n > 0 ? `+${n}` : `${n}`);
+  if (typeof e.externalPayers90d === "number") {
+    const base = `${e.externalPayers90d} independent payer${e.externalPayers90d === 1 ? "" : "s"} in ${e.windowDays} days; policy requires ≥ ${e.minExternalPayers}.`;
+    return d.decision === "pay" ? `${base} Bought one render.` : base;
+  }
+  if (typeof e.renderUsefulChars === "number" && typeof e.plainUsefulChars === "number") {
+    const gain = e.renderUsefulChars - e.plainUsefulChars;
+    const settle = e.settle?.success === false ? ` Server did not settle (${e.settle.errorReason}).` : "";
+    return `Plain GET: ${e.plainUsefulChars} useful chars. Paid render: ${e.renderUsefulChars} chars (${sign(gain)}).${settle}`;
+  }
+  if (typeof e.plainUsefulChars === "number") {
+    return `Plain GET: ${e.plainUsefulChars} useful chars (threshold ${e.threshold}); no render needed.`;
+  }
+  return d.reason;
+}
+
 const data = {
   generatedAt: new Date().toISOString(),
   network: "testnet",
@@ -48,6 +67,7 @@ const data = {
     target: d.target,
     decision: d.decision,
     reason: d.reason,
+    summary: summarize(d),
     tx: d.tx,
     amount: d.amount,
     // Corridas anteriores a la existencia del campo: se deriva de los dos conteos guardados.

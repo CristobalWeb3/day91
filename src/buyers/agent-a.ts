@@ -9,7 +9,7 @@ import { MIN_USEFUL_CHARS, appendDecision, plainGet, renderEndpoint, usefulText 
 
 const AGENT = "agent-a";
 const target = process.argv[2] ?? "https://app.soroswap.finance/";
-const task = "Extraer el contenido visible de un SPA (tokens, pools y navegación) para alimentar una tarea posterior";
+const task = "Extract the visible content of a SPA (tokens, pools, navigation) for a downstream task";
 
 async function main() {
   console.log(`[${AGENT}] ${task}`);
@@ -25,7 +25,7 @@ async function main() {
       task,
       target,
       decision: "skip",
-      reason: "el GET simple ya trae suficiente texto útil",
+      reason: "the plain GET already returns enough useful text",
       evidence: { plainStatus: plain.status, plainUsefulChars: plain.usefulChars, threshold: MIN_USEFUL_CHARS },
       tx: null,
       amount: null,
@@ -54,10 +54,10 @@ async function main() {
     decision: "pay",
     reason:
       r.settle?.success === false
-        ? `pagó pero el servidor no liquidó (${r.settle.errorReason})`
+        ? `paid, but the server did not settle (${r.settle.errorReason})`
         : renderedChars >= MIN_USEFUL_CHARS
-          ? `el GET simple no trae el contenido del SPA (${plain.usefulChars} chars); el render sí (${renderedChars} chars)`
-          : `el GET simple no trae el contenido del SPA (${plain.usefulChars} chars); pagó el render y tampoco alcanzó el umbral (${renderedChars} chars)`,
+          ? `the plain GET lacks the SPA content (${plain.usefulChars} chars); the render has it (${renderedChars} chars)`
+          : `the plain GET lacks the SPA content (${plain.usefulChars} chars); paid for a render that also missed the threshold (${renderedChars} chars)`,
     evidence: {
       plainStatus: plain.status,
       plainUsefulChars: plain.usefulChars,

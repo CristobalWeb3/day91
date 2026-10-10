@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-10T21:55:48.392Z",
+  "generatedAt": "2026-10-10T22:17:19.742Z",
   "network": "testnet",
   "service": {
     "name": "RenderGate",
@@ -31,6 +31,7 @@
       "target": "https://raw.githubusercontent.com/tantk/rendergate/HEAD/README.md",
       "decision": "skip",
       "reason": "página estática: el GET simple trae todo el texto; renderizar no aporta nada",
+      "summary": "Plain GET: 9561 useful chars (threshold 500); no render needed.",
       "tx": null,
       "amount": null,
       "renderGainChars": null
@@ -42,6 +43,7 @@
       "target": "GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO",
       "decision": "skip",
       "reason": "solo 1 pagador(es) externo(s) en 90 días; la política exige ≥ 3",
+      "summary": "1 independent payer in 90 days; policy requires ≥ 3.",
       "tx": null,
       "amount": null,
       "renderGainChars": null
@@ -53,6 +55,7 @@
       "target": "https://app.soroswap.finance/",
       "decision": "pay",
       "reason": "el GET simple no trae el contenido del SPA (176 chars); pagó el render y tampoco alcanzó el umbral (170 chars)",
+      "summary": "Plain GET: 176 useful chars. Paid render: 170 chars (-6).",
       "tx": "69603878693153fca79d0ffcf46356370087dcf9ee3dfb5f9c488413bc85c886",
       "amount": "0.0010000",
       "renderGainChars": -6
@@ -64,6 +67,7 @@
       "target": "https://testnet.stellarchain.io/accounts/GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO",
       "decision": "pay",
       "reason": "el GET simple no trae el contenido del SPA (73 chars); el render sí (693 chars)",
+      "summary": "Plain GET: 73 useful chars. Paid render: 693 chars (+620).",
       "tx": "7132753a567a78e7b832e4c0e88c44b0b40f6d4e6a0c333922da5f526a318255",
       "amount": "0.0010000",
       "renderGainChars": 620

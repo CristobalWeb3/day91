@@ -162,8 +162,8 @@
       (mine.length ? mine.map((p) => `<tr><td class="mono">${p.at}</td><td>${acct(p.from)}</td><td class="num mono">${fmt(p.amount)}</td><td>${txLink(p.tx)}</td></tr>`).join("") : `<tr><td colspan="4" class="muted">none</td></tr>`) + `</tbody>`;
 
     const decisions = [...data.decisions].sort((a, b) => a.agent.localeCompare(b.agent) || a.timestamp.localeCompare(b.timestamp));
-    $("decisions").innerHTML = `<thead><tr><th>agent</th><th>task</th><th>decision</th><th>reason</th><th>payment</th></tr></thead><tbody>` +
-      decisions.map((d) => `<tr><td class="mono">${esc(d.agent)}</td><td>${esc(d.task)}<br><span class="muted mono">${esc(d.target)}</span></td><td><span class="tag ${d.decision}">${d.decision === "pay" ? "paid" : "did not pay"}</span></td><td>${esc(d.reason)}${d.renderGainChars !== null && d.renderGainChars !== undefined ? `<br><span class="muted">render gain: ${d.renderGainChars > 0 ? "+" : ""}${d.renderGainChars} chars</span>` : ""}</td><td>${d.tx ? `${txLink(d.tx)}<br><span class="mono muted">${esc(d.amount)} USDC</span>` : "—"}</td></tr>`).join("") + `</tbody>`;
+    $("decisions").innerHTML = `<thead><tr><th>agent</th><th>task</th><th>decision</th><th>evidence</th><th>payment</th></tr></thead><tbody>` +
+      decisions.map((d) => `<tr><td class="mono">${esc(d.agent)}</td><td>${esc(d.task)}<br><span class="muted mono">${esc(d.target)}</span></td><td><span class="tag ${d.decision}">${d.decision === "pay" ? "paid" : "did not pay"}</span></td><td>${esc(d.summary ?? d.reason)}</td><td>${d.tx ? `${txLink(d.tx)}<br><span class="mono muted">${esc(d.amount)} USDC</span>` : "—"}</td></tr>`).join("") + `</tbody>`;
 
     $("status").textContent = `Live from Horizon: ${records.length} payment records, ${payments.length} USDC payments received · data.json generated ${data.generatedAt}`;
   } catch (err) {
