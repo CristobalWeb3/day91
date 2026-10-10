@@ -88,8 +88,8 @@ Everything in `data/` is committed as evidence: raw 402 challenge, paid and fail
 - **"Linked" includes refunds.** A payer is *linked* if it ever received funds from the payTo, refunds included. That is the conservative reading
   and it correctly tags the author's harness, but it would also tag a real customer who got a failed render refunded. The report shows the
   evidence (transaction, amount, memo) for every link so a reader can judge.
-- **No LLM API key at runtime.** The language steps (the report in `reasoning/`) were written with an LLM from the scan output and saved; the
-  code is prepared to use `ANTHROPIC_API_KEY` when present, and falls back to the saved output when it is not.
+- **The diagnose step is a saved output, not code.** [`reasoning/rendergate-gtm.md`](reasoning/rendergate-gtm.md) was written with an LLM from
+  the files in `data/` and reviewed by hand. There are no LLM calls anywhere in the code.
 - **Two of the four agent decisions were recorded before some fields existed** (`renderGainChars`, `renderSample`). The funnel derives what it
   can from the numbers that were saved; the log itself is append-only and was never rewritten, except one `reason` string corrected by hand
   right after the first run, which is marked with a `note` field.
@@ -97,6 +97,7 @@ Everything in `data/` is committed as evidence: raw 402 challenge, paid and fail
 
 ## Roadmap
 
+- Automate the diagnose step from the scan JSON.
 - A Soroban contract that pays cashback to the first N independent buyers of a dormant service, funded by the service.
 - A buyer on Base: the one external buyer bridged 1 USDC to `0xc97c1ca97df407f7ca9039c5d392e8868f234b4f` via CCTP; following it there is the next step.
 - A fuller payTo → service directory built from 402 challenges, and Hubble/BigQuery for ecosystem-wide scans.

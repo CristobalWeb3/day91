@@ -9,9 +9,8 @@ Tesis: el 92% de los proyectos de hackathons de Stellar no tiene actividad 90 d�
 No les falta código; les falta mercado. Day91 lee el ledger, diagnostica por qué un servicio x402 no vende,
 identifica a sus compradores probables y activa demanda medible on-chain.
 
-Framing obligatorio: "capa de activación de mercado para la oferta dormida del ecosistema".
-NO usar en el pitch ni en el README las palabras: marketplace, registry, discovery, "plataforma de agentes".
-(Stellar Hacks: Agents tuvo 15+ marketplaces x402 y ~10 registries; los jueces están saturados de eso.)
+El ecosistema ya tiene muchos marketplaces y registries de x402; Day91 no es uno más: parte de un servicio que ya existe
+y trabaja sobre su demanda. Describirlo siempre como capa de activación de mercado.
 
 ## Entrega (hackathon "Find Your Way", Stellar Passport)
 
@@ -23,10 +22,10 @@ NO usar en el pitch ni en el README las palabras: marketplace, registry, discove
 
 ## Restricciones
 
-- Una persona, ~10 horas de trabajo en total. Priorizar siempre lo que se ve en el video.
+- Una persona, ~10 horas de trabajo en total. Priorizar lo que se puede demostrar.
 - Solo **testnet**. Nunca mainnet.
-- **Sin API key de LLM.** Los pasos de lenguaje (ICP, listing corregido, reporte) van como salida guardada en
-  `reasoning/` y el README lo declara. Código preparado para usar `ANTHROPIC_API_KEY` si existe; si no, usa la salida guardada.
+- **Sin llamadas a LLM en el código.** El paso de diagnóstico es por ahora una salida guardada (`reasoning/rendergate-gtm.md`),
+  redactada con un LLM a partir de `data/` y revisada a mano. Automatizarlo desde el JSON del scan está en el roadmap.
 - RenderGate es el servicio en vivo de otra persona: tráfico liviano, máximo unas decenas de llamadas pagadas en total.
 - Secretos solo en `.env` (en `.gitignore`). Nunca commitear claves.
 - Licencia MIT en el repo.
@@ -38,7 +37,7 @@ NO usar en el pitch ni en el README las palabras: marketplace, registry, discove
 - Red: `stellar:testnet`. Dirección de cobro (payTo): `GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO`
 - **Precio consistente (corregido 10-oct-2026):** la ficha (`GET /`), el README y el paywall 402 cobran lo mismo:
   0.001 USDC (el 402 pide `amount: "10000"` en unidades atómicas de 7 decimales). La supuesta discrepancia
-  0.001 vs 0.01 venía de leer el monto con 6 decimales (convención EVM). NO usar ese hallazgo en ningún lado.
+  0.001 vs 0.01 venía de leer el monto con 6 decimales (convención EVM). No es un hallazgo: no citarlo.
 - **El precio no es el problema:** el único comprador externo gastó 40x más en GDXKBOCC, que cobra 10x más
   por llamada. El diagnóstico es arranque en frío: 97,5% de los pagos son del autor y hay 1 comprador
   independiente en 180 días. (No llamar "competidor" a GDXKBOCC mientras no esté identificado.)
@@ -141,7 +140,7 @@ day91/
 - **Funnel (`docs/`, Pages en https://cristobalweb3.github.io/day91/):** lee Horizon en vivo; `data.json` (de `npm run funnel-data`) trae corte, wallets, vinculados y decisiones con
   `taskSummary` y `summary` en inglés derivados de `evidence`. Probado en navegador: 91 registros, 84 pagos USDC, tablas = scan.
 - **Documentos:** `README.md` (inglés, framing "market activation layer for the ecosystem's dormant supply", limitaciones y roadmap), `reasoning/rendergate-gtm.md` (6 hallazgos
-  con evidencia + 5 acciones; declara redacción por LLM; publicar a mano como issue en tantk/rendergate), `docs/submission.md` (short ≤ 300, long ≤ 1500, links). Sin palabras prohibidas.
+  con evidencia + 5 acciones; declara redacción por LLM; publicar a mano como issue en tantk/rendergate), `docs/submission.md` (short ≤ 300, long ≤ 1500, links).
 - **Ejecutar:** `npm run setup-buyer` · `buy-render -- [url] [agente]` · `day91 -- scan <payTo> [--service] [--cutoff]` · `agent-a|b|c` · `funnel-data` · `typecheck`.
 - **Decisiones fuera del plan:** `src/x402/paid-get.ts` compartido. stellar-sdk ^16. Hash desde `payment-response` o Horizon por `from`. Montos BigInt, 7 decimales. "x402" = enviado por un facilitator. LICENSE MIT a nombre de "CristobalWeb3".
 - **Hipótesis abierta (sin medir, una sola ocurrencia):** 1.er intento 402 tras 68 s (`simulation_failed`, sin cobro); liquidación después del render con firma de 60 s; arranque en frío en HF.
