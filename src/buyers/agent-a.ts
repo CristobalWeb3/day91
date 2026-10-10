@@ -64,6 +64,10 @@ async function main() {
       threshold: MIN_USEFUL_CHARS,
       renderStatus: r.status,
       renderUsefulChars: renderedChars,
+      /** Chars útiles que el render aportó sobre el GET simple (negativo = el render trajo menos). */
+      renderGainChars: renderedChars - plain.usefulChars,
+      renderTitle: rendered?.title ?? null,
+      renderSample: rendered?.content ? usefulText(String(rendered.content)).slice(0, 300) : null,
       renderTimeMs: rendered?.renderTimeMs ?? null,
       totalMs: r.totalMs,
       requests: r.timings,
