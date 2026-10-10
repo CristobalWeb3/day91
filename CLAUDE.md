@@ -143,7 +143,6 @@ day91/
 - **Documentos:** `README.md` (inglés, framing "market activation layer for the ecosystem's dormant supply", limitaciones y roadmap), `reasoning/rendergate-gtm.md` (6 hallazgos
   con evidencia + 5 acciones; declara redacción por LLM; publicar a mano como issue en tantk/rendergate), `docs/submission.md` (short ≤ 300, long ≤ 1500, links). Sin palabras prohibidas.
 - **Ejecutar:** `npm run setup-buyer` · `buy-render -- [url] [agente]` · `day91 -- scan <payTo> [--service] [--cutoff]` · `agent-a|b|c` · `funnel-data` · `typecheck`.
-- **Decisiones fuera del plan:** `src/x402/paid-get.ts` compartido. stellar-sdk ^16. Hash desde `payment-response` o Horizon por `from`. Montos BigInt, 7 decimales. "x402" = transferencia
-  enviada por un facilitator. LICENSE MIT a nombre de "CristobalWeb3" (handle de GitHub). `.env.example` en inglés.
+- **Decisiones fuera del plan:** `src/x402/paid-get.ts` compartido. stellar-sdk ^16. Hash desde `payment-response` o Horizon por `from`. Montos BigInt, 7 decimales. "x402" = enviado por un facilitator. LICENSE MIT a nombre de "CristobalWeb3".
 - **Hipótesis abierta (sin medir, una sola ocurrencia):** 1.er intento 402 tras 68 s (`simulation_failed`, sin cobro); liquidación después del render con firma de 60 s; arranque en frío en HF.
 - **Pendiente:** video ≤ 3 min (guion: scan → diagnóstico → agentes → funnel), publicar el issue en RenderGate, completar el formulario con `docs/submission.md`.
