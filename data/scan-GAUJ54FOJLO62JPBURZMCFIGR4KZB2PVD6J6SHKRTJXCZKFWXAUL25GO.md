@@ -1,9 +1,9 @@
 # Day91 scan: RenderGate (payTo)
 
 - payTo: `GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO` (red: stellar:testnet)
-- Generado: 2026-10-10T20:46:25.901Z
+- Generado: 2026-10-10T21:05:56.887Z
 - Marca de corte de la activación: **2026-10-10T20:18:37Z** (primer pago de Day91: [d8453fc3…](https://stellar.expert/explorer/testnet/tx/d8453fc3e3ecf8234606fdb06621629996b98f304fceb9dd5a9b0d9e239945da)). Fuente: `data/activation.json`.
-- Cuenta creada 2026-04-13T04:11:30Z por [GAIH3U…ZNSR](https://stellar.expert/explorer/testnet/account/GAIH3ULLFQ4DGSECF2AR555KZ4KNDGEKN4AFI4SU2M7B43MGK3QJZNSR) (friendbot (testnet)). Saldo USDC actual: 0.0760000.
+- Cuenta creada 2026-04-13T04:11:30Z por [GAIH3U…ZNSR](https://stellar.expert/explorer/testnet/account/GAIH3ULLFQ4DGSECF2AR555KZ4KNDGEKN4AFI4SU2M7B43MGK3QJZNSR) (friendbot (testnet)). Saldo USDC actual: 0.0770000.
 - Clasificación de pagadores: **vinculado** = recibió fondos del propio payTo; **day91** = está en `data/day91-wallets.json`; **externo** = el resto.
 - Todos los montos en USDC con 7 decimales.
 
@@ -38,7 +38,7 @@
 
 ### Evidencia de vínculo
 
-- [GDMJ5B…IQR3](https://stellar.expert/explorer/testnet/account/GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3): 6 transferencia(s) desde el payTo
+- [GDMJ5B…IQR3](https://stellar.expert/explorer/testnet/account/GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3): 6 transferencia(s) desde el payTo · cuenta creada **5 s después del payTo** por el mismo funder ([GAIH3U…ZNSR](https://stellar.expert/explorer/testnet/account/GAIH3ULLFQ4DGSECF2AR555KZ4KNDGEKN4AFI4SU2M7B43MGK3QJZNSR) (friendbot (testnet)))
   - 2026-04-13T12:16:40Z · 0.0010000 USDC · memo `refund:test` · [a3512b3b…](https://stellar.expert/explorer/testnet/tx/a3512b3b0719419d88bc5ff9136c57fcfbc1131ffabdf766235ed9233889b8c7)
   - 2026-04-13T12:19:30Z · 0.0010000 USDC · memo `refund:blocked_page` · [b4d45cac…](https://stellar.expert/explorer/testnet/tx/b4d45cac244bfd5c436b055323a71b2e341a7b95ea2553eaebe144c76127d446)
   - 2026-04-13T12:19:51Z · 0.0010000 USDC · memo `refund:blocked_page` · [bf68b792…](https://stellar.expert/explorer/testnet/tx/bf68b79248c9ec24ffb40cea72251b86faf065702c7038136d3309f864431831)
@@ -53,13 +53,13 @@
 | clase | pagos | pagadores | monto USDC | % de pagos |
 | --- | ---: | ---: | ---: | ---: |
 | vinculado | 0 | 0 | 0.0000000 | 0.0% |
-| day91 | 1 | 1 | 0.0010000 | 100.0% |
+| day91 | 2 | 1 | 0.0020000 | 100.0% |
 | externo | 0 | 0 | 0.0000000 | 0.0% |
-| **total** | 1 | 1 | 0.0010000 | 100% |
+| **total** | 2 | 1 | 0.0020000 | 100% |
 
 | pagador | clase | pagos | monto USDC | primero | último |
 | --- | --- | ---: | ---: | --- | --- |
-| [GBNS6V…Q4PI](https://stellar.expert/explorer/testnet/account/GBNS6VZIEZEFIXJXIOL2PA4K3WDCF3R2O5IVHYRIJHSERZMJU764Q4PI) | day91 | 1 | 0.0010000 | 2026-10-10T20:18:37Z | 2026-10-10T20:18:37Z |
+| [GBNS6V…Q4PI](https://stellar.expert/explorer/testnet/account/GBNS6VZIEZEFIXJXIOL2PA4K3WDCF3R2O5IVHYRIJHSERZMJU764Q4PI) | day91 | 2 | 0.0020000 | 2026-10-10T20:18:37Z | 2026-10-10T21:05:37Z |
 
 ## Compradores externos
 
@@ -108,8 +108,8 @@ Otras salidas USDC de la cohorte (no x402):
 
 ## Sondeo del servicio
 
-- Ficha `GET https://tantk-rendergate.hf.space/` → 200 en 579 ms: `{"service":"RenderGate","description":"Pay-per-render headless browser API on Stellar x402","price":"$0.001","network":"stellar:testnet","usage":"GET /render?url=<encoded_url>"}`
-- 402 `GET https://tantk-rendergate.hf.space/render?url=https%3A%2F%2Fexample.com` → 402 en 529 ms (x402 v2).
+- Ficha `GET https://tantk-rendergate.hf.space/` → 200 en 756 ms: `{"service":"RenderGate","description":"Pay-per-render headless browser API on Stellar x402","price":"$0.001","network":"stellar:testnet","usage":"GET /render?url=<encoded_url>"}`
+- 402 `GET https://tantk-rendergate.hf.space/render?url=https%3A%2F%2Fexample.com` → 402 en 481 ms (x402 v2).
 
 | scheme | red | asset | payTo | amount (raw) | amount USDC | maxTimeoutSeconds | extra |
 | --- | --- | --- | --- | ---: | ---: | ---: | --- |

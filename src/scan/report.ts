@@ -58,7 +58,13 @@ export function toMarkdown(r: ScanResult): string {
   L.push("### Evidencia de vínculo", "");
   if (b.linked.length === 0) L.push("_Ningún pagador recibió fondos del payTo._");
   for (const l of b.linked) {
-    L.push(`- ${acct(l.address)}: ${l.evidence.length} transferencia(s) desde el payTo`);
+    const origin =
+      l.createdSecondsAfterPayTo !== null
+        ? ` · cuenta creada **${l.createdSecondsAfterPayTo} s después del payTo** por el mismo funder (${l.funder ? acct(l.funder) : "?"})`
+        : l.createdAt
+          ? ` · cuenta creada ${l.createdAt} por ${l.funder ? acct(l.funder) : "?"}`
+          : "";
+    L.push(`- ${acct(l.address)}: ${l.evidence.length} transferencia(s) desde el payTo${origin}`);
     for (const e of l.evidence) L.push(`  - ${e.at} · ${e.amount} ${e.usdc ? "USDC" : "(otro asset)"} · memo ${e.memo === null ? "—" : `\`${e.memo}\``} · ${tx(e.tx)}`);
   }
   if (b.linked.some((l) => l.evidence.some((e) => e.memo?.startsWith("refund:")))) {

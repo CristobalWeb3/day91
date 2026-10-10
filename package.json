@@ -12,7 +12,10 @@
     "setup-buyer": "tsx scripts/setup-buyer.ts",
     "buy-render": "tsx scripts/buy-render.ts",
     "typecheck": "tsc --noEmit",
-    "day91": "tsx src/cli.ts"
+    "day91": "tsx src/cli.ts",
+    "agent-a": "tsx src/buyers/agent-a.ts",
+    "agent-b": "tsx src/buyers/agent-b.ts",
+    "agent-c": "tsx src/buyers/agent-c.ts"
   },
   "dependencies": {
     "@stellar/stellar-sdk": "^16.3.1",

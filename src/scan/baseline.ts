@@ -39,11 +39,20 @@ export interface LinkEvidence {
   memo: string | null;
 }
 
+export interface LinkedAccount {
+  address: string;
+  evidence: LinkEvidence[];
+  createdAt: string | null;
+  funder: string | null;
+  /** Segundos entre la creación del payTo y la de esta cuenta, solo cuando ambas vienen del mismo funder. */
+  createdSecondsAfterPayTo: number | null;
+}
+
 export interface Baseline {
   payTo: string;
   cutoff: string | null;
   account: { createdAt: string | null; funder: string | null; usdcBalance: string | null };
-  linked: { address: string; evidence: LinkEvidence[] }[];
+  linked: LinkedAccount[];
   before: Segment;
   after: Segment;
   /** Días desde el último pago externo hasta la marca de corte (o hasta hoy si no hay corte). */
@@ -116,6 +125,22 @@ export async function baseline(payTo: string, cutoff: string | null, day91Wallet
 
   const created = transfers.find((t) => t.kind === "create_account" && t.to === payTo);
   const usdcLine = acct?.balances?.find((b: any) => b.asset_code === "USDC");
+
+  // Para cada vinculado: quién lo creó y cuándo, relativo al payTo si comparten funder.
+  const linked: LinkedAccount[] = await Promise.all(
+    [...linkedMap.entries()].map(async ([address, evidence]) => {
+      const ops = await horizon.operations(address, 1);
+      const op = ops.find((o: any) => o.type === "create_account" && o.account === address);
+      const sameFunder = !!op && !!created && op.funder === created.from;
+      return {
+        address,
+        evidence,
+        createdAt: op?.created_at ?? null,
+        funder: op?.funder ?? null,
+        createdSecondsAfterPayTo: sameFunder ? Math.round((Date.parse(op.created_at) - Date.parse(created.at)) / 1000) : null,
+      };
+    }),
+  );
   const reference = cutoff ?? new Date().toISOString();
   const lastExternal = before.filter((t) => t.class === "externo").at(-1)?.at ?? null;
 
@@ -137,7 +162,7 @@ export async function baseline(payTo: string, cutoff: string | null, day91Wallet
     payTo,
     cutoff,
     account: { createdAt: created?.at ?? null, funder: created?.from ?? null, usdcBalance: usdcLine?.balance ?? null },
-    linked: [...linkedMap.entries()].map(([address, evidence]) => ({ address, evidence })),
+    linked,
     before: segment(cutoff ? `antes de ${cutoff}` : "historial completo", before),
     after: segment(cutoff ? `desde ${cutoff}` : "sin marca de corte", after),
     daysWithoutExternalSales: lastExternal ? daysBetween(lastExternal, reference) : null,
