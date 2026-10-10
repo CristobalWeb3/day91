@@ -130,17 +130,18 @@ day91/
   scripts/{setup-buyer,buy-render}.ts   reasoning/rendergate-gtm.md   data/   docs/index.html
 ```
 
-## Estado (10-oct-2026, cierre del bloque 3)
+## Estado (10-oct-2026, cierre del bloque 4)
 
-- **Funciona:** wallet `GBNS6VZI…Q4PI` (~19.997 USDC). 3 pagos de Day91 a RenderGate (0.0010000 c/u), todos en `/payments` del payTo: `d8453fc3…` (20:18:37Z,
-  **marca de corte** en `data/activation.json`), `69603878…` (A, Soroswap), `7132753a…` (A, stellarchain). `day91 scan` → `data/scan-<payTo>.{json,md}`; después del corte: 3 day91 / 0 externos.
-- **Agentes (`data/decisions.jsonl`, cliente x402 sin modificar):** C no paga (README estático, 9 561 chars útiles ≥ 500). B no compra: 1 pagador externo en 90 días
-  (política ≥ 3; excluye vinculados y wallets Day91) leído del ledger vivo. A paga si el GET simple trae < 500 chars útiles: Soroswap 176 → render 170 (**−6, cobrado sin aportar**;
-  hallazgo GTM: sugerir devolución cuando el render no mejora el GET) y stellarchain 73 → 693 (+620). `renderGainChars` queda en evidence.
+- **Funciona:** wallet `GBNS6VZI…Q4PI` (~19.997 USDC). 3 pagos de Day91 a RenderGate (0.0010000 c/u) en `/payments` del payTo: `d8453fc3…` (20:18:37Z, **marca de corte**,
+  `data/activation.json`), `69603878…` (A, Soroswap), `7132753a…` (A, stellarchain). `day91 scan` → `data/scan-<payTo>.{json,md}`; después del corte: 3 day91 / 0 externos.
+- **Agentes (`data/decisions.jsonl`, cliente x402 sin modificar):** C no paga (README estático, 9 561 chars ≥ 500). B no compra: 1 pagador externo en 90 días (política ≥ 3) leído del
+  ledger vivo. A paga si el GET trae < 500 chars: Soroswap 176 → 170 (**−6, cobrado sin aportar**; hallazgo GTM: sugerir devolución) y stellarchain 73 → 693 (+620).
+  **Verificado gratis** con Playwright local (`data/stellarchain-local-render.txt`): 689 chars, con dirección, 9999,9999 XLM y 0,078 USDC; sin lista de pagos. Coincide con los 693 de RenderGate.
+- **Funnel (`docs/`, GitHub Pages sin build):** `index.html` lee Horizon en vivo (paginado completo) y `data.json` (corte, wallets Day91, vinculados, decisiones con `summary` en inglés
+  derivado de `evidence`), escrito por `npm run funnel-data`. Probado en navegador: 91 registros, 84 pagos USDC, tablas = scan. Pages lo activa Cristóbal (rama `main`, carpeta `/docs`).
 - **Ejecutar:** `npm run setup-buyer` · `buy-render -- [url] [agente]` · `day91 -- scan <payTo> [--service] [--cutoff]` · `agent-a|b|c` · `funnel-data` · `typecheck`.
-- **Evidencia en `data/`:** `probe-402.json`, `paid-calls.jsonl`, `failed-calls.jsonl`, `decisions.jsonl`, `day91-wallets.json` (sin secretos), `activation.json`, `scan-*`.
-- **Decisiones fuera del plan:** pago x402 compartido en `src/x402/paid-get.ts`. stellar-sdk ^16. Hash desde `payment-response` o Horizon por `from`. Montos BigInt, 7 decimales.
-  "x402" = transferencia enviada por un facilitator. Horizon paginado completo, sin RPC. El motivo de A de la 1.ª corrida se corrigió a mano (campo `note`); evidence y tx intactos.
-- **Hipótesis abierta (sin medir):** 1.er intento 402 tras 68 s (`simulation_failed`, sin cobro); RenderGate liquida *después* de renderizar y la firma vale 60 s. Sospecha: arranque en frío
-  en HF. Corridas posteriores: 6,8 s / 13,3 s / 8,8 s de punta a punta. Remote: `origin` = github.com/CristobalWeb3/day91.
-- **Pendiente:** bloque 4 (funnel `docs/index.html` + `docs/data.json`), README, reporte GTM, video.
+- **Decisiones fuera del plan:** `src/x402/paid-get.ts` compartido. stellar-sdk ^16. Hash desde `payment-response` o Horizon por `from`. Montos BigInt, 7 decimales. "x402" = transferencia
+  enviada por un facilitator. `decisions.jsonl` no se edita más (1.ª corrida de A lleva `note`); task/reason de los agentes ahora en inglés para corridas futuras. UI del funnel en inglés.
+- **Hipótesis abierta (sin medir):** 1.er intento 402 tras 68 s (`simulation_failed`, sin cobro); RenderGate liquida *después* de renderizar y la firma vale 60 s. Sospecha: arranque en frío en HF.
+  Corridas posteriores: 6,8 s / 13,3 s / 8,8 s. Remote: `origin` = github.com/CristobalWeb3/day91 (push hecho el 10-oct).
+- **Pendiente:** bloque 5: README, reporte GTM (`reasoning/rendergate-gtm.md` → issue en el repo de RenderGate), texto de la entrega, video ≤ 3 min.
