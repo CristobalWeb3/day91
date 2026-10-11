@@ -1,15 +1,16 @@
 /**
- * day91 scan <payTo> [--service <url>] [--cutoff <ISO>]
- * Escribe data/scan-<payTo>.json y data/scan-<payTo>.md.
+ * day91 scan <payTo> [--service <url>] [--cutoff <ISO>]   → data/scan-<payTo>.{json,md}
+ * day91 prospects <payTo> [--days <n>]                     → data/prospects-<payTo>.{json,md}
  */
 import { StrKey } from "@stellar/stellar-sdk";
 import { writeFileSync } from "node:fs";
 import { writeJson } from "./ledger-log.js";
 import { scan } from "./scan/index.js";
+import { prospects, toProspectsMarkdown } from "./scan/prospects.js";
 import { toMarkdown } from "./scan/report.js";
 
 function usage(): never {
-  console.error("Uso: npm run day91 -- scan <payTo> [--service <url>] [--cutoff <ISO>]");
+  console.error("Uso:\n  npm run day91 -- scan <payTo> [--service <url>] [--cutoff <ISO>]\n  npm run day91 -- prospects <payTo> [--days <n>]");
   process.exit(1);
 }
 
@@ -18,14 +19,7 @@ function flag(args: string[], name: string): string | undefined {
   return i >= 0 ? args[i + 1] : undefined;
 }
 
-async function main() {
-  const [command, payTo, ...rest] = process.argv.slice(2);
-  if (command !== "scan" || !payTo) usage();
-  if (!StrKey.isValidEd25519PublicKey(payTo)) {
-    console.error(`payTo inválido: ${payTo}`);
-    process.exit(1);
-  }
-
+async function runScan(payTo: string, rest: string[]) {
   const result = await scan(payTo, { serviceUrl: flag(rest, "--service"), cutoff: flag(rest, "--cutoff") });
   const base = `data/scan-${payTo}`;
   writeJson(`${base}.json`, result);
@@ -39,6 +33,31 @@ async function main() {
     `(vinculado ${b.after.byClass.vinculado.payments}, day91 ${b.after.byClass.day91.payments}, externo ${b.after.byClass.externo.payments})`);
   console.log(`Días sin ventas externas hasta el corte: ${b.daysWithoutExternalSales ?? "—"}`);
   if (result.warnings.length) console.log(`Advertencias: ${result.warnings.join("; ")}`);
+}
+
+async function runProspects(payTo: string, rest: string[]) {
+  const days = Number(flag(rest, "--days") ?? 90);
+  console.log(`Leyendo los últimos ${days} días de ${(await import("./config.js")).FACILITATORS.length} facilitators...`);
+  const result = await prospects(payTo, days);
+  const base = `data/prospects-${payTo}`;
+  writeJson(`${base}.json`, result);
+  writeFileSync(`${base}.md`, toProspectsMarkdown(result));
+  console.log(`\nEscrito ${base}.json y ${base}.md`);
+  console.log(`Mercado ${days} d: ${result.market.payments} pagos · ${result.market.buyers} compradores · ${result.market.services} servicios · ${result.market.usdc} USDC`);
+  console.log(`Cuota del payTo: ${result.share.payments} pagos (${result.share.paymentsPct}%) · ${result.share.buyers} compradores (${result.share.buyersPct}%)`);
+  console.log(`Load test: ${result.loadTestServices.length} servicios · prospectos: ${result.candidates.ranked} rankeados, ${result.candidates.excludedLoadTestBuyers} excluidos`);
+  if (result.warnings.length) console.log(`Advertencias: ${result.warnings.join("; ")}`);
+}
+
+async function main() {
+  const [command, payTo, ...rest] = process.argv.slice(2);
+  if (!payTo || !["scan", "prospects"].includes(command)) usage();
+  if (!StrKey.isValidEd25519PublicKey(payTo)) {
+    console.error(`payTo inválido: ${payTo}`);
+    process.exit(1);
+  }
+  if (command === "scan") await runScan(payTo, rest);
+  else await runProspects(payTo, rest);
 }
 
 main().catch((err) => {

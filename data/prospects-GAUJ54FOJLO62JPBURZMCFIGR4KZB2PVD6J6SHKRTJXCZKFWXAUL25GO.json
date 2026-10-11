@@ -1,0 +1,335 @@
+{
+  "generatedAt": "2026-10-11T15:29:34.617Z",
+  "payTo": "GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO",
+  "windowDays": 90,
+  "since": "2026-07-13T15:29:34.617Z",
+  "facilitators": [
+    {
+      "address": "GC6CSXBV4C6RL3HEDTW57KXYXSSXKAWKGYDEOSATXM3XNKXSR2VRYN3K",
+      "label": "x402.org facilitator",
+      "records": 2322,
+      "payments": 1953,
+      "buyers": 192,
+      "services": 83,
+      "readMs": 3026
+    },
+    {
+      "address": "GCGKCIJE7S22OLQUWURUIL7OFMTVJY77RDZIO6ZJADVFLRUMRW6MNDYL",
+      "label": "facilitator (twin A, 2025-12-22)",
+      "records": 186,
+      "payments": 172,
+      "buyers": 17,
+      "services": 15,
+      "readMs": 1089
+    },
+    {
+      "address": "GA6QLQOQFN36EV6NRIZAGMNA42MFG2XGCX23KYF6VE5DTBXPPS5RO67I",
+      "label": "facilitator (twin B, 2025-12-22)",
+      "records": 187,
+      "payments": 175,
+      "buyers": 21,
+      "services": 19,
+      "readMs": 1073
+    }
+  ],
+  "removed": {
+    "zeroAmount": 0,
+    "day91Payments": 4,
+    "day91Wallets": [
+      "GBNS6VZIEZEFIXJXIOL2PA4K3WDCF3R2O5IVHYRIJHSERZMJU764Q4PI"
+    ]
+  },
+  "market": {
+    "payments": 2296,
+    "buyers": 224,
+    "services": 113,
+    "usdc": "804.7632514",
+    "buyersActiveLast14d": 128,
+    "buyersOnTwoOrMoreFacilitators": 4
+  },
+  "share": {
+    "payments": 2,
+    "buyers": 1,
+    "paymentsPct": 0.09,
+    "buyersPct": 0.45,
+    "buyersOfTarget": [
+      "GBUQ25LH4BARXR4RAJZVA7QYVFTIRZD63YXYVAETETYGKMNZF5PKM3L6"
+    ]
+  },
+  "loadTestServices": [
+    {
+      "to": "GDH5Z6TJ37NFSUE3UIZSH74VYFZWPEVCJIJMUCSBPNT4N752AQ6WMSG6",
+      "label": null,
+      "payments": 1,
+      "buyers": 1,
+      "usdc": "0.0000001",
+      "avgPrice": "0.0000001",
+      "loadTest": true
+    },
+    {
+      "to": "GDJUR24PJU3XIBZNA6DZT2QVQIQ6ZMMS5A2UO3JG6CPE5TFLG7KNPJ5W",
+      "label": null,
+      "payments": 1,
+      "buyers": 1,
+      "usdc": "0.0000001",
+      "avgPrice": "0.0000001",
+      "loadTest": true
+    }
+  ],
+  "topServices": [
+    {
+      "to": "GDABGS36L5DEDVFGNIEI7CMS6ZCGJ6PVHSFT2GVBGERZUO3XHF6W6S2P",
+      "label": null,
+      "payments": 37,
+      "buyers": 15,
+      "usdc": "11.2000000",
+      "avgPrice": "0.3027027",
+      "loadTest": false
+    },
+    {
+      "to": "GCBXG6Z6H4TSWRJ5ZMFR725Q5X5DPAYFBU652ANGQGIEZL33FZTUDB3U",
+      "label": null,
+      "payments": 60,
+      "buyers": 11,
+      "usdc": "0.0006000",
+      "avgPrice": "0.0000100",
+      "loadTest": false
+    },
+    {
+      "to": "GC52WO5QE6AHWOAHBROOUPCCGWMP2DAAFCEGOFHBP2PACXXT26K65AUP",
+      "label": null,
+      "payments": 60,
+      "buyers": 11,
+      "usdc": "0.0006000",
+      "avgPrice": "0.0000100",
+      "loadTest": false
+    },
+    {
+      "to": "GCPSX7JOWX25EHBNS5YZRFEI4JGICW7XURI3MXBL3HZBJVGGRRQEVKWR",
+      "label": null,
+      "payments": 60,
+      "buyers": 11,
+      "usdc": "0.0006000",
+      "avgPrice": "0.0000100",
+      "loadTest": false
+    },
+    {
+      "to": "GC5OHOR4AMTRVJ7HDUC7KQ7BTI66BTXSHWBPXO2QUCGAL4J6OPJ2SA6V",
+      "label": null,
+      "payments": 60,
+      "buyers": 11,
+      "usdc": "0.0006000",
+      "avgPrice": "0.0000100",
+      "loadTest": false
+    },
+    {
+      "to": "GAAST7JKWXZMMHANI2JXUBLVHV4AR5V3PK6BFAN4YPXI673TAR5U6GNR",
+      "label": null,
+      "payments": 60,
+      "buyers": 11,
+      "usdc": "0.0006000",
+      "avgPrice": "0.0000100",
+      "loadTest": false
+    },
+    {
+      "to": "GANGAHZEV6QFQMU4ZFS6YE7WIW4J4P23OR5GPL4C7MC6VZ7L7SSUJPMD",
+      "label": null,
+      "payments": 60,
+      "buyers": 11,
+      "usdc": "0.0006000",
+      "avgPrice": "0.0000100",
+      "loadTest": false
+    },
+    {
+      "to": "GAFOR2H4TAZ56CFPYLQYCI5T3N3GGVU6RTHSXAFT47QEK4SY74NFAKI6",
+      "label": null,
+      "payments": 60,
+      "buyers": 11,
+      "usdc": "0.0006000",
+      "avgPrice": "0.0000100",
+      "loadTest": false
+    },
+    {
+      "to": "GAXEWKBE3G2WG5BEM5JA35FUOYEQJODMH46YKCOR3WTIF3HQQCVRJXAG",
+      "label": null,
+      "payments": 17,
+      "buyers": 11,
+      "usdc": "0.0001700",
+      "avgPrice": "0.0000100",
+      "loadTest": false
+    },
+    {
+      "to": "CAT76PQMLGFABA37ETPJDKTYONMY463Z6SINVUMAM7556YKQRPYMKSKL",
+      "label": null,
+      "payments": 6,
+      "buyers": 6,
+      "usdc": "214.7582036",
+      "avgPrice": "35.7930339",
+      "loadTest": false
+    }
+  ],
+  "candidates": {
+    "total": 9,
+    "excludedLoadTestBuyers": 0,
+    "ranked": 9
+  },
+  "prospects": [
+    {
+      "rank": 1,
+      "address": "CDFLOE4HGKNV3JJQGIS3Y7BT2K2DTT4SBF2NKARMBVB4RBJZ5YJLDMQN",
+      "explorer": "https://stellar.expert/explorer/testnet/contract/CDFLOE4HGKNV3JJQGIS3Y7BT2K2DTT4SBF2NKARMBVB4RBJZ5YJLDMQN",
+      "services": 4,
+      "payments": 4,
+      "usdc": "4.0000004",
+      "first": "2026-09-08T21:04:17Z",
+      "last": "2026-10-10T20:56:57Z",
+      "daysSinceLast": 0,
+      "facilitators": [
+        "GCGKCIJE7S22OLQUWURUIL7OFMTVJY77RDZIO6ZJADVFLRUMRW6MNDYL",
+        "GA6QLQOQFN36EV6NRIZAGMNA42MFG2XGCX23KYF6VE5DTBXPPS5RO67I"
+      ],
+      "paidTarget": false,
+      "excluded": null,
+      "why": "4 services, 4 payments, 4.0000004 USDC over 32 days; last active 0 days ago; has not tried this service"
+    },
+    {
+      "rank": 2,
+      "address": "GAVPQ7VRQK5TK5ZJCFPYZHWOOSSDYVDPAH7LW4ME4PC7VLMZ4JUGBDB4",
+      "explorer": "https://stellar.expert/explorer/testnet/account/GAVPQ7VRQK5TK5ZJCFPYZHWOOSSDYVDPAH7LW4ME4PC7VLMZ4JUGBDB4",
+      "services": 2,
+      "payments": 3,
+      "usdc": "0.0030000",
+      "first": "2026-09-27T17:00:32Z",
+      "last": "2026-09-27T17:06:12Z",
+      "daysSinceLast": 13,
+      "facilitators": [
+        "GC6CSXBV4C6RL3HEDTW57KXYXSSXKAWKGYDEOSATXM3XNKXSR2VRYN3K"
+      ],
+      "paidTarget": false,
+      "excluded": null,
+      "why": "2 services, 3 payments, 0.0030000 USDC over 1 day; last active 13 days ago; has not tried this service"
+    },
+    {
+      "rank": 3,
+      "address": "GAURYWKSSNA7IWU4S6VYHIU6TFOEUGO72BULFXNBKJ2IGXHR22ANUTEZ",
+      "explorer": "https://stellar.expert/explorer/testnet/account/GAURYWKSSNA7IWU4S6VYHIU6TFOEUGO72BULFXNBKJ2IGXHR22ANUTEZ",
+      "services": 3,
+      "payments": 48,
+      "usdc": "1.5900000",
+      "first": "2026-09-25T10:54:47Z",
+      "last": "2026-09-25T16:26:02Z",
+      "daysSinceLast": 15,
+      "facilitators": [
+        "GC6CSXBV4C6RL3HEDTW57KXYXSSXKAWKGYDEOSATXM3XNKXSR2VRYN3K"
+      ],
+      "paidTarget": false,
+      "excluded": null,
+      "why": "3 services, 48 payments, 1.5900000 USDC over 1 day; last active 15 days ago; has not tried this service"
+    },
+    {
+      "rank": 4,
+      "address": "GBUQ25LH4BARXR4RAJZVA7QYVFTIRZD63YXYVAETETYGKMNZF5PKM3L6",
+      "explorer": "https://stellar.expert/explorer/testnet/account/GBUQ25LH4BARXR4RAJZVA7QYVFTIRZD63YXYVAETETYGKMNZF5PKM3L6",
+      "services": 3,
+      "payments": 12,
+      "usdc": "0.1020000",
+      "first": "2026-09-20T00:29:02Z",
+      "last": "2026-09-20T07:44:07Z",
+      "daysSinceLast": 21,
+      "facilitators": [
+        "GC6CSXBV4C6RL3HEDTW57KXYXSSXKAWKGYDEOSATXM3XNKXSR2VRYN3K",
+        "GCGKCIJE7S22OLQUWURUIL7OFMTVJY77RDZIO6ZJADVFLRUMRW6MNDYL",
+        "GA6QLQOQFN36EV6NRIZAGMNA42MFG2XGCX23KYF6VE5DTBXPPS5RO67I"
+      ],
+      "paidTarget": true,
+      "excluded": null,
+      "why": "3 services, 12 payments, 0.1020000 USDC over 1 day; last active 21 days ago; already tried this service"
+    },
+    {
+      "rank": 5,
+      "address": "GBAVTBA7T7FLNBPGNJXUBMBZV4J4N7L3JCKMWNVFPMK267C46FLJMXV6",
+      "explorer": "https://stellar.expert/explorer/testnet/account/GBAVTBA7T7FLNBPGNJXUBMBZV4J4N7L3JCKMWNVFPMK267C46FLJMXV6",
+      "services": 2,
+      "payments": 5,
+      "usdc": "0.4500000",
+      "first": "2026-09-19T15:38:52Z",
+      "last": "2026-09-20T07:16:47Z",
+      "daysSinceLast": 21,
+      "facilitators": [
+        "GC6CSXBV4C6RL3HEDTW57KXYXSSXKAWKGYDEOSATXM3XNKXSR2VRYN3K"
+      ],
+      "paidTarget": false,
+      "excluded": null,
+      "why": "2 services, 5 payments, 0.4500000 USDC over 1 day; last active 21 days ago; has not tried this service"
+    },
+    {
+      "rank": 6,
+      "address": "GDSGS53IUWOSFIW7EWW5NJ4WJLUNVRSH3MYQ3YFGWEJI7VZCVE3C6JDT",
+      "explorer": "https://stellar.expert/explorer/testnet/account/GDSGS53IUWOSFIW7EWW5NJ4WJLUNVRSH3MYQ3YFGWEJI7VZCVE3C6JDT",
+      "services": 6,
+      "payments": 18,
+      "usdc": "0.3300000",
+      "first": "2026-09-18T16:27:57Z",
+      "last": "2026-09-19T17:55:32Z",
+      "daysSinceLast": 21,
+      "facilitators": [
+        "GC6CSXBV4C6RL3HEDTW57KXYXSSXKAWKGYDEOSATXM3XNKXSR2VRYN3K"
+      ],
+      "paidTarget": false,
+      "excluded": null,
+      "why": "6 services, 18 payments, 0.3300000 USDC over 1 day; last active 21 days ago; has not tried this service"
+    },
+    {
+      "rank": 7,
+      "address": "GBPA6I6PQAYXADRROHMGYGPRY7NVHXL5Q7QT3L6SOAUSIBWV27AJKWZG",
+      "explorer": "https://stellar.expert/explorer/testnet/account/GBPA6I6PQAYXADRROHMGYGPRY7NVHXL5Q7QT3L6SOAUSIBWV27AJKWZG",
+      "services": 2,
+      "payments": 5,
+      "usdc": "0.4010000",
+      "first": "2026-09-19T12:27:57Z",
+      "last": "2026-09-19T17:40:12Z",
+      "daysSinceLast": 21,
+      "facilitators": [
+        "GC6CSXBV4C6RL3HEDTW57KXYXSSXKAWKGYDEOSATXM3XNKXSR2VRYN3K"
+      ],
+      "paidTarget": false,
+      "excluded": null,
+      "why": "2 services, 5 payments, 0.4010000 USDC over 1 day; last active 21 days ago; has not tried this service"
+    },
+    {
+      "rank": 8,
+      "address": "GBRZSG7K6ZXJRCMYM2O2HO2DKR7RO2ACZ5FARBMQZBB4YZMDFDXFUTV7",
+      "explorer": "https://stellar.expert/explorer/testnet/account/GBRZSG7K6ZXJRCMYM2O2HO2DKR7RO2ACZ5FARBMQZBB4YZMDFDXFUTV7",
+      "services": 2,
+      "payments": 3,
+      "usdc": "2.3389016",
+      "first": "2026-09-13T10:03:17Z",
+      "last": "2026-09-17T19:22:32Z",
+      "daysSinceLast": 23,
+      "facilitators": [
+        "GC6CSXBV4C6RL3HEDTW57KXYXSSXKAWKGYDEOSATXM3XNKXSR2VRYN3K"
+      ],
+      "paidTarget": false,
+      "excluded": null,
+      "why": "2 services, 3 payments, 2.3389016 USDC over 4 days; last active 23 days ago; has not tried this service"
+    },
+    {
+      "rank": 9,
+      "address": "GBH4IBWTCU3ARMY33PILVW6SMBMKYWSUKONNLJN5IZGXBAQFVJWJK6A7",
+      "explorer": "https://stellar.expert/explorer/testnet/account/GBH4IBWTCU3ARMY33PILVW6SMBMKYWSUKONNLJN5IZGXBAQFVJWJK6A7",
+      "services": 2,
+      "payments": 4,
+      "usdc": "0.0400000",
+      "first": "2026-08-04T04:31:17Z",
+      "last": "2026-08-04T04:38:08Z",
+      "daysSinceLast": 68,
+      "facilitators": [
+        "GC6CSXBV4C6RL3HEDTW57KXYXSSXKAWKGYDEOSATXM3XNKXSR2VRYN3K"
+      ],
+      "paidTarget": false,
+      "excluded": null,
+      "why": "2 services, 4 payments, 0.0400000 USDC over 1 day; last active 68 days ago; has not tried this service"
+    }
+  ],
+  "warnings": []
+}

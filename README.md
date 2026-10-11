@@ -21,19 +21,23 @@ Stellar Hacks: Agents specifically (248 submissions): **74%** have no commits af
 These projects do not lack code. RenderGate, for example, renders and settles every time you pay it. What they lack is a market: the first
 independent buyers, and a way for later buyers to see that those first ones exist. Day91 works on that gap.
 
-## What it does, in four steps
+## What it does, in five steps
 
 1. **Scan.** `day91 scan <payTo>` pulls the complete payment history of a service's payout address from Horizon (no 7-day limit, no RPC),
    classifies every payer as *linked* (received funds from the payTo itself), *day91* (our own wallets) or *external*, and profiles each
    external buyer: which other x402 services it pays, how much, and whether it bridges out through CCTP. It then follows the operator that
    created each buyer and analyses that whole cohort. It also probes the service's listing and its 402 challenge for consistency.
-2. **Diagnose.** The scan output (JSON + Markdown in `data/`) becomes a short report for the author, written in plain language with every number
-   linked to its evidence. The language step is saved in `reasoning/`; see *Limitations*.
-3. **Activate.** Three buyer agents, all using the standard `@x402/fetch` + `@x402/stellar` client without modification, each with a different
+2. **Prospect.** `day91 prospects <payTo>` reads the last 90 days of the known x402 facilitators (a facilitator submits the payment on the
+   buyer's behalf, so its history is the sales ledger of every service that uses it) and reports the size of the market, the service's share of
+   it, and a ranked list of wallets that already pay for two or more services, each with its evidence. Zero-amount payments are dropped and
+   services priced at ≤ 1 stroop are tagged as load tests.
+3. **Diagnose.** The scan and prospects output (JSON + Markdown in `data/`) becomes a short report for the author, written in plain language with
+   every number linked to its evidence. The language step is saved in `reasoning/`; see *Limitations*.
+4. **Activate.** Three buyer agents, all using the standard `@x402/fetch` + `@x402/stellar` client without modification, each with a different
    policy. Agent A pays only if a plain GET of the page returns too little text. Agent B buys only if the ledger shows at least three independent
    payers in the last 90 days. Agent C has a task that never needs a render. Each agent writes its decision, the numbers it looked at and the
    transaction hash (if any) to `data/decisions.jsonl`.
-4. **Measure.** A static page reads Horizon live from the browser and shows payments before and after the activation cutoff by payer class, the
+5. **Measure.** A static page reads Horizon live from the browser and shows payments before and after the activation cutoff by payer class, the
    payments Day91 made (each linked to stellar.expert), and the agents' decisions.
 
 ## Results against RenderGate (testnet, 2026-10-10)
@@ -50,6 +54,9 @@ independent buyers, and a way for later buyers to see that those first ones exis
 - Agent A paid twice: `app.soroswap.finance` (plain GET 176 useful chars → render 170, charged without gain) and
   `testnet.stellarchain.io/accounts/<payTo>` (73 → 693). Agent B found 1 independent payer and did not buy. Agent C never needed to pay.
 - The operator that created the one external buyer onboarded 40 wallets in five days; 5 of them pay for x402 services, 1 paid RenderGate.
+- **The market (last 90 days, three facilitators, Day91's payments excluded): 2,296 x402 payments, 224 buyer wallets, 113 services,
+  804.76 USDC.** RenderGate is **2 of 2,296 payments (0.09%) and 1 of 224 buyers (0.45%)**. Nine wallets paid two or more distinct services;
+  they are the ranked prospects in [`data/prospects-<payTo>.md`](data/). Reading the three facilitators takes about 5 seconds.
 - One hypothesis, one occurrence: the first paid call, after ~20 days without payments to the service, returned 402 after 68 s without
   charging, consistent with settlement after a slow render exceeding the 60-second authorization window. A deliberate retry after ~16.5 h
   idle worked in 10.7 s. Not reproduced; probably a sleeping Space rather than the browser.
@@ -69,7 +76,8 @@ cp .env.example .env
 npm run setup-buyer          # keypair → .env, friendbot, USDC trustline; registers the wallet in data/day91-wallets.json
 # get testnet USDC for BUYER_PUBLIC at https://faucet.circle.com (network: Stellar), then:
 npm run buy-render           # one paid render against RenderGate, verified in Horizon
-npm run day91 -- scan GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO   # → data/scan-<payTo>.{json,md}
+npm run day91 -- scan GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO        # → data/scan-<payTo>.{json,md}
+npm run day91 -- prospects GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO   # → data/prospects-<payTo>.{json,md}
 npm run agent-a              # pays only if a plain GET is not enough (real payment)
 npm run agent-b              # buys only with ≥ 3 independent payers in 90 days
 npm run agent-c              # static page, never pays
@@ -96,12 +104,19 @@ Everything in `data/` is committed as evidence: raw 402 challenge, paid and fail
   can from the numbers that were saved; the log itself is append-only and was never rewritten, except one `reason` string corrected by hand
   right after the first run, which is marked with a `note` field.
 - The cold-start settlement hypothesis is based on a single failed call.
+- **Prospects are wallets, not contacts.** `day91 prospects` ranks wallets by on-chain behaviour; it does not know who operates them.
+  Reaching out is manual work and stays on the roadmap. The load-test filter is deliberately narrow (average price ≤ 1 stroop): a block of
+  seven services with exactly 60 payments from 11 wallets each at 0.00001 USDC passes it and is called out by hand in the report.
+- The market is measured through three known facilitators only; services that use another facilitator are not counted.
 
 ## Roadmap
 
 - Automate the diagnose step from the scan JSON.
+- Prospect outreach: identify the operator behind each ranked wallet (creation transaction, funding source, what it buys) and a way to reach them.
+- A fuller harness filter for the prospects list: batch-created wallets, equal payment counts across services, price near zero.
+- Follow the one external buyer's CCTP bridge: Circle's attestation was issued (source domain 27 → Base Sepolia) but nothing was minted; the
+  recipient `0xc97c1ca97df407f7ca9039c5d392e8868f234b4f` is empty. Show that in the scan once there is something to follow.
 - A Soroban contract that pays cashback to the first N independent buyers of a dormant service, funded by the service.
-- A buyer on Base: the one external buyer bridged 1 USDC to `0xc97c1ca97df407f7ca9039c5d392e8868f234b4f` via CCTP; following it there is the next step.
 - A fuller payTo → service directory built from 402 challenges, and Hubble/BigQuery for ecosystem-wide scans.
 - Run the scan against every live x402 service from Stellar Hacks: Agents and publish the aggregate.
 

@@ -130,18 +130,17 @@ day91/
   scripts/{setup-buyer,buy-render}.ts   reasoning/rendergate-gtm.md   data/   docs/index.html
 ```
 
-## Estado (10-oct-2026, cierre del bloque 5: solo falta el video)
+## Estado (11-oct-2026, bloque 5 + prospección: solo falta el video)
 
-- **On-chain:** wallet `GBNS6VZI…Q4PI` (~19.996 USDC). 4 pagos de Day91 a RenderGate (0.0010000 c/u) en `/payments` del payTo: `d8453fc3…` (20:18:37Z, **marca de corte**,
-  `data/activation.json`), `69603878…` (A, Soroswap, 176 → 170, cobrado sin aportar), `7132753a…` (A, stellarchain, 73 → 693), `2d51114c…` (11-oct, medición en frío). Después del corte: 4 day91 / 0 externos.
-  stellarchain verificado gratis con Playwright local (`data/stellarchain-local-render.txt`): 689 chars con dirección y saldos; sin lista de pagos.
-- **Agentes (`data/decisions.jsonl`, 4 líneas, no se edita más):** C no paga (9 561 chars ≥ 500); B no compra (1 pagador externo en 90 días, política ≥ 3); A paga 2 veces.
-  Salida de consola, `task` y `reason` en inglés para corridas futuras; `DAY91_DRY_RUN=1` decide e imprime sin grabar (usado para comprobar B y C).
-- **Funnel (`docs/`, Pages en https://cristobalweb3.github.io/day91/):** lee Horizon en vivo; `data.json` (de `npm run funnel-data`) trae corte, wallets, vinculados y decisiones con
-  `taskSummary` y `summary` en inglés derivados de `evidence`. Probado en navegador: 91 registros, 84 pagos USDC, tablas = scan.
-- **Documentos:** `README.md` (inglés, framing "market activation layer for the ecosystem's dormant supply", limitaciones y roadmap), `reasoning/rendergate-gtm.md` (6 hallazgos
-  con evidencia + 5 acciones; declara redacción por LLM; publicar a mano como issue en tantk/rendergate), `docs/submission.md` (short ≤ 300, long ≤ 1500, links).
-- **Ejecutar:** `npm run setup-buyer` · `buy-render -- [url] [agente]` · `day91 -- scan <payTo> [--service] [--cutoff]` · `agent-a|b|c` · `funnel-data` · `typecheck`.
+- **On-chain:** wallet `GBNS6VZI…Q4PI` (~19.996 USDC). 4 pagos de Day91 a RenderGate (0.001 c/u): `d8453fc3…` (10-oct 20:18:37Z, **marca de corte**, `data/activation.json`),
+  `69603878…` (A, Soroswap, 176 → 170, cobrado sin aportar), `7132753a…` (A, stellarchain, 73 → 693; verificado gratis con Playwright local, 689 chars), `2d51114c…` (11-oct, medición en frío).
+- **Agentes (`data/decisions.jsonl`, 4 líneas, no se edita más):** C no paga; B no compra (1 pagador externo en 90 días, política ≥ 3); A paga 2 veces. Salida en inglés; `DAY91_DRY_RUN=1` no graba.
+- **Prospección (`day91 prospects <payTo>`):** 90 días de los 3 facilitators de `src/config.ts` (~5 s). Sin nuestras wallets: 2 296 pagos, 224 compradores, 113 servicios, 804.76 USDC;
+  RenderGate 2 pagos (0,09 %) / 1 comprador; 9 wallets pagan ≥ 2 servicios → `data/prospects-<payTo>.{json,md}`. Filtro load test (≤ 1 stroop) deja pasar el bloque 7×60×11 a 0.00001 (señalado a mano).
+  Bridge a Base del comprador externo: attestation de Circle emitida (dominio 27 → 6), nada acuñado en Base Sepolia.
+- **Funnel (`docs/`, https://cristobalweb3.github.io/day91/):** Horizon en vivo + `data.json` (`npm run funnel-data`: corte, wallets, vinculados, decisiones con `summary`). Probado en navegador.
+- **Documentos:** `README.md` (5 pasos, limitaciones, roadmap), `reasoning/rendergate-gtm.md` (7 hallazgos + 6 acciones; redactado por LLM; issue manual en tantk/rendergate), `docs/submission.md`.
+- **Ejecutar:** `setup-buyer` · `buy-render -- [url] [agente]` · `day91 -- scan|prospects <payTo>` · `agent-a|b|c` · `funnel-data` · `typecheck`.
 - **Decisiones fuera del plan:** `src/x402/paid-get.ts` compartido. stellar-sdk ^16. Hash desde `payment-response` o Horizon por `from`. Montos BigInt, 7 decimales. "x402" = enviado por un facilitator. LICENSE MIT a nombre de "CristobalWeb3".
-- **Hipótesis (una ocurrencia, no reproducida):** 1.er intento 402 tras 68 s (`simulation_failed`, sin cobro) tras ~20 días sin pagos; tras ~16,5 h sin uso funcionó en 10,7 s (request pagada 7,98 s). Probablemente Space dormido, no el navegador.
-- **Pendiente:** video ≤ 3 min (guion: scan → diagnóstico → agentes → funnel), publicar el issue en RenderGate, completar el formulario con `docs/submission.md`.
+- **Hipótesis (una ocurrencia, no reproducida):** 1.er intento 402 tras 68 s (`simulation_failed`, sin cobro) tras ~20 días sin pagos; tras ~16,5 h sin uso funcionó en 10,7 s. Probablemente Space dormido.
+- **Pendiente:** video ≤ 3 min (guion: scan → prospects → diagnóstico → agentes → funnel), publicar el issue en RenderGate, completar el formulario con `docs/submission.md`.

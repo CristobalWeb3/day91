@@ -33,6 +33,25 @@ export async function fetchAll(path: string, maxPages = 50): Promise<any[]> {
   return out;
 }
 
+/** Pagos desde `since` (ISO), leyendo del más reciente hacia atrás y cortando al salir de la ventana. */
+export async function paymentsSince(account: string, since: string, maxPages = 200): Promise<any[]> {
+  let url = `${HORIZON_URL}/accounts/${account}/payments?limit=${PAGE}&order=desc`;
+  const out: any[] = [];
+  for (let page = 0; page < maxPages; page++) {
+    const body = await getJson(url);
+    if (!body) return out;
+    const records = body._embedded.records;
+    for (const r of records) {
+      if (r.created_at < since) return out;
+      out.push(r);
+    }
+    if (records.length < PAGE) return out;
+    url = body._links.next.href;
+  }
+  warnings.push(`/accounts/${account}/payments: ventana truncada en ${maxPages * PAGE} registros`);
+  return out;
+}
+
 export const payments = (account: string) => fetchAll(`/accounts/${account}/payments`);
 export const operations = (account: string, maxPages?: number) => fetchAll(`/accounts/${account}/operations`, maxPages);
 export const transactionsOf = (account: string) => fetchAll(`/accounts/${account}/transactions`);
