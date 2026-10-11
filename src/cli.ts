@@ -43,9 +43,10 @@ async function runProspects(payTo: string, rest: string[]) {
   writeJson(`${base}.json`, result);
   writeFileSync(`${base}.md`, toProspectsMarkdown(result));
   console.log(`\nEscrito ${base}.json y ${base}.md`);
-  console.log(`Mercado ${days} d: ${result.market.payments} pagos · ${result.market.buyers} compradores · ${result.market.services} servicios · ${result.market.usdc} USDC`);
+  const m = result.market;
+  console.log(`Mercado ${days} d: ${m.total.payments} pagos · ${m.total.buyers} compradores · ${m.total.services} servicios · ${m.total.usdc} USDC (sin tráfico de prueba probable: ${m.excludingTestTraffic.payments} · ${m.excludingTestTraffic.buyers} · ${m.excludingTestTraffic.services})`);
   console.log(`Cuota del payTo: ${result.share.payments} pagos (${result.share.paymentsPct}%) · ${result.share.buyers} compradores (${result.share.buyersPct}%)`);
-  console.log(`Load test: ${result.loadTestServices.length} servicios · prospectos: ${result.candidates.ranked} rankeados, ${result.candidates.excludedLoadTestBuyers} excluidos`);
+  console.log(`Tráfico de prueba probable: ${result.testTrafficServices.length} servicios · prospectos: ${result.candidates.ranked} rankeados, ${result.candidates.excludedTestTrafficBuyers} excluidos`);
   if (result.warnings.length) console.log(`Advertencias: ${result.warnings.join("; ")}`);
 }
 

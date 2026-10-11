@@ -1,10 +1,17 @@
 {
-  "generatedAt": "2026-10-11T14:55:59.605Z",
+  "generatedAt": "2026-10-11T16:17:03.070Z",
   "network": "testnet",
   "service": {
     "name": "RenderGate",
     "url": "https://tantk-rendergate.hf.space",
     "payTo": "GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO"
+  },
+  "links": {
+    "repo": "https://github.com/CristobalWeb3/day91",
+    "readme": "https://github.com/CristobalWeb3/day91#readme",
+    "report": "https://github.com/CristobalWeb3/day91/blob/main/reasoning/rendergate-gtm.md",
+    "prospectsMd": "https://github.com/CristobalWeb3/day91/blob/main/data/prospects-GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO.md",
+    "scanMd": "https://github.com/CristobalWeb3/day91/blob/main/data/scan-GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO.md"
   },
   "cutoff": "2026-10-10T20:18:37Z",
   "firstDay91Tx": "d8453fc3e3ecf8234606fdb06621629996b98f304fceb9dd5a9b0d9e239945da",
@@ -23,6 +30,182 @@
     }
   ],
   "scanGeneratedAt": "2026-10-11T14:55:58.339Z",
+  "hero": {
+    "harness": {
+      "value": "97.5%",
+      "label": "of payments came from the author's own harness"
+    },
+    "market": {
+      "value": "1 of 129",
+      "label": "buyers in the x402 market reached in 90 days (0.09% of payments)"
+    },
+    "prospects": {
+      "value": "9",
+      "label": "probable buyers found, none reached yet"
+    },
+    "render": {
+      "value": "73 → 693",
+      "label": "chars after one 0.001 USDC render",
+      "tx": "7132753a567a78e7b832e4c0e88c44b0b40f6d4e6a0c333922da5f526a318255"
+    }
+  },
+  "market": {
+    "generatedAt": "2026-10-11T16:13:59.674Z",
+    "windowDays": 90,
+    "total": {
+      "payments": 2296,
+      "buyers": 224,
+      "services": 113,
+      "usdc": "804.7632514",
+      "buyersActiveLast14d": 128
+    },
+    "excludingTestTraffic": {
+      "payments": 1851,
+      "buyers": 129,
+      "services": 101,
+      "usdc": "804.7587312",
+      "buyersActiveLast14d": 35
+    },
+    "share": {
+      "payments": 2,
+      "buyers": 1,
+      "paymentsPct": 0.09,
+      "buyersPct": 0.45,
+      "buyersPctExcludingTestTraffic": 0.78,
+      "buyersOfTarget": [
+        "GBUQ25LH4BARXR4RAJZVA7QYVFTIRZD63YXYVAETETYGKMNZF5PKM3L6"
+      ]
+    },
+    "testTrafficRule": "service average price ≤ 0.0001000 USDC",
+    "testTrafficServices": 12,
+    "prospects": [
+      {
+        "rank": 1,
+        "address": "CDFLOE4HGKNV3JJQGIS3Y7BT2K2DTT4SBF2NKARMBVB4RBJZ5YJLDMQN",
+        "isContract": true,
+        "explorer": "https://stellar.expert/explorer/testnet/contract/CDFLOE4HGKNV3JJQGIS3Y7BT2K2DTT4SBF2NKARMBVB4RBJZ5YJLDMQN",
+        "services": 4,
+        "payments": 4,
+        "usdc": "4.0000004",
+        "first": "2026-09-08T21:04:17Z",
+        "last": "2026-10-10T20:56:57Z",
+        "paidTarget": false,
+        "notes": [
+          "contract address, not a wallet",
+          "pays exactly 1.0000001 USDC to every service",
+          "may be test infrastructure rather than a customer"
+        ]
+      },
+      {
+        "rank": 2,
+        "address": "GAVPQ7VRQK5TK5ZJCFPYZHWOOSSDYVDPAH7LW4ME4PC7VLMZ4JUGBDB4",
+        "isContract": false,
+        "explorer": "https://stellar.expert/explorer/testnet/account/GAVPQ7VRQK5TK5ZJCFPYZHWOOSSDYVDPAH7LW4ME4PC7VLMZ4JUGBDB4",
+        "services": 2,
+        "payments": 3,
+        "usdc": "0.0030000",
+        "first": "2026-09-27T17:00:32Z",
+        "last": "2026-09-27T17:06:12Z",
+        "paidTarget": false,
+        "notes": [
+          "pays exactly 0.0010000 USDC to every service"
+        ]
+      },
+      {
+        "rank": 3,
+        "address": "GAURYWKSSNA7IWU4S6VYHIU6TFOEUGO72BULFXNBKJ2IGXHR22ANUTEZ",
+        "isContract": false,
+        "explorer": "https://stellar.expert/explorer/testnet/account/GAURYWKSSNA7IWU4S6VYHIU6TFOEUGO72BULFXNBKJ2IGXHR22ANUTEZ",
+        "services": 3,
+        "payments": 48,
+        "usdc": "1.5900000",
+        "first": "2026-09-25T10:54:47Z",
+        "last": "2026-09-25T16:26:02Z",
+        "paidTarget": false,
+        "notes": []
+      },
+      {
+        "rank": 4,
+        "address": "GBUQ25LH4BARXR4RAJZVA7QYVFTIRZD63YXYVAETETYGKMNZF5PKM3L6",
+        "isContract": false,
+        "explorer": "https://stellar.expert/explorer/testnet/account/GBUQ25LH4BARXR4RAJZVA7QYVFTIRZD63YXYVAETETYGKMNZF5PKM3L6",
+        "services": 3,
+        "payments": 12,
+        "usdc": "0.1020000",
+        "first": "2026-09-20T00:29:02Z",
+        "last": "2026-09-20T07:44:07Z",
+        "paidTarget": true,
+        "notes": []
+      },
+      {
+        "rank": 5,
+        "address": "GBAVTBA7T7FLNBPGNJXUBMBZV4J4N7L3JCKMWNVFPMK267C46FLJMXV6",
+        "isContract": false,
+        "explorer": "https://stellar.expert/explorer/testnet/account/GBAVTBA7T7FLNBPGNJXUBMBZV4J4N7L3JCKMWNVFPMK267C46FLJMXV6",
+        "services": 2,
+        "payments": 5,
+        "usdc": "0.4500000",
+        "first": "2026-09-19T15:38:52Z",
+        "last": "2026-09-20T07:16:47Z",
+        "paidTarget": false,
+        "notes": []
+      },
+      {
+        "rank": 6,
+        "address": "GDSGS53IUWOSFIW7EWW5NJ4WJLUNVRSH3MYQ3YFGWEJI7VZCVE3C6JDT",
+        "isContract": false,
+        "explorer": "https://stellar.expert/explorer/testnet/account/GDSGS53IUWOSFIW7EWW5NJ4WJLUNVRSH3MYQ3YFGWEJI7VZCVE3C6JDT",
+        "services": 6,
+        "payments": 18,
+        "usdc": "0.3300000",
+        "first": "2026-09-18T16:27:57Z",
+        "last": "2026-09-19T17:55:32Z",
+        "paidTarget": false,
+        "notes": []
+      },
+      {
+        "rank": 7,
+        "address": "GBPA6I6PQAYXADRROHMGYGPRY7NVHXL5Q7QT3L6SOAUSIBWV27AJKWZG",
+        "isContract": false,
+        "explorer": "https://stellar.expert/explorer/testnet/account/GBPA6I6PQAYXADRROHMGYGPRY7NVHXL5Q7QT3L6SOAUSIBWV27AJKWZG",
+        "services": 2,
+        "payments": 5,
+        "usdc": "0.4010000",
+        "first": "2026-09-19T12:27:57Z",
+        "last": "2026-09-19T17:40:12Z",
+        "paidTarget": false,
+        "notes": []
+      },
+      {
+        "rank": 8,
+        "address": "GBRZSG7K6ZXJRCMYM2O2HO2DKR7RO2ACZ5FARBMQZBB4YZMDFDXFUTV7",
+        "isContract": false,
+        "explorer": "https://stellar.expert/explorer/testnet/account/GBRZSG7K6ZXJRCMYM2O2HO2DKR7RO2ACZ5FARBMQZBB4YZMDFDXFUTV7",
+        "services": 2,
+        "payments": 3,
+        "usdc": "2.3389016",
+        "first": "2026-09-13T10:03:17Z",
+        "last": "2026-09-17T19:22:32Z",
+        "paidTarget": false,
+        "notes": []
+      },
+      {
+        "rank": 9,
+        "address": "GBH4IBWTCU3ARMY33PILVW6SMBMKYWSUKONNLJN5IZGXBAQFVJWJK6A7",
+        "isContract": false,
+        "explorer": "https://stellar.expert/explorer/testnet/account/GBH4IBWTCU3ARMY33PILVW6SMBMKYWSUKONNLJN5IZGXBAQFVJWJK6A7",
+        "services": 2,
+        "payments": 4,
+        "usdc": "0.0400000",
+        "first": "2026-08-04T04:31:17Z",
+        "last": "2026-08-04T04:38:08Z",
+        "paidTarget": false,
+        "notes": [
+          "pays exactly 0.0100000 USDC to every service"
+        ]
+      }
+    ]
+  },
   "decisions": [
     {
       "agent": "agent-c",
@@ -35,7 +218,10 @@
       "summary": "Plain GET: 9561 useful chars (threshold 500); no render needed.",
       "tx": null,
       "amount": null,
-      "renderGainChars": null
+      "plainUsefulChars": 9561,
+      "renderUsefulChars": null,
+      "renderGainChars": null,
+      "renderTimeMs": null
     },
     {
       "agent": "agent-b",
@@ -48,7 +234,10 @@
       "summary": "1 independent payer in 90 days; policy requires ≥ 3.",
       "tx": null,
       "amount": null,
-      "renderGainChars": null
+      "plainUsefulChars": null,
+      "renderUsefulChars": null,
+      "renderGainChars": null,
+      "renderTimeMs": null
     },
     {
       "agent": "agent-a",
@@ -61,7 +250,10 @@
       "summary": "Plain GET: 176 useful chars. Paid render: 170 chars (-6).",
       "tx": "69603878693153fca79d0ffcf46356370087dcf9ee3dfb5f9c488413bc85c886",
       "amount": "0.0010000",
-      "renderGainChars": -6
+      "plainUsefulChars": 176,
+      "renderUsefulChars": 170,
+      "renderGainChars": -6,
+      "renderTimeMs": 4077
     },
     {
       "agent": "agent-a",
@@ -74,7 +266,611 @@
       "summary": "Plain GET: 73 useful chars. Paid render: 693 chars (+620).",
       "tx": "7132753a567a78e7b832e4c0e88c44b0b40f6d4e6a0c333922da5f526a318255",
       "amount": "0.0010000",
-      "renderGainChars": 620
+      "plainUsefulChars": 73,
+      "renderUsefulChars": 693,
+      "renderGainChars": 620,
+      "renderTimeMs": 3510
     }
-  ]
+  ],
+  "snapshot": {
+    "takenAt": "2026-10-11T16:17:03.071Z",
+    "records": 92,
+    "payments": [
+      {
+        "at": "2026-04-13T04:32:22Z",
+        "tx": "a7c433fc3c33a3284d028737ee8dab17251d9ddbd07c8f98dc727bc6eb806213",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T05:39:03Z",
+        "tx": "e883315d3e0f2f064c2188d6eee449937da71a841086c310a4d92f7907ca25fc",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T05:41:39Z",
+        "tx": "5c898eb489265c142baee086d502e25b87a5536e4386e5ccdf69edc2515c0ef6",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T06:56:51Z",
+        "tx": "085525f60de2f1b798c1120a965892a9b2216c3f2e8e1803da6aa8d29702577a",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T06:57:16Z",
+        "tx": "71e4abbd0e4262b51ff15303becd53d8b1c2b2e66643667f01406ac98f846043",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T06:57:37Z",
+        "tx": "d8d8458176639984235e17e954a6d7cf3b9b20c06c518f8e170b7fe6a67df528",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T06:57:57Z",
+        "tx": "220add1cd28f546569e1fe8995c4139700b1571484ecce6bee02e01a43f68f4f",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T06:59:17Z",
+        "tx": "165b9bc0fd7d3339da834a6d68bda393d5d0ed805499660af1490d224935c1f9",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T06:59:42Z",
+        "tx": "45d4a1ef4c884be5fe7db42635d7a8b8b102cd3cc4087a649afe093f5ef825cd",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:04:43Z",
+        "tx": "72ab4031844803c1d641c20e5398e3a4727388c90730a26a0ce548bb95c13021",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:04:59Z",
+        "tx": "69e84cee3cde3ce6850857ab42a43ef0d05f07938a704261a2847b03e46809f3",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:05:14Z",
+        "tx": "87caf048579a4f102ea1e9022006ae8e45aad35cad797ebbcdd7987088b5dfa0",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:05:34Z",
+        "tx": "dbd3101082c3bc364e0c64d063faf79c4795c254dd27166c2f672ab6cdccddca",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:05:49Z",
+        "tx": "7f276e71651f3e82f95d2ac71312f904a573f27c0be2fb8c8d2cd1e6e582451b",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:06:04Z",
+        "tx": "e03d7fcffa172934cf065131fe874f539ac4cd894e0cc3f49cac3f8095f513ea",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:06:24Z",
+        "tx": "6f7b3f6dcf1582d7eacc003d30d9cb572df6dfdffcfc6858d09fcf01012f9442",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:07:29Z",
+        "tx": "9a39cbbcb05ff77f2ffc3557f0b366a9297e86a5d635ddf30f2021ee9bd28e09",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:07:49Z",
+        "tx": "5e8f0235061bf63105cc01e02693892fd67b0b093b5085f1d7f3baaf5aff8bd2",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:08:14Z",
+        "tx": "616036e3c12d602351cf0a8b71753e1bf9b934c112fd74be9d9ce31a5fbd2310",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:08:29Z",
+        "tx": "0e32cbc47583ccea6d39ee5f421954460512ae7471b8cf727fb9352ae71022ac",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:08:44Z",
+        "tx": "d0bfab75f177b77a5ddf536e03374d801bf1e3655430d1561626de2fcb276a3d",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:09:09Z",
+        "tx": "889b0c5221f0b77139a6d2827fb19e839453bdec281090f16373165e4e43a2f0",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:09:24Z",
+        "tx": "7f0b1ed23e14ada243c8ae5ddd6ff8c0357278fdb0cd79927294d2042125eaf1",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:09:39Z",
+        "tx": "dc4af1dc6c4c51a1508f1990aa60500ffb30d3ed65ba491b9da20905c428f695",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:10:09Z",
+        "tx": "1e43ad624fd28c4571e70f0df83943d3971517d5c10ca3390449a449b454ee02",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:10:24Z",
+        "tx": "8af464e43a7765a70de9f7faa9cb1e4950ed13af245328dcd4bb30a80bf9312c",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:10:39Z",
+        "tx": "4366bb99ae1eebfa366758c6e8ab86737a0a19de24eb5543d40529e5873416ef",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:10:49Z",
+        "tx": "6d92229a9534f077f50e8337bc2095c5b3f7f9fb78dc682a05008cccedc1562c",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:10:59Z",
+        "tx": "f4b7fcdde6f4da8b3bbb629a5efb4885c0d0966827d9c1cb121884cd9971c727",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:11:14Z",
+        "tx": "d9eef46bb9d361c4983e08c5a99b33e9f715825f4c51a15b5da4d322f8c46827",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:11:29Z",
+        "tx": "0fe5843d51d8a555dff2d821271b59772d547d85c70ac656740f4ccc00c02db4",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:11:44Z",
+        "tx": "7345e3c573b80f60710c2017de4c984e93eb5a4e831812118f1c664c44e83eb4",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:11:59Z",
+        "tx": "0af6d446ebeaf30baf9fba515af907064ff47d45fa83a8d07adc1877d65866c7",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:12:14Z",
+        "tx": "289ac53ee90f2507a2f61ce7c954b630f2d48412b10c295270e122d27e71104b",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:12:29Z",
+        "tx": "1d0e2593cdbfe8ec215c837bc2afb2a378557de1ffcf638dc8aabbcfe39c4d33",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:12:39Z",
+        "tx": "e14fc2bd89db02cd36b406dab6d777e6b861ad8f8fcab2bd4169b3f38c041f41",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:12:54Z",
+        "tx": "3e4cac7b4b9a10ea20ce9a4c214fe9589cc77b90cdc41765d561ae233e911b5b",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:13:04Z",
+        "tx": "1980f86b8bfb5a3ef86b003dc3db1ef0a4df75691db2c3b81fa5851c356ee2cb",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:13:14Z",
+        "tx": "c9c0044697b880e0eb08141fe5f7a1418c0dea0487745bca7c68cbed20f0821f",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:16:30Z",
+        "tx": "e0d4dbeb53d5d97b6446b21b1b90f9a84e9fb1820c4030f3be9c3b610ebaa7fe",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:16:45Z",
+        "tx": "fd1a066e382233598d4369c5b9dcc245907be2e7758d16f3bd55afe0b05b3de4",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:17:15Z",
+        "tx": "f792a0884df90afefcac6ac74f97cf423fb04c968f520cfb614183e96c50ac4d",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:17:30Z",
+        "tx": "a729077931175bf722563cd538a8e1bdd7eb165c91e9e395fb88b90dbaf5116c",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:17:40Z",
+        "tx": "05e314e0764376baf9ee27269d290332c14124aa8a9ea83d19cbb2f3f3918602",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:18:00Z",
+        "tx": "bb196fb9de2bb45f15d1cb7a07cc6b0cc48692fe61130645291d318265c71bb2",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:18:15Z",
+        "tx": "14056b63a2e1b440f56f550d7a45ab75c909a6bc596c060262d8c66e30c877cd",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:18:25Z",
+        "tx": "a129a95f6a9f4ac474621b4401e757e218a9d547064f4c38ff4f83c870ea7cd8",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:18:40Z",
+        "tx": "363efa9b6b3d508c6eabf57c5c467741e017d2dfd5f63326a898dbbc3c12272a",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:19:15Z",
+        "tx": "9c37b220c8ec6a9365e41735d8f570b97994056b5419ab168f51a6188accda56",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:19:50Z",
+        "tx": "de3f7335de656e227bf1ba8f10363ea8030ae1f07feaf8e2ecd851cc36ba9adc",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:20:05Z",
+        "tx": "7e635e9fd1be1cf116f60d231ac60d1a083c23a5b2bf0bd76ec17bd44bb9fdde",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:20:15Z",
+        "tx": "02d781a2b35b6789552de38f6e596fda5563aaef98509fb7266301360ee2994d",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T08:20:25Z",
+        "tx": "c566bc8f4d2201bba1864074006d29345a23e284582ac0524cf6883dd35ff010",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T11:55:38Z",
+        "tx": "766b4a39b5a9630975ebab1aa1e2a0cd50f6268f921dad5c0eb6a789efb4249d",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T11:59:08Z",
+        "tx": "f1cb7d9de2e7938fe187c41291df2bfc564c4f63724f22ae738319a0ebcc5543",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T11:59:38Z",
+        "tx": "bfc37b7bde4e03cd72f05ef886c4bd4f74ed7fb4ae4fd3f655d2bc97b00476af",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T12:03:14Z",
+        "tx": "1a16db835d2ec1e2edb0939bce22eed1bdba416099ec2851c2b7db6426563416",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T12:06:54Z",
+        "tx": "b30c93b8f13f6a8005a81bc84b741cf2d00cfcd8261d353c6da792d1695b50ff",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T12:07:34Z",
+        "tx": "36f28d3ff9cdd587c4c411c3c6c64ffe812e0a2a616b2ffc6e73622ae11771ac",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T12:11:15Z",
+        "tx": "6c64e2ca47221fff3053b1ce8a076da46b1f3f17866925cebf0b001ec91f94da",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T12:11:55Z",
+        "tx": "ff487794f2959b25c2191d152649f179faf78356f2c399a969d69c526dae73ac",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T12:15:50Z",
+        "tx": "d35eeed56629c8604b3a6391c744e8210d58f9f006ab5e8b1a03f796634dd640",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T12:19:35Z",
+        "tx": "9dd1fc8f36a57766493519092739fa01adfe53dea55a55146fb9caffe0758884",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T12:19:56Z",
+        "tx": "e9215dd07fe003c2eb8e0efb59c9185f39b69d045db886e4c0f02a7792ad2f32",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T12:20:41Z",
+        "tx": "ee0bd60a05ec7abd2b4dd50cf950a6bd10f840d6c0fc2cb9289fbf657acff51a",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T12:31:32Z",
+        "tx": "9829a15656af9b83ebb48d781e1bc39ca688e77685f8f996ba5d04769da2a358",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T12:31:52Z",
+        "tx": "1a3196c3adb049ad95d9662233c7ba7664ad0928d06635010a9ef69b12164650",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T12:32:17Z",
+        "tx": "642594474eed6446978774a5a2d9c1624b00e6ebbd81058d843bbe05cf5d0b55",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T12:32:52Z",
+        "tx": "39507668f52acab7ce55afe559d516852ec9c6548b3f71f79ae55fbce525f82f",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T12:33:12Z",
+        "tx": "55374c8cc71235b1f95de86a89a7f453a13295c709fb8bd1eed5c1ed804690c3",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T12:40:08Z",
+        "tx": "912814722681ac996d8c913c7a69aa5aabba718b76b29a45325ec4dfe141eecd",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T12:40:28Z",
+        "tx": "c436a49a032d84886e636d94aaa8e82d0c4110dc2b8592ce5e2811c4f29da3fc",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T12:40:43Z",
+        "tx": "9c66c0f1c856dd01aefb86fc9f6a4fffc027e7ce36dcbeabfbc2b6fd023aeb6c",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T12:41:23Z",
+        "tx": "55c4e441b852f02134b9455af745504f6a112a2426a0da06847197a659c4215f",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T13:04:51Z",
+        "tx": "b3e82e5825d8b8cbba68e69465b3b68745462d77b3cf237d78e8ccc84bb15091",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T23:46:32Z",
+        "tx": "40140e16d3dc262861e8272257662f4d5fbdf4ddc964966fef6ad2b2d47fe249",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T23:48:12Z",
+        "tx": "5fa003ec045618a6210c62d8eda57ff7695b197faae13af826caa191f578ec6c",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T23:48:27Z",
+        "tx": "b020a4908157f21f980398d5fd52aeb85036bc9f799f44b380a85a2fcb142494",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-04-13T23:48:42Z",
+        "tx": "bd6fb16b1802dc47fc3cdeb4158abc69880cb76074aa19eea018519813ec9b58",
+        "from": "GDMJ5B3LJJHF4TTEHIEMG5UW7XNGRZJCHEFF3YXOHR5APHVCAW5OIQR3",
+        "amount": "0.0010000",
+        "cls": "linked"
+      },
+      {
+        "at": "2026-09-20T00:57:47Z",
+        "tx": "a6b8d1e64047b493287bdd5131a32a1533b882b4aa0a2bc8126498e42897ff43",
+        "from": "GBUQ25LH4BARXR4RAJZVA7QYVFTIRZD63YXYVAETETYGKMNZF5PKM3L6",
+        "amount": "0.0010000",
+        "cls": "external"
+      },
+      {
+        "at": "2026-09-20T06:38:57Z",
+        "tx": "438cccba2ed6d005d91fb32a026fc1cfef5757c635508fa3fefd1d8b665273cc",
+        "from": "GBUQ25LH4BARXR4RAJZVA7QYVFTIRZD63YXYVAETETYGKMNZF5PKM3L6",
+        "amount": "0.0010000",
+        "cls": "external"
+      },
+      {
+        "at": "2026-10-10T20:18:37Z",
+        "tx": "d8453fc3e3ecf8234606fdb06621629996b98f304fceb9dd5a9b0d9e239945da",
+        "from": "GBNS6VZIEZEFIXJXIOL2PA4K3WDCF3R2O5IVHYRIJHSERZMJU764Q4PI",
+        "amount": "0.0010000",
+        "cls": "day91"
+      },
+      {
+        "at": "2026-10-10T21:05:37Z",
+        "tx": "69603878693153fca79d0ffcf46356370087dcf9ee3dfb5f9c488413bc85c886",
+        "from": "GBNS6VZIEZEFIXJXIOL2PA4K3WDCF3R2O5IVHYRIJHSERZMJU764Q4PI",
+        "amount": "0.0010000",
+        "cls": "day91"
+      },
+      {
+        "at": "2026-10-10T21:51:07Z",
+        "tx": "7132753a567a78e7b832e4c0e88c44b0b40f6d4e6a0c333922da5f526a318255",
+        "from": "GBNS6VZIEZEFIXJXIOL2PA4K3WDCF3R2O5IVHYRIJHSERZMJU764Q4PI",
+        "amount": "0.0010000",
+        "cls": "day91"
+      },
+      {
+        "at": "2026-10-11T14:19:57Z",
+        "tx": "2d51114c066e26cb513d09be21c236906fc0aa18d30cfb0e2faa1fe14b800eb4",
+        "from": "GBNS6VZIEZEFIXJXIOL2PA4K3WDCF3R2O5IVHYRIJHSERZMJU764Q4PI",
+        "amount": "0.0010000",
+        "cls": "day91"
+      }
+    ]
+  }
 }

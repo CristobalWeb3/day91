@@ -4,76 +4,144 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Day91 Funnel</title>
-<meta name="description" content="Before/after view of a dormant x402 service on Stellar testnet, read live from Horizon." />
+<meta name="description" content="Before/after view of a dormant x402 service on Stellar testnet, read live from Horizon, with the market around it and the buyer agents' decisions." />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%230b5fff'/%3E%3Ctext x='16' y='21' font-size='14' font-family='sans-serif' font-weight='700' fill='white' text-anchor='middle'%3E91%3C/text%3E%3C/svg%3E" />
 <style>
   :root {
-    --bg: #f7f7f5; --fg: #1a1a1a; --muted: #6b6b66; --line: #e2e2dd; --card: #ffffff;
-    --accent: #0b5fff; --day91: #0b5fff; --linked: #b45309; --external: #15803d; --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    color-scheme: light;
+    --bg: #f7f7f5; --card: #ffffff; --fg: #1a1a1a; --fg-2: #52514e; --muted: #6b6b66; --line: #e2e2dd; --accent: #0b5fff;
+    /* Class colors: validated with the dataviz palette checker on this surface (light: pass; CVD pair in the 6–8 band → legend + 2px gaps + tables). */
+    --linked: #b45309; --external: #15803d; --day91: #0b5fff;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #121214; --fg: #ececea; --muted: #9a9a94; --line: #2a2a2e; --card: #1b1b1f;
-      --accent: #6b9bff; --day91: #6b9bff; --linked: #f0a44a; --external: #4ade80;
+      color-scheme: dark;
+      --bg: #121214; --card: #1b1b1f; --fg: #ececea; --fg-2: #c3c2b7; --muted: #9a9a94; --line: #2a2a2e; --accent: #6b9bff;
+      --linked: #d95926; --external: #199e70; --day91: #3987e5;
     }
   }
   :root[data-theme="dark"] {
-    --bg: #121214; --fg: #ececea; --muted: #9a9a94; --line: #2a2a2e; --card: #1b1b1f;
-    --accent: #6b9bff; --day91: #6b9bff; --linked: #f0a44a; --external: #4ade80;
+    color-scheme: dark;
+    --bg: #121214; --card: #1b1b1f; --fg: #ececea; --fg-2: #c3c2b7; --muted: #9a9a94; --line: #2a2a2e; --accent: #6b9bff;
+    --linked: #d95926; --external: #199e70; --day91: #3987e5;
   }
   * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
-  main { max-width: 960px; margin: 0 auto; padding: 32px 16px 64px; }
-  h1 { font-size: 1.6rem; margin: 0 0 4px; }
-  h2 { font-size: 1.1rem; margin: 32px 0 12px; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 1040px; margin: 0 auto; padding: 24px 16px 64px; }
+  a { color: var(--accent); }
+  h1 { font-size: 1.5rem; margin: 0; }
+  h2 { font-size: 1.1rem; margin: 40px 0 12px; }
+  h3 { margin: 0 0 8px; font-size: 1rem; }
   p { margin: 0 0 8px; }
   .muted { color: var(--muted); }
   .mono { font-family: var(--mono); font-size: 0.85em; word-break: break-all; }
+  .nowrap { white-space: nowrap; }
+  header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; margin-bottom: 8px; }
+  nav { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 0.92rem; }
+  .status { font-size: 0.9rem; margin: 4px 0 16px; }
+  .status.warn { color: var(--linked); }
+
+  .hero { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 16px 0 8px; }
+  .tile { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px 16px 14px; min-width: 0; }
+  .tile .value { font-size: 2.6rem; font-weight: 600; line-height: 1.1; letter-spacing: -0.01em; }
+  .tile .label { color: var(--fg-2); font-size: 0.92rem; margin-top: 6px; }
+  @media (max-width: 720px) { .hero { grid-template-columns: 1fr 1fr; } .tile .value { font-size: 1.9rem; } }
+
+  dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; margin: 0; font-size: 0.92rem; }
+  dt { color: var(--muted); } dd { margin: 0; min-width: 0; }
+  .legend { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 0.9rem; }
+  .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: baseline; }
+  .dot.linked { background: var(--linked); } .dot.external { background: var(--external); } .dot.day91 { background: var(--day91); }
+
   .grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
   @media (min-width: 720px) { .grid { grid-template-columns: 1fr 1fr; } }
-  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
-  .card h3 { margin: 0 0 4px; font-size: 1rem; }
-  table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px; min-width: 0; }
+  .bar { display: flex; gap: 2px; height: 20px; margin: 10px 0 8px; background: var(--card); }
+  .seg { height: 100%; min-width: 0; }
+  .seg.linked { background: var(--linked); } .seg.external { background: var(--external); } .seg.day91 { background: var(--day91); }
+  .seg.last { border-radius: 0 4px 4px 0; }
+  .bar.empty { border: 1px dashed var(--line); }
+  .counts { display: flex; flex-wrap: wrap; gap: 2px 14px; font-size: 0.9rem; color: var(--fg-2); font-variant-numeric: tabular-nums; }
+  .note { font-size: 0.9rem; color: var(--fg-2); margin-top: 8px; }
+  details { margin-top: 12px; }
+  summary { cursor: pointer; color: var(--accent); font-size: 0.92rem; }
+  .tablewrap { overflow-x: auto; margin-top: 8px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
   th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
-  th { color: var(--muted); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.03em; }
+  th { color: var(--muted); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.03em; }
   td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
   tr.total td { font-weight: 600; border-bottom: none; }
-  .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: baseline; }
-  .day91 .dot { background: var(--day91); } .linked .dot { background: var(--linked); } .external .dot { background: var(--external); }
+
+  .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 12px; }
+  .kpis .tile .value { font-size: 2rem; }
+  @media (max-width: 720px) { .kpis { grid-template-columns: 1fr 1fr 1fr; } .kpis .tile .value { font-size: 1.4rem; } .kpis .tile { padding: 12px; } }
+
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  @media (max-width: 860px) { .cards { grid-template-columns: 1fr; } }
+  .verdict { font-size: 1.6rem; font-weight: 600; line-height: 1.2; margin: 2px 0 6px; }
+  .verdict.pay { color: var(--day91); } .verdict.skip { color: var(--fg-2); }
+  .agent { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); }
+  .task { font-size: 0.92rem; margin: 0 0 8px; }
+  .summary { font-size: 0.95rem; }
+  .secondary { font-size: 0.88rem; color: var(--fg-2); margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--line); }
   .tag { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 0.78rem; border: 1px solid var(--line); white-space: nowrap; }
-  td:first-child.mono { white-space: nowrap; }
-  .tag.pay { color: var(--day91); border-color: var(--day91); } .tag.skip { color: var(--muted); }
-  a { color: var(--accent); }
-  .status { font-size: 0.9rem; }
-  .tablewrap { overflow-x: auto; }
-  dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; margin: 0; font-size: 0.92rem; }
-  dt { color: var(--muted); } dd { margin: 0; }
+  footer { margin-top: 48px; font-size: 0.85rem; color: var(--muted); }
 </style>
 </head>
 <body>
 <main>
-  <h1>Day91 · <span id="svc-name">…</span></h1>
-  <p class="muted">Market activation for a dormant x402 service. Everything below is read live from Horizon (Stellar testnet); only the activation cutoff, Day91's own wallets and the linked addresses come from <a href="data.json">data.json</a>.</p>
+  <header>
+    <h1>Day91 · <span id="svc-name">…</span></h1>
+    <nav id="nav"></nav>
+  </header>
+  <p class="muted">A market activation layer for the ecosystem's dormant supply. Payments below are read live from Horizon (Stellar testnet); the cutoff, Day91's own wallets, the linked addresses, the market and the agents' decisions come from <a href="data.json">data.json</a>.</p>
   <p class="status muted" id="status">Loading…</p>
+
+  <section class="hero" id="hero" aria-label="Key figures"></section>
 
   <dl id="facts" hidden>
     <dt>Service</dt><dd><a id="svc-url" target="_blank" rel="noopener"></a></dd>
     <dt>payTo</dt><dd><a id="payto" class="mono" target="_blank" rel="noopener"></a></dd>
-    <dt>Cutoff</dt><dd><span id="cutoff" class="mono"></span> <span class="muted">(first Day91 payment)</span></dd>
-    <dt>Classes</dt><dd><span class="day91"><span class="dot"></span>day91</span> = Day91's buyer wallets · <span class="linked"><span class="dot"></span>linked</span> = received funds from the payTo itself · <span class="external"><span class="dot"></span>external</span> = everyone else</dd>
+    <dt>Cutoff</dt><dd><span id="cutoff"></span> <span class="muted">(first Day91 payment)</span></dd>
+    <dt>Classes</dt><dd class="legend"><span><span class="dot linked"></span>linked = received funds from the payTo itself</span><span><span class="dot external"></span>external = everyone else</span><span><span class="dot day91"></span>day91 = Day91's own buyer wallets</span></dd>
   </dl>
 
-  <h2>Payments by class</h2>
+  <h2>Payments before and after the activation cutoff</h2>
   <div class="grid">
-    <div class="card"><h3>Before the cutoff</h3><p class="muted" id="before-range"></p><div class="tablewrap"><table id="before"></table></div></div>
-    <div class="card"><h3>After the cutoff</h3><p class="muted" id="after-range"></p><div class="tablewrap"><table id="after"></table></div></div>
+    <div class="card">
+      <h3>Before</h3>
+      <p class="muted" id="before-range"></p>
+      <div class="bar" id="before-bar" role="img"></div>
+      <div class="counts" id="before-counts"></div>
+      <details><summary>Table by class</summary><div class="tablewrap"><table id="before-table"></table></div></details>
+    </div>
+    <div class="card">
+      <h3>After</h3>
+      <p class="muted" id="after-range"></p>
+      <div class="bar" id="after-bar" role="img"></div>
+      <div class="counts" id="after-counts"></div>
+      <p class="note">These payments are Day91's own test buyers, labelled as such.</p>
+      <details><summary>Table by class</summary><div class="tablewrap"><table id="after-table"></table></div></details>
+      <details><summary>Day91 payments, one by one</summary><div class="tablewrap"><table id="day91-table"></table></div></details>
+    </div>
   </div>
 
-  <h2>Day91 payments</h2>
-  <div class="card tablewrap"><table id="day91-payments"></table></div>
+  <section id="market-section" hidden>
+    <h2>The market</h2>
+    <p class="muted" id="market-caption"></p>
+    <div class="kpis" id="market-kpis"></div>
+    <div class="card">
+      <h3>Probable buyers</h3>
+      <p class="muted" id="prospects-caption"></p>
+      <div class="tablewrap"><table id="prospects-table"></table></div>
+    </div>
+  </section>
 
-  <h2>Agent decisions</h2>
-  <div class="card tablewrap"><table id="decisions"></table></div>
+  <h2>What the buyer agents did</h2>
+  <div class="cards" id="cards"></div>
+
+  <footer id="footer"></footer>
 </main>
 
 <script>
@@ -81,31 +149,47 @@
   const HORIZON = "https://horizon-testnet.stellar.org";
   const EXPLORER = "https://stellar.expert/explorer/testnet";
   const USDC_ISSUER = "GBBD47IF6LWK7P7MDEVSCWR7DPUWV3NY3DTQEVFL4NAT4AQH3ZLLFLA5";
-  const CLASSES = ["day91", "linked", "external"];
+  const CLASSES = ["linked", "external", "day91"];
+  const LIVE_TIMEOUT_MS = 10000;
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const short = (a) => a.slice(0, 6) + "…" + a.slice(-4);
-  const acct = (a) => `<a class="mono" target="_blank" rel="noopener" href="${EXPLORER}/account/${a}">${short(a)}</a>`;
-  const txLink = (h) => `<a class="mono" target="_blank" rel="noopener" href="${EXPLORER}/tx/${h}">${h.slice(0, 8)}…</a>`;
+  const acctUrl = (a) => `${EXPLORER}/${a.startsWith("C") ? "contract" : "account"}/${a}`;
+  const acct = (a) => `<a class="mono nowrap" target="_blank" rel="noopener" href="${acctUrl(a)}">${short(a)}</a>`;
+  const txLink = (h, text) => `<a class="mono nowrap" target="_blank" rel="noopener" href="${EXPLORER}/tx/${h}">${text ?? h.slice(0, 8) + "…"}</a>`;
+  const ext = (href, text) => `<a target="_blank" rel="noopener" href="${href}">${text}</a>`;
 
   // Amounts as BigInt stroops (7 decimals) so sums are exact.
   const toStroops = (s) => { const [i, f = ""] = s.split("."); return BigInt(i) * 10000000n + BigInt((f + "0000000").slice(0, 7)); };
   const fmt = (n) => `${n / 10000000n}.${(n % 10000000n).toString().padStart(7, "0")}`;
 
-  async function allPayments(account) {
-    let url = `${HORIZON}/accounts/${account}/payments?limit=200&order=asc`;
-    const out = [];
-    for (let i = 0; i < 50; i++) {
-      const res = await fetch(url);
-      if (!res.ok) throw new Error(`Horizon ${res.status}`);
-      const body = await res.json();
-      const records = body._embedded.records;
-      out.push(...records);
-      $("status").textContent = `Loading… ${out.length} records`;
-      if (records.length < 200) break;
-      url = body._links.next.href;
+  const dtf = new Intl.DateTimeFormat("en-US", { timeZone: "UTC", month: "short", day: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit", hourCycle: "h23" });
+  function fmtDate(iso) {
+    const p = Object.fromEntries(dtf.formatToParts(new Date(iso)).map((x) => [x.type, x.value]));
+    return `${p.month} ${p.day}, ${p.year} ${p.hour}:${p.minute} UTC`;
+  }
+  const fmtDay = (iso) => { const p = Object.fromEntries(dtf.formatToParts(new Date(iso)).map((x) => [x.type, x.value])); return `${p.month} ${p.day}, ${p.year}`; };
+
+  async function livePayments(payTo) {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), LIVE_TIMEOUT_MS);
+    try {
+      let url = `${HORIZON}/accounts/${payTo}/payments?limit=200&order=asc`;
+      const out = [];
+      for (let i = 0; i < 50; i++) {
+        const res = await fetch(url, { signal: ctrl.signal });
+        if (!res.ok) throw new Error(`Horizon ${res.status}`);
+        const body = await res.json();
+        const records = body._embedded.records;
+        out.push(...records);
+        $("status").textContent = `Loading… ${out.length} records`;
+        if (records.length < 200) break;
+        url = body._links.next.href;
+      }
+      return out;
+    } finally {
+      clearTimeout(timer);
     }
-    return out;
   }
 
   function incomingUsdc(records, payTo) {
@@ -125,49 +209,126 @@
     return out;
   }
 
-  function classTable(el, list) {
-    const rows = CLASSES.map((cls) => {
+  function byClass(list) {
+    return CLASSES.map((cls) => {
       const sub = list.filter((p) => p.cls === cls);
-      const total = list.length || 1;
-      return `<tr class="${cls}"><td><span class="dot"></span>${cls}</td><td class="num">${sub.length}</td><td class="num">${new Set(sub.map((p) => p.from)).size}</td><td class="num mono">${fmt(sub.reduce((a, p) => a + p.amount, 0n))}</td><td class="num">${list.length ? (100 * sub.length / total).toFixed(1) + "%" : "—"}</td></tr>`;
+      return { cls, payments: sub.length, payers: new Set(sub.map((p) => p.from)).size, usdc: sub.reduce((a, p) => a + p.amount, 0n) };
     });
-    el.innerHTML = `<thead><tr><th>class</th><th class="num">payments</th><th class="num">payers</th><th class="num">USDC</th><th class="num">share</th></tr></thead><tbody>${rows.join("")}<tr class="total"><td>total</td><td class="num">${list.length}</td><td class="num">${new Set(list.map((p) => p.from)).size}</td><td class="num mono">${fmt(list.reduce((a, p) => a + p.amount, 0n))}</td><td class="num">${list.length ? "100%" : "—"}</td></tr></tbody>`;
+  }
+
+  function stackedBar(barEl, countsEl, list) {
+    const rows = byClass(list);
+    const total = list.length;
+    barEl.innerHTML = "";
+    barEl.classList.toggle("empty", total === 0);
+    const visible = rows.filter((r) => r.payments > 0);
+    visible.forEach((r, i) => {
+      const seg = document.createElement("div");
+      seg.className = `seg ${r.cls}${i === visible.length - 1 ? " last" : ""}`;
+      seg.style.flex = `${r.payments} 0 0`;
+      seg.title = `${r.cls}: ${r.payments} payment${r.payments === 1 ? "" : "s"} (${(100 * r.payments / total).toFixed(1)}%), ${r.payers} payer${r.payers === 1 ? "" : "s"}, ${fmt(r.usdc)} USDC`;
+      barEl.appendChild(seg);
+    });
+    barEl.setAttribute("aria-label", total ? rows.map((r) => `${r.cls} ${r.payments}`).join(", ") : "no payments");
+    countsEl.innerHTML = rows.map((r) => `<span><span class="dot ${r.cls}"></span>${r.cls} <strong>${r.payments}</strong>${total ? ` <span class="muted">(${(100 * r.payments / total).toFixed(1)}%)</span>` : ""}</span>`).join("") +
+      `<span class="muted">total <strong>${total}</strong> · ${fmt(list.reduce((a, p) => a + p.amount, 0n))} USDC</span>`;
+  }
+
+  function classTable(el, list) {
+    const rows = byClass(list);
+    const total = list.length;
+    el.innerHTML = `<thead><tr><th>class</th><th class="num">payments</th><th class="num">payers</th><th class="num">USDC</th><th class="num">share</th></tr></thead><tbody>` +
+      rows.map((r) => `<tr><td><span class="dot ${r.cls}"></span>${r.cls}</td><td class="num">${r.payments}</td><td class="num">${r.payers}</td><td class="num mono">${fmt(r.usdc)}</td><td class="num">${total ? (100 * r.payments / total).toFixed(1) + "%" : "—"}</td></tr>`).join("") +
+      `<tr class="total"><td>total</td><td class="num">${total}</td><td class="num">${new Set(list.map((p) => p.from)).size}</td><td class="num mono">${fmt(list.reduce((a, p) => a + p.amount, 0n))}</td><td class="num">${total ? "100%" : "—"}</td></tr></tbody>`;
+  }
+
+  function tile(value, label, href) {
+    const v = href ? `<a target="_blank" rel="noopener" href="${href}" style="color:inherit;text-decoration:none">${esc(value)}</a>` : esc(value);
+    return `<div class="tile"><div class="value">${v}</div><div class="label">${esc(label)}</div></div>`;
+  }
+
+  const VERDICT = { "agent-a": ["Paid", "pay"], "agent-b": ["Didn't buy", "skip"], "agent-c": ["Didn't need to", "skip"] };
+  function verdictFor(agent, decs) {
+    if (decs.some((d) => d.decision === "pay")) return ["Paid", "pay"];
+    return VERDICT[agent] ?? ["Didn't buy", "skip"];
+  }
+
+  function decisionCards(decisions) {
+    const agents = [...new Set(decisions.map((d) => d.agent))].sort();
+    return agents.map((agent) => {
+      const decs = decisions.filter((d) => d.agent === agent).sort((a, b) => (b.renderGainChars ?? -Infinity) - (a.renderGainChars ?? -Infinity));
+      const [verdict, cls] = verdictFor(agent, decs);
+      const primary = decs[0];
+      const secondary = decs.slice(1).filter((d) => d.decision === "pay" && (d.renderGainChars ?? 0) <= 0);
+      return `<div class="card">
+        <div class="agent">${esc(agent)} · ${esc(fmtDate(primary.timestamp))}</div>
+        <div class="verdict ${cls}">${verdict}</div>
+        <p class="task">${esc(primary.taskSummary ?? primary.task)}</p>
+        <p class="summary">${esc(primary.summary ?? primary.reason)}${primary.tx ? ` · ${txLink(primary.tx)}` : ""}</p>
+        <p class="muted mono" style="font-size:0.8rem">${esc(primary.target)}</p>
+        ${secondary.map((d) => `<div class="secondary">${d.renderGainChars !== null ? `1 render charged without gain: ${d.plainUsefulChars} → ${d.renderUsefulChars}` : esc(d.summary)} · ${d.tx ? txLink(d.tx) : ""}<br><span class="mono" style="font-size:0.78rem">${esc(d.target)}</span></div>`).join("")}
+      </div>`;
+    }).join("");
   }
 
   try {
     const data = await (await fetch("data.json", { cache: "no-store" })).json();
     const payTo = data.service.payTo;
     $("svc-name").textContent = data.service.name;
+    $("nav").innerHTML = [["Repo", data.links.repo], ["README", data.links.readme], ["GTM report", data.links.report], ["Prospects", data.links.prospectsMd]].map(([t, h]) => ext(h, t)).join("");
     $("svc-url").textContent = data.service.url; $("svc-url").href = data.service.url;
-    $("payto").textContent = payTo; $("payto").href = `${EXPLORER}/account/${payTo}`;
-    $("cutoff").textContent = data.cutoff;
+    $("payto").textContent = payTo; $("payto").href = acctUrl(payTo);
+    $("cutoff").textContent = fmtDate(data.cutoff);
     $("facts").hidden = false;
+
+    const h = data.hero;
+    $("hero").innerHTML = tile(h.harness.value, h.harness.label) + tile(h.market.value, h.market.label) + tile(h.prospects.value, h.prospects.label) + tile(h.render.value, h.render.label, h.render.tx ? `${EXPLORER}/tx/${h.render.tx}` : null);
 
     const day91 = new Set(data.day91Wallets);
     const linked = new Set(data.linked.map((l) => l.address));
     const classify = (from) => (day91.has(from) ? "day91" : linked.has(from) ? "linked" : "external");
 
-    const records = await allPayments(payTo);
-    const payments = incomingUsdc(records, payTo).map((p) => ({ ...p, cls: classify(p.from) }));
+    let payments, source;
+    try {
+      const records = await livePayments(payTo);
+      payments = incomingUsdc(records, payTo).map((p) => ({ ...p, cls: classify(p.from) }));
+      source = `Live from Horizon: ${records.length} payment records, ${payments.length} USDC payments received · data.json generated ${fmtDate(data.generatedAt)}`;
+    } catch (err) {
+      console.warn("live ledger unavailable, using snapshot", err);
+      payments = data.snapshot.payments.map((p) => ({ ...p, amount: toStroops(p.amount) }));
+      source = `Showing snapshot from ${fmtDate(data.snapshot.takenAt)}; live ledger unavailable (${err.name === "AbortError" ? `no answer in ${LIVE_TIMEOUT_MS / 1000} s` : err.message}).`;
+      $("status").classList.add("warn");
+    }
+    $("status").textContent = source;
+
     const before = payments.filter((p) => p.at < data.cutoff);
     const after = payments.filter((p) => p.at >= data.cutoff);
-
-    classTable($("before"), before);
-    classTable($("after"), after);
-    $("before-range").textContent = before.length ? `${before[0].at} → ${before.at(-1).at}` : "no payments";
-    $("after-range").textContent = after.length ? `${after[0].at} → ${after.at(-1).at}` : "no payments yet";
+    stackedBar($("before-bar"), $("before-counts"), before);
+    stackedBar($("after-bar"), $("after-counts"), after);
+    classTable($("before-table"), before);
+    classTable($("after-table"), after);
+    $("before-range").textContent = before.length ? `${fmtDate(before[0].at)} → ${fmtDate(before.at(-1).at)}` : "no payments";
+    $("after-range").textContent = after.length ? `${fmtDate(after[0].at)} → ${fmtDate(after.at(-1).at)}` : "no payments yet";
 
     const mine = payments.filter((p) => p.cls === "day91");
-    $("day91-payments").innerHTML = `<thead><tr><th>time (UTC)</th><th>from</th><th class="num">USDC</th><th>transaction</th></tr></thead><tbody>` +
-      (mine.length ? mine.map((p) => `<tr><td class="mono">${p.at}</td><td>${acct(p.from)}</td><td class="num mono">${fmt(p.amount)}</td><td>${txLink(p.tx)}</td></tr>`).join("") : `<tr><td colspan="4" class="muted">none</td></tr>`) + `</tbody>`;
+    $("day91-table").innerHTML = `<thead><tr><th>time</th><th>from</th><th class="num">USDC</th><th>transaction</th></tr></thead><tbody>` +
+      (mine.length ? mine.map((p) => `<tr><td class="nowrap">${fmtDate(p.at)}</td><td>${acct(p.from)}</td><td class="num mono">${fmt(p.amount)}</td><td>${txLink(p.tx)}</td></tr>`).join("") : `<tr><td colspan="4" class="muted">none</td></tr>`) + `</tbody>`;
 
-    const decisions = [...data.decisions].sort((a, b) => a.agent.localeCompare(b.agent) || a.timestamp.localeCompare(b.timestamp));
-    $("decisions").innerHTML = `<thead><tr><th>agent</th><th>task</th><th>decision</th><th>evidence</th><th>payment</th></tr></thead><tbody>` +
-      decisions.map((d) => `<tr><td class="mono">${esc(d.agent)}</td><td>${esc(d.taskSummary ?? d.task)}<br><span class="muted mono">${esc(d.target)}</span></td><td><span class="tag ${d.decision}">${d.decision === "pay" ? "paid" : "did not pay"}</span></td><td>${esc(d.summary ?? d.reason)}</td><td>${d.tx ? `${txLink(d.tx)}<br><span class="mono muted">${esc(d.amount)} USDC</span>` : "—"}</td></tr>`).join("") + `</tbody>`;
+    if (data.market) {
+      const m = data.market;
+      $("market-section").hidden = false;
+      $("market-caption").textContent = `Last ${m.windowDays} days, read from the x402 facilitators' ledgers on ${fmtDate(m.generatedAt)}. Likely test traffic removed (${m.testTrafficServices} services, ${m.testTrafficRule}); Day91's own payments excluded.`;
+      $("market-kpis").innerHTML = tile(m.excludingTestTraffic.payments.toLocaleString("en-US"), "x402 payments") + tile(m.excludingTestTraffic.buyers.toLocaleString("en-US"), "buyer wallets") + tile(m.excludingTestTraffic.services.toLocaleString("en-US"), "services");
+      $("prospects-caption").innerHTML = `Wallets that paid two or more distinct services in the window, ordered by last activity. ${m.prospects.length} ranked · ${ext(data.links.prospectsMd, "full report with the reasoning per wallet")}. Wallets, not contacts.`;
+      $("prospects-table").innerHTML = `<thead><tr><th class="num">#</th><th>buyer</th><th class="num">services</th><th class="num">payments</th><th class="num">USDC</th><th>first</th><th>last</th><th>paid ${esc(data.service.name)}</th></tr></thead><tbody>` +
+        m.prospects.map((p) => `<tr><td class="num">${p.rank}</td><td>${acct(p.address)}${p.isContract ? ` <span class="tag">contract</span>` : ""}</td><td class="num">${p.services}</td><td class="num">${p.payments}</td><td class="num mono">${esc(p.usdc)}</td><td class="nowrap">${fmtDay(p.first)}</td><td class="nowrap">${fmtDay(p.last)}</td><td>${p.paidTarget ? "yes" : "no"}</td></tr>`).join("") + `</tbody>`;
+    }
 
-    $("status").textContent = `Live from Horizon: ${records.length} payment records, ${payments.length} USDC payments received · data.json generated ${data.generatedAt}`;
+    $("cards").innerHTML = decisionCards(data.decisions);
+    $("footer").innerHTML = `Testnet only. Source and evidence: ${ext(data.links.repo, "github.com/CristobalWeb3/day91")} · scan report: ${ext(data.links.scanMd, "data/scan-<payTo>.md")} · MIT.`;
   } catch (err) {
     $("status").textContent = `Error: ${err.message}`;
+    $("status").classList.add("warn");
     console.error(err);
   }
 })();

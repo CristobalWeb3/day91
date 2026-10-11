@@ -117,12 +117,12 @@ Evidence: [decisions.jsonl](https://github.com/CristobalWeb3/day91/blob/main/dat
 We read the last 90 days of the three x402 facilitators we know on testnet (a facilitator submits the payment on the buyer's behalf, so its
 history is the sales ledger of every service that uses it). After dropping our own four payments:
 
-- **2,296 x402 payments, 224 buyer wallets, 113 services, 804.76 USDC.** 128 of those wallets paid something in the last 14 days; only 4 used
-  more than one facilitator.
-- **RenderGate: 2 of 2,296 payments (0.09%) and 1 of 224 buyers (0.45%).**
-- The market is lumpy. `GDABGS…6S2P` has the most buyers (15 wallets, 37 payments at ~0.30 USDC). A block of seven services each received
-  exactly 60 payments from 11 wallets at 0.00001 USDC between 2026-09-28 and 10-09; that looks like a load test, not demand, and we read it as
-  such (our automatic rule only tags services at ≤ 1 stroop, so this block is flagged by eye). `CAT76P…KSKL` is a contract taking 6 payments
+- **2,296 x402 payments, 224 buyer wallets, 113 services, 804.76 USDC** in total. Removing likely test traffic (12 services whose average
+  price is ≤ 0.0001 USDC, among them a block of seven that each took exactly 60 payments from 11 wallets at 0.00001 USDC between 2026-09-28
+  and 10-09): **1,851 payments, 129 buyer wallets, 101 services.** 35 of those 129 wallets paid something in the last 14 days; only 4 used more
+  than one facilitator.
+- **RenderGate: 2 of 2,296 payments (0.09%) and 1 of 224 buyers (0.45%; 0.78% of the 129 outside test traffic).**
+- The market is lumpy. `GDABGS…6S2P` has the most buyers (15 wallets, 37 payments at ~0.30 USDC). `CAT76P…KSKL` is a contract taking 6 payments
   averaging 35.8 USDC.
 - **Nine wallets paid two or more distinct services** in the window. These are the buyers that already shop around, which is the behaviour
   a new service needs. Ordered by last activity:
@@ -138,6 +138,9 @@ history is the sales ledger of every service that uses it). After dropping our o
 | 7 | [GBPA6I…KWZG](https://stellar.expert/explorer/testnet/account/GBPA6I6PQAYXADRROHMGYGPRY7NVHXL5Q7QT3L6SOAUSIBWV27AJKWZG) | 2 | 5 | 0.4010000 | 2026-09-19 | no |
 | 8 | [GBRZSG…UTV7](https://stellar.expert/explorer/testnet/account/GBRZSG7K6ZXJRCMYM2O2HO2DKR7RO2ACZ5FARBMQZBB4YZMDFDXFUTV7) | 2 | 3 | 2.3389016 | 2026-09-17 | no |
 | 9 | [GBH4IB…K6A7](https://stellar.expert/explorer/testnet/account/GBH4IBWTCU3ARMY33PILVW6SMBMKYWSUKONNLJN5IZGXBAQFVJWJK6A7) | 2 | 4 | 0.0400000 | 2026-08-04 | no |
+
+Prospect 1 deserves a caveat: it is a contract, not a wallet, and it pays exactly 1 USDC to each of four services through the two twin
+facilitators. That pattern looks more like test infrastructure than like a customer; treat it as something to understand before selling to it.
 
 These are wallets, not contacts. We have not identified who operates any of them.
 
@@ -158,8 +161,8 @@ Evidence: [prospects report](https://github.com/CristobalWeb3/day91/blob/main/da
    reader (or an agent) can see independent demand the moment it appears. Day91's [funnel page](https://cristobalweb3.github.io/day91/) does this
    live from Horizon; reuse it if it helps.
 6. **Approach the wallets that already shop around, starting with three** (finding 7). `CDFLOE…DMQN` is a contract that paid four different
-   services 1 USDC each and was active yesterday: a contract paying x402 means a program, and its deployer can be found from its creation
-   transaction. `GDSGS5…6JDT` tried six services in two days for 0.33 USDC: a breadth-first evaluator, the profile most likely to try a render
+   services exactly 1 USDC each, through the two twin facilitators, and was active yesterday; it may well be test infrastructure, so find its
+   deployer from the creation transaction and work out what it is before investing time. `GDSGS5…6JDT` tried six services in two days for 0.33 USDC: a breadth-first evaluator, the profile most likely to try a render
    endpoint if it is easy to find. `GAURYW…UTEZ` made 48 payments to three services in one day: a volume user; if what it buys looks like
    content fetching, pay-per-render is a natural next purchase. For each one, look at the services it pays (links in the prospects report),
    work out who operates it, and ask. And ask `GBUQ25…M3L6` why it did not come back: it is the only wallet that has actually tried you.

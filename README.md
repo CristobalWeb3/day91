@@ -30,7 +30,7 @@ independent buyers, and a way for later buyers to see that those first ones exis
 2. **Prospect.** `day91 prospects <payTo>` reads the last 90 days of the known x402 facilitators (a facilitator submits the payment on the
    buyer's behalf, so its history is the sales ledger of every service that uses it) and reports the size of the market, the service's share of
    it, and a ranked list of wallets that already pay for two or more services, each with its evidence. Zero-amount payments are dropped and
-   services priced at ≤ 1 stroop are tagged as load tests.
+   services with an average price ≤ 0.0001 USDC are tagged as likely test traffic and reported separately.
 3. **Diagnose.** The scan and prospects output (JSON + Markdown in `data/`) becomes a short report for the author, written in plain language with
    every number linked to its evidence. The language step is saved in `reasoning/`; see *Limitations*.
 4. **Activate.** Three buyer agents, all using the standard `@x402/fetch` + `@x402/stellar` client without modification, each with a different
@@ -55,8 +55,9 @@ independent buyers, and a way for later buyers to see that those first ones exis
   `testnet.stellarchain.io/accounts/<payTo>` (73 → 693). Agent B found 1 independent payer and did not buy. Agent C never needed to pay.
 - The operator that created the one external buyer onboarded 40 wallets in five days; 5 of them pay for x402 services, 1 paid RenderGate.
 - **The market (last 90 days, three facilitators, Day91's payments excluded): 2,296 x402 payments, 224 buyer wallets, 113 services,
-  804.76 USDC.** RenderGate is **2 of 2,296 payments (0.09%) and 1 of 224 buyers (0.45%)**. Nine wallets paid two or more distinct services;
-  they are the ranked prospects in [`data/prospects-<payTo>.md`](data/). Reading the three facilitators takes about 5 seconds.
+  804.76 USDC; without likely test traffic, 1,851 payments, 129 buyer wallets, 101 services.** RenderGate is **2 of 2,296 payments (0.09%)
+  and 1 of 224 buyers**. Nine wallets paid two or more distinct services; they are the ranked prospects in
+  [`data/prospects-<payTo>.md`](data/). Reading the three facilitators takes about 5 seconds.
 - One hypothesis, one occurrence: the first paid call, after ~20 days without payments to the service, returned 402 after 68 s without
   charging, consistent with settlement after a slow render exceeding the 60-second authorization window. A deliberate retry after ~16.5 h
   idle worked in 10.7 s. Not reproduced; probably a sleeping Space rather than the browser.
@@ -105,8 +106,9 @@ Everything in `data/` is committed as evidence: raw 402 challenge, paid and fail
   right after the first run, which is marked with a `note` field.
 - The cold-start settlement hypothesis is based on a single failed call.
 - **Prospects are wallets, not contacts.** `day91 prospects` ranks wallets by on-chain behaviour; it does not know who operates them.
-  Reaching out is manual work and stays on the roadmap. The load-test filter is deliberately narrow (average price ≤ 1 stroop): a block of
-  seven services with exactly 60 payments from 11 wallets each at 0.00001 USDC passes it and is called out by hand in the report.
+  Reaching out is manual work and stays on the roadmap. The test-traffic filter is a single rule (service average price ≤ 0.0001 USDC): it
+  catches a block of seven services with exactly 60 payments from 11 wallets each at 0.00001 USDC, but a harness paying realistic prices would
+  pass it. The top prospect is a contract that pays exactly 1 USDC to every service and may itself be test infrastructure; the report says so.
 - The market is measured through three known facilitators only; services that use another facilitator are not counted.
 
 ## Roadmap
