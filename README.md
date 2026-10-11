@@ -9,6 +9,8 @@ the result on-chain, before and after.
 Built for the *Find Your Way* hackathon (Stellar Passport, October 2026). Everything runs on **Stellar testnet** only.
 
 - Funnel (live from Horizon): **https://cristobalweb3.github.io/day91/**
+
+  ![Day91 funnel: key figures, payments before and after the cutoff by payer class, the x402 market and the agents' decisions](docs/screenshots/funnel-desktop.png)
 - Target service: [RenderGate](https://github.com/tantk/rendergate), a pay-per-render headless browser behind x402 (3rd place, Stellar Hacks: Agents)
 - Report for the RenderGate author: [`reasoning/rendergate-gtm.md`](reasoning/rendergate-gtm.md)
 
