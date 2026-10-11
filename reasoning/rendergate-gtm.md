@@ -7,7 +7,7 @@
 
 Hi, and congrats on the 3rd place at Stellar Hacks: Agents. We used RenderGate as the first target for Day91, a small tool that
 reads a service's payTo history on Horizon, works out why it isn't selling, and sends a few real buyer agents at it. We paid for
-four renders (0.004 USDC total, testnet) and read everything else from the public ledger. Here is what we found. Take what is
+five renders (0.005 USDC total, testnet) and read everything else from the public ledger. Here is what we found. Take what is
 useful, ignore the rest.
 
 Addresses used below: payTo `GAUJ54…25GO`, your harness wallet `GDMJ5B…IQR3`, the one independent buyer `GBUQ25…M3L6`,

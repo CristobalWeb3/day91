@@ -132,14 +132,14 @@ day91/
 
 ## Estado (11-oct-2026, bloque 5 + prospección: solo falta el video)
 
-- **On-chain:** wallet `GBNS6VZI…Q4PI` (~19.996 USDC). 4 pagos de Day91 a RenderGate (0.001 c/u): `d8453fc3…` (10-oct 20:18:37Z, **marca de corte**, `data/activation.json`),
-  `69603878…` (A, Soroswap, 176 → 170, cobrado sin aportar), `7132753a…` (A, stellarchain, 73 → 693; verificado gratis con Playwright local, 689 chars), `2d51114c…` (11-oct, medición en frío).
+- **On-chain:** wallet `GBNS6VZI…Q4PI` (~19.995 USDC). 5 pagos de Day91 a RenderGate (0.001 c/u): `d8453fc3…` (10-oct 20:18:37Z, **marca de corte**, `data/activation.json`),
+  `69603878…` (A, Soroswap, 176 → 170, cobrado sin aportar), `7132753a…` (A, stellarchain, 73 → 693; verificado con Playwright local), `2d51114c…` (11-oct, medición en frío), `9106dbae…` (11-oct, prueba del modo en vivo).
 - **Agentes (`data/decisions.jsonl`, 4 líneas, no se edita más):** C no paga; B no compra (1 pagador externo en 90 días, política ≥ 3); A paga 2 veces. Salida en inglés; `DAY91_DRY_RUN=1` no graba.
 - **Prospección (`day91 prospects <payTo>`):** 90 días de los 3 facilitators de `src/config.ts` (~5 s). Sin nuestras wallets: 2 296 pagos, 224 compradores, 113 servicios, 804.76 USDC;
   sin tráfico de prueba probable (precio medio ≤ 0.0001, 12 servicios, incluye el bloque 7×60×11): 1 851 / 129 / 101. RenderGate 2 pagos / 1 comprador (0,09 % / 0,45 % del total; 0,11 % / 0,78 % sin tráfico de prueba; citar siempre el par con la misma base); 9 prospectos →
   `data/prospects-<payTo>.{json,md}`; el 1.º es un contrato que paga exactamente 1 USDC a 4 servicios vía los gemelos (posible infraestructura de prueba, dicho en el reporte). Bridge a Base: attestation emitida (27 → 6), nada acuñado.
 - **Funnel (`docs/`, https://cristobalweb3.github.io/day91/):** titular + 4 cifras animadas y 5 secciones: 01 Scan (línea de tiempo SVG anotada, barras) · 02 Prospect (embudo 129 → 9 → 1, tabla)
-  · 03 Diagnose (hallazgos leídos del .md) · 04 Activate (tarjetas) · 05 Measure. Horizon en vivo o snapshot (> 10 s). Space Grotesk + IBM Plex Mono con fallback; paleta validada; capturas en `docs/screenshots/`.
+  · 03 Diagnose (hallazgos del .md) · 04 Activate · 05 Measure. Horizon en vivo o snapshot (> 10 s); **modo en vivo**: SSE de Horizon (sondeo cada 10 s si falla), redibuja en sitio con pulso, fila resaltada y aviso 8 s (probado con un pago real). Capturas en `docs/screenshots/`.
 - **Documentos:** `README.md` (5 pasos, limitaciones, roadmap), `reasoning/rendergate-gtm.md` (7 hallazgos + 6 acciones; redactado por LLM; issue manual en tantk/rendergate), `docs/submission.md`.
 - **Ejecutar:** `setup-buyer` · `buy-render -- [url] [agente]` · `day91 -- scan|prospects <payTo>` · `agent-a|b|c` · `funnel-data` · `typecheck`.
 - **Decisiones fuera del plan:** `src/x402/paid-get.ts` compartido. stellar-sdk ^16. Hash desde `payment-response` o Horizon por `from`. Montos BigInt, 7 decimales. "x402" = enviado por un facilitator. LICENSE MIT a nombre de "CristobalWeb3".

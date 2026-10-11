@@ -40,7 +40,8 @@ independent buyers, and a way for later buyers to see that those first ones exis
    payers in the last 90 days. Agent C has a task that never needs a render. Each agent writes its decision, the numbers it looked at and the
    transaction hash (if any) to `data/decisions.jsonl`.
 5. **Measure.** A static page reads Horizon live from the browser and shows payments before and after the activation cutoff by payer class, the
-   payments Day91 made (each linked to stellar.expert), and the agents' decisions.
+   payments Day91 made (each linked to stellar.expert), and the agents' decisions. It then listens to Horizon's event stream (polling every
+   10 s if the stream fails) and redraws in place when a new payment lands, with a short notice.
 
 ## Results against RenderGate (testnet, 2026-10-10)
 
@@ -48,7 +49,7 @@ independent buyers, and a way for later buyers to see that those first ones exis
 |---|---:|---:|---:|
 | Before the cutoff: linked (author's harness) | 79 | 1 | 0.0790000 |
 | Before the cutoff: external | 2 | 1 | 0.0020000 |
-| After the cutoff: day91 | 4 | 1 | 0.0040000 |
+| After the cutoff: day91 | 5 | 1 | 0.0050000 |
 
 - **97.5%** of historical payments came from a wallet created 5 seconds after the payTo by the same friendbot and later refunded by it.
   One independent buyer in 180 days; 20 days without an external sale at the cutoff.
@@ -67,7 +68,8 @@ independent buyers, and a way for later buyers to see that those first ones exis
 Transactions: [d8453fc3…](https://stellar.expert/explorer/testnet/tx/d8453fc3e3ecf8234606fdb06621629996b98f304fceb9dd5a9b0d9e239945da)
 (cutoff), [69603878…](https://stellar.expert/explorer/testnet/tx/69603878693153fca79d0ffcf46356370087dcf9ee3dfb5f9c488413bc85c886),
 [7132753a…](https://stellar.expert/explorer/testnet/tx/7132753a567a78e7b832e4c0e88c44b0b40f6d4e6a0c333922da5f526a318255),
-[2d51114c…](https://stellar.expert/explorer/testnet/tx/2d51114c066e26cb513d09be21c236906fc0aa18d30cfb0e2faa1fe14b800eb4) (cold-start check).
+[2d51114c…](https://stellar.expert/explorer/testnet/tx/2d51114c066e26cb513d09be21c236906fc0aa18d30cfb0e2faa1fe14b800eb4) (cold-start check),
+[9106dbae…](https://stellar.expert/explorer/testnet/tx/9106dbae6e0440245a33c598e5e599d356914e894142ad2d80fd73f63f78cbbf) (live-mode check of the funnel).
 
 ## How to run
 

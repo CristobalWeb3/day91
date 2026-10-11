@@ -144,7 +144,24 @@
   .secondary { font-size: 0.88rem; color: var(--fg-2); margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line); }
 
   footer { margin-top: 64px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 0.85rem; color: var(--muted); }
-  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  /* Live mode: streaming indicator, pulse on the new mark, highlighted new row, toast. */
+  .pill.streaming::before { animation: blink 2.4s ease-in-out infinite; }
+  .pill.polling::before { background: var(--external); opacity: 0.6; }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+  .chart .fresh { transform-box: fill-box; transform-origin: center; animation: pulse 900ms ease-out 3; }
+  @keyframes pulse { 0% { transform: scale(1); } 45% { transform: scale(2); } 100% { transform: scale(1); } }
+  tr.fresh td { animation: rowflash 6s ease-out forwards; }
+  @keyframes rowflash { 0%, 55% { background: rgba(11, 95, 255, 0.14); } 100% { background: transparent; } }
+  .toast { position: fixed; top: 16px; right: 16px; z-index: 10; background: var(--card); color: var(--fg); border: 1px solid var(--line-2); border-left: 3px solid var(--day91); border-radius: 4px; padding: 10px 14px; font-size: 0.9rem; box-shadow: 0 8px 28px rgba(0, 0, 0, 0.14); max-width: calc(100vw - 32px); animation: toastin 240ms ease-out; }
+  .toast.out { animation: toastout 300ms ease-in forwards; }
+  @keyframes toastin { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+  @keyframes toastout { to { opacity: 0; transform: translateY(-6px); } }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .pill.streaming::before, .chart .fresh, .toast, .toast.out { animation: none; }
+    tr.fresh td { animation: none; background: rgba(11, 95, 255, 0.14); }
+  }
 </style>
 </head>
 <body>
@@ -298,7 +315,7 @@
         if (records.length < 200) break;
         url = body._links.next.href;
       }
-      return out;
+      return { records: out, cursor: out.at(-1)?.paging_token ?? "now" };
     } finally { clearTimeout(timer); }
   }
 
@@ -370,6 +387,7 @@
     for (const p of payments) { const k = p.at.slice(0, 10); days.set(k, [...(days.get(k) ?? []), p]); }
     const maxN = Math.max(1, ...[...days.values()].map((l) => l.length));
     const colTop = new Map();
+    let lastCnt = null; // last count label, to lift a label that would touch its neighbour
     for (const [day, list] of days) {
       const n = list.length, xx = x(day + "T12:00:00Z");
       let topY;
@@ -381,7 +399,7 @@
           if (!sub.length) continue;
           const hgt = Math.max(2, (sub.length / n) * total - 2);
           yCursor -= hgt;
-          const r = el("rect", { x: xx - 6, y: yCursor, width: 12, height: hgt, rx: 2, class: `col ${cls}` });
+          const r = el("rect", { x: xx - 6, y: yCursor, width: 12, height: hgt, rx: 2, class: `col ${cls}${sub.some((p) => p.fresh) ? " fresh" : ""}` });
           r.appendChild(el("title", {}, `${fmtDay(day + "T00:00:00Z")} · ${sub.length} ${cls} payment${sub.length === 1 ? "" : "s"} · ${fmt(sub.reduce((a, p) => a + p.amount, 0n))} USDC`));
           svg.appendChild(r);
           yCursor -= 2;
@@ -389,13 +407,18 @@
         topY = yCursor + 2;
       } else {
         list.sort((a, b) => a.at.localeCompare(b.at)).forEach((p, i) => {
-          const c = el("circle", { cx: xx, cy: y0 - 5 - i * 9, r: 4, class: `pt ${p.cls}` });
+          const c = el("circle", { cx: xx, cy: y0 - 5 - i * 9, r: 4, class: `pt ${p.cls}${p.fresh ? " fresh" : ""}` });
           c.appendChild(el("title", {}, `${fmtDate(p.at)} · ${p.cls} · ${fmt(p.amount)} USDC · ${short(p.from)}`));
           svg.appendChild(c);
         });
         topY = y0 - 5 - (n - 1) * 9 - 4;
       }
-      if (n >= 2) { svg.appendChild(el("text", { x: xx, y: topY - 5, "text-anchor": "middle", class: "cnt" }, String(n))); topY -= 18; }
+      if (n >= 2) {
+        let ly = topY - 5;
+        if (lastCnt && Math.abs(xx - lastCnt.x) < 16 && Math.abs(ly - lastCnt.y) < 12) ly = lastCnt.y - 13;
+        svg.appendChild(el("text", { x: xx, y: ly, "text-anchor": "middle", class: "cnt" }, String(n)));
+        lastCnt = { x: xx, y: ly }; topY = ly - 13;
+      }
       colTop.set(day, topY);
     }
     // annotations, derived from the data
@@ -475,27 +498,21 @@
     const day91 = new Set(data.day91Wallets), linked = new Set(data.linked.map((l) => l.address));
     const classify = (from) => (day91.has(from) ? "day91" : linked.has(from) ? "linked" : "external");
 
-    let payments, source, live = true;
+    let payments, source, live = true, cursor = null;
     try {
-      const records = await livePayments(payTo);
-      payments = incomingUsdc(records, payTo).map((p) => ({ ...p, cls: classify(p.from) }));
-      source = `Live from Horizon: ${records.length} payment records, ${payments.length} USDC payments received · data.json generated ${fmtDate(data.generatedAt)}`;
+      const loaded = await livePayments(payTo);
+      cursor = loaded.cursor;
+      payments = incomingUsdc(loaded.records, payTo).map((p) => ({ ...p, cls: classify(p.from) }));
+      source = `Live from Horizon: ${loaded.records.length} payment records, ${payments.length} USDC payments received · data.json generated ${fmtDate(data.generatedAt)}`;
     } catch (err) {
       live = false;
       console.warn("live ledger unavailable, using snapshot", err);
       payments = data.snapshot.payments.map((p) => ({ ...p, amount: toStroops(p.amount) }));
       source = `Showing snapshot from ${fmtDate(data.snapshot.takenAt)}; live ledger unavailable (${err.name === "AbortError" ? `no answer in ${LIVE_TIMEOUT_MS / 1000} s` : err.message}).`;
     }
+    const setPill = (text, mode) => { $("pill").textContent = text; $("pill").className = `pill ${text}${mode ? ` ${mode}` : ""}`; $("pill").title = mode === "streaming" ? "connected to Horizon's event stream" : mode === "polling" ? "polling Horizon every 10 s" : ""; };
     $("status").textContent = source;
-    $("pill").textContent = live ? "live" : "snapshot"; $("pill").className = `pill ${live ? "live" : "snapshot"}`;
-
-    const before = payments.filter((p) => p.at < data.cutoff), after = payments.filter((p) => p.at >= data.cutoff);
-    const render = () => { drawTimeline($("timeline"), payments, data.accountCreatedAt, data.cutoff); if (data.market) drawFunnel($("funnel"), funnelLevels); };
-    stackedBar($("before-bar"), $("before-counts"), before); stackedBar($("after-bar"), $("after-counts"), after);
-    classTable($("before-table"), before); classTable($("after-table"), after);
-    $("before-range").textContent = before.length ? `${fmtDate(before[0].at)} → ${fmtDate(before.at(-1).at)}` : "no payments";
-    $("after-range").textContent = after.length ? `${fmtDate(after[0].at)} → ${fmtDate(after.at(-1).at)}` : "no payments yet";
-    $("timeline-caption").textContent = `${payments.length} payments from ${fmtDay(data.accountCreatedAt ?? payments[0]?.at)} to today; dashed line = activation cutoff (${fmtDate(data.cutoff)}). Hover a dot for the payment.`;
+    setPill(live ? "live" : "snapshot");
 
     let funnelLevels = [];
     if (data.market) {
@@ -511,23 +528,83 @@
       $("prospects-table").innerHTML = `<thead><tr><th class="num">#</th><th>buyer</th><th class="num">services</th><th class="num">payments</th><th class="num">USDC</th><th>first</th><th>last</th><th>paid ${esc(data.service.name)}</th></tr></thead><tbody>` +
         m.prospects.map((p) => `<tr><td class="num">${p.rank}</td><td>${acct(p.address)}${p.isContract ? ` <span class="tag">contract</span>` : ""}</td><td class="num">${p.services}</td><td class="num">${p.payments}</td><td class="num mono">${esc(p.usdc)}</td><td class="nowrap">${fmtDay(p.first)}</td><td class="nowrap">${fmtDay(p.last)}</td><td>${p.paidTarget ? "yes" : "no"}</td></tr>`).join("") + `</tbody>`;
     }
-    render();
-    let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(render, 150); });
+
+    // Everything that depends on the payment list is drawn here, so a new payment only needs one call.
+    function renderAll() {
+      payments.sort((a, b) => a.at.localeCompare(b.at));
+      const before = payments.filter((p) => p.at < data.cutoff), after = payments.filter((p) => p.at >= data.cutoff);
+      drawTimeline($("timeline"), payments, data.accountCreatedAt, data.cutoff);
+      if (data.market) drawFunnel($("funnel"), funnelLevels);
+      stackedBar($("before-bar"), $("before-counts"), before); stackedBar($("after-bar"), $("after-counts"), after);
+      classTable($("before-table"), before); classTable($("after-table"), after);
+      $("before-range").textContent = before.length ? `${fmtDate(before[0].at)} → ${fmtDate(before.at(-1).at)}` : "no payments";
+      $("after-range").textContent = after.length ? `${fmtDate(after[0].at)} → ${fmtDate(after.at(-1).at)}` : "no payments yet";
+      $("timeline-caption").textContent = `${payments.length} payments from ${fmtDay(data.accountCreatedAt ?? payments[0]?.at)} to today; dashed line = activation cutoff (${fmtDate(data.cutoff)}). Hover a dot for the payment.`;
+      const mine = payments.filter((p) => p.cls === "day91");
+      $("day91-table").innerHTML = `<thead><tr><th>time</th><th>from</th><th class="num">USDC</th><th>transaction</th></tr></thead><tbody>` +
+        (mine.length ? mine.map((p) => `<tr${p.fresh ? ' class="fresh"' : ""}><td class="nowrap">${fmtDate(p.at)}</td><td>${acct(p.from)}</td><td class="num mono">${fmt(p.amount)}</td><td>${txLink(p.tx)}</td></tr>`).join("") : `<tr><td colspan="4" class="muted">none</td></tr>`) + `</tbody>`;
+      const extAfter = after.filter((p) => p.cls === "external").length, mineAfter = after.filter((p) => p.cls === "day91").length;
+      $("honest").textContent = `After the cutoff: ${after.length} payment${after.length === 1 ? "" : "s"}, ${mineAfter} of them Day91's own test buyers and ${extAfter} from independent buyers. Day91 did not bring ${data.service.name} an external customer; it measured how buyer agents with different policies react to it, and what they leave on-chain.`;
+    }
+    renderAll();
+    let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(renderAll, 150); });
 
     if (data.findings?.length) {
       $("diagnose").hidden = false;
       $("diagnose-lead").innerHTML = `${data.findings.length} findings for the author, every number linked to its evidence, in the ${ext(data.links.report, "GTM report")}.`;
       $("findings").innerHTML = data.findings.map((f) => `<li><span class="n">${String(f.n).padStart(2, "0")}</span>${ext(f.url, esc(f.title))}<span class="arrow" aria-hidden="true">→</span></li>`).join("");
     }
-
     $("cards").innerHTML = decisionCards(data.decisions);
-
-    const mine = payments.filter((p) => p.cls === "day91");
-    $("day91-table").innerHTML = `<thead><tr><th>time</th><th>from</th><th class="num">USDC</th><th>transaction</th></tr></thead><tbody>` +
-      (mine.length ? mine.map((p) => `<tr><td class="nowrap">${fmtDate(p.at)}</td><td>${acct(p.from)}</td><td class="num mono">${fmt(p.amount)}</td><td>${txLink(p.tx)}</td></tr>`).join("") : `<tr><td colspan="4" class="muted">none</td></tr>`) + `</tbody>`;
-    const extAfter = after.filter((p) => p.cls === "external").length;
-    $("honest").textContent = `After the cutoff: ${after.length} payment${after.length === 1 ? "" : "s"}, ${mine.length} of them Day91's own test buyers and ${extAfter} from independent buyers. Day91 did not bring ${data.service.name} an external customer; it measured how buyer agents with different policies react to it, and what they leave on-chain.`;
     $("footer").innerHTML = `Testnet only. Source and evidence: ${ext(data.links.repo, "github.com/CristobalWeb3/day91")} · ${ext(data.links.scanMd, "scan report")} · ${ext(data.links.prospectsMd, "prospects report")} · MIT.`;
+
+    // Live mode: new USDC payments to the payTo arrive through Horizon's event stream; polling every 10 s if the stream fails.
+    const key = (p) => `${p.tx}:${p.from}:${p.amount}`;
+    const seen = new Set(payments.map(key));
+    function toast(p) {
+      const t = document.createElement("div");
+      t.className = "toast"; t.setAttribute("role", "status");
+      t.innerHTML = `New payment · <strong>${p.cls}</strong> · <span class="mono">${fmt(p.amount)} USDC</span> · ${txLink(p.tx)}`;
+      document.body.appendChild(t);
+      setTimeout(() => { if (REDUCED) t.remove(); else { t.classList.add("out"); setTimeout(() => t.remove(), 320); } }, 8000);
+    }
+    function addPayments(fresh) {
+      for (const p of fresh) { p.fresh = true; seen.add(key(p)); payments.push(p); }
+      renderAll();
+      for (const p of fresh) toast(p);
+      setTimeout(() => { for (const p of fresh) p.fresh = false; }, 7000);
+    }
+    function handleRecords(records) {
+      const fresh = incomingUsdc(records, payTo).map((p) => ({ ...p, cls: classify(p.from) })).filter((p) => !seen.has(key(p)));
+      if (fresh.length) addPayments(fresh);
+    }
+    let es = null, pollTimer = null;
+    function startPolling() {
+      if (pollTimer) return;
+      setPill(live ? "live" : "snapshot", "polling");
+      const poll = async () => {
+        try {
+          const res = await fetch(`${HORIZON}/accounts/${payTo}/payments?order=desc&limit=10`, { cache: "no-store" });
+          if (res.ok) handleRecords((await res.json())._embedded.records);
+        } catch (err) { console.warn("poll failed", err); }
+      };
+      pollTimer = setInterval(poll, 10000);
+    }
+    function startStream(from) {
+      if (typeof EventSource === "undefined") return startPolling();
+      let opened = false;
+      es = new EventSource(`${HORIZON}/accounts/${payTo}/payments?cursor=${encodeURIComponent(from)}&order=asc`);
+      const guard = setTimeout(() => { if (!opened) { es.close(); startPolling(); } }, 15000);
+      es.onopen = () => { opened = true; clearTimeout(guard); setPill("live", "streaming"); };
+      es.onmessage = (ev) => {
+        let r; try { r = JSON.parse(ev.data); } catch { return; }
+        if (r && typeof r === "object" && r.type) handleRecords([r]);
+      };
+      es.onerror = () => {
+        if (es.readyState === EventSource.CLOSED) { clearTimeout(guard); startPolling(); } // fatal: fall back
+        else setPill("live", "reconnecting"); // Horizon ends streams periodically; EventSource resumes with Last-Event-ID
+      };
+    }
+    if (live) startStream(cursor ?? "now"); else startPolling();
   } catch (err) {
     $("status").textContent = `Error: ${err.message}`;
     $("pill").textContent = "error";

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-11T18:13:07.547Z",
+  "generatedAt": "2026-10-11T21:12:43.457Z",
   "network": "testnet",
   "service": {
     "name": "RenderGate",
@@ -32,7 +32,7 @@
       "createdSecondsAfterPayTo": 5
     }
   ],
-  "scanGeneratedAt": "2026-10-11T14:55:58.339Z",
+  "scanGeneratedAt": "2026-10-11T21:12:41.130Z",
   "hero": {
     "harness": {
       "value": "97.5%",
@@ -314,8 +314,8 @@
     }
   ],
   "snapshot": {
-    "takenAt": "2026-10-11T18:13:07.548Z",
-    "records": 92,
+    "takenAt": "2026-10-11T21:12:43.458Z",
+    "records": 93,
     "payments": [
       {
         "at": "2026-04-13T04:32:22Z",
@@ -908,6 +908,13 @@
       {
         "at": "2026-10-11T14:19:57Z",
         "tx": "2d51114c066e26cb513d09be21c236906fc0aa18d30cfb0e2faa1fe14b800eb4",
+        "from": "GBNS6VZIEZEFIXJXIOL2PA4K3WDCF3R2O5IVHYRIJHSERZMJU764Q4PI",
+        "amount": "0.0010000",
+        "cls": "day91"
+      },
+      {
+        "at": "2026-10-11T21:11:12Z",
+        "tx": "9106dbae6e0440245a33c598e5e599d356914e894142ad2d80fd73f63f78cbbf",
         "from": "GBNS6VZIEZEFIXJXIOL2PA4K3WDCF3R2O5IVHYRIJHSERZMJU764Q4PI",
         "amount": "0.0010000",
         "cls": "day91"
