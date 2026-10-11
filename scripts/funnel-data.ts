@@ -89,7 +89,7 @@ const hero = {
   market: prospects
     ? {
         value: `${prospects.share.buyers} of ${prospects.market.excludingTestTraffic.buyers}`,
-        label: `buyers in the x402 market reached in ${prospects.windowDays} days (${prospects.share.paymentsPct}% of payments)`,
+        label: `buyers in the x402 market reached in ${prospects.windowDays} days (${prospects.share.paymentsPctExcludingTestTraffic}% of payments)`,
       }
     : { value: "—", label: "market not scanned yet" },
   prospects: prospects

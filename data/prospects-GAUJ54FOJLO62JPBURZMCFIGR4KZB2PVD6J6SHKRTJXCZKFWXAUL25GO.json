@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-10-11T16:13:59.674Z",
+  "generatedAt": "2026-10-11T16:33:17.006Z",
   "payTo": "GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO",
   "windowDays": 90,
-  "since": "2026-07-13T16:13:59.674Z",
+  "since": "2026-07-13T16:33:17.006Z",
   "testTrafficRule": "service average price ≤ 0.0001000 USDC",
   "facilitators": [
     {
       "address": "GC6CSXBV4C6RL3HEDTW57KXYXSSXKAWKGYDEOSATXM3XNKXSR2VRYN3K",
       "label": "x402.org facilitator",
-      "records": 2322,
+      "records": 2324,
       "payments": 1953,
       "buyers": 192,
       "services": 83,
-      "readMs": 3021
+      "readMs": 3250
     },
     {
       "address": "GCGKCIJE7S22OLQUWURUIL7OFMTVJY77RDZIO6ZJADVFLRUMRW6MNDYL",
@@ -21,7 +21,7 @@
       "payments": 172,
       "buyers": 17,
       "services": 15,
-      "readMs": 1060
+      "readMs": 1109
     },
     {
       "address": "GA6QLQOQFN36EV6NRIZAGMNA42MFG2XGCX23KYF6VE5DTBXPPS5RO67I",
@@ -30,7 +30,7 @@
       "payments": 175,
       "buyers": 21,
       "services": 19,
-      "readMs": 1052
+      "readMs": 1106
     }
   ],
   "removed": {
@@ -62,6 +62,7 @@
     "buyers": 1,
     "paymentsPct": 0.09,
     "buyersPct": 0.45,
+    "paymentsPctExcludingTestTraffic": 0.11,
     "buyersPctExcludingTestTraffic": 0.78,
     "buyersOfTarget": [
       "GBUQ25LH4BARXR4RAJZVA7QYVFTIRZD63YXYVAETETYGKMNZF5PKM3L6"
@@ -341,14 +342,14 @@
       ],
       "first": "2026-09-25T10:54:47Z",
       "last": "2026-09-25T16:26:02Z",
-      "daysSinceLast": 15,
+      "daysSinceLast": 16,
       "facilitators": [
         "GC6CSXBV4C6RL3HEDTW57KXYXSSXKAWKGYDEOSATXM3XNKXSR2VRYN3K"
       ],
       "paidTarget": false,
       "excluded": null,
       "notes": [],
-      "why": "3 services, 48 payments, 1.5900000 USDC over 1 day; last active 15 days ago; has not tried this service"
+      "why": "3 services, 48 payments, 1.5900000 USDC over 1 day; last active 16 days ago; has not tried this service"
     },
     {
       "rank": 4,

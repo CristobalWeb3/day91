@@ -121,7 +121,8 @@ history is the sales ledger of every service that uses it). After dropping our o
   price is ≤ 0.0001 USDC, among them a block of seven that each took exactly 60 payments from 11 wallets at 0.00001 USDC between 2026-09-28
   and 10-09): **1,851 payments, 129 buyer wallets, 101 services.** 35 of those 129 wallets paid something in the last 14 days; only 4 used more
   than one facilitator.
-- **RenderGate: 2 of 2,296 payments (0.09%) and 1 of 224 buyers (0.45%; 0.78% of the 129 outside test traffic).**
+- **RenderGate: 2 of 2,296 payments (0.09%) and 1 of 224 buyers (0.45%).** Outside likely test traffic: 2 of 1,851 payments (0.11%) and
+  1 of 129 buyers (0.78%).
 - The market is lumpy. `GDABGS…6S2P` has the most buyers (15 wallets, 37 payments at ~0.30 USDC). `CAT76P…KSKL` is a contract taking 6 payments
   averaging 35.8 USDC.
 - **Nine wallets paid two or more distinct services** in the window. These are the buyers that already shop around, which is the behaviour

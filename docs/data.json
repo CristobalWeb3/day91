@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-11T16:17:03.070Z",
+  "generatedAt": "2026-10-11T16:33:22.457Z",
   "network": "testnet",
   "service": {
     "name": "RenderGate",
@@ -37,7 +37,7 @@
     },
     "market": {
       "value": "1 of 129",
-      "label": "buyers in the x402 market reached in 90 days (0.09% of payments)"
+      "label": "buyers in the x402 market reached in 90 days (0.11% of payments)"
     },
     "prospects": {
       "value": "9",
@@ -50,7 +50,7 @@
     }
   },
   "market": {
-    "generatedAt": "2026-10-11T16:13:59.674Z",
+    "generatedAt": "2026-10-11T16:33:17.006Z",
     "windowDays": 90,
     "total": {
       "payments": 2296,
@@ -71,6 +71,7 @@
       "buyers": 1,
       "paymentsPct": 0.09,
       "buyersPct": 0.45,
+      "paymentsPctExcludingTestTraffic": 0.11,
       "buyersPctExcludingTestTraffic": 0.78,
       "buyersOfTarget": [
         "GBUQ25LH4BARXR4RAJZVA7QYVFTIRZD63YXYVAETETYGKMNZF5PKM3L6"
@@ -273,7 +274,7 @@
     }
   ],
   "snapshot": {
-    "takenAt": "2026-10-11T16:17:03.071Z",
+    "takenAt": "2026-10-11T16:33:22.458Z",
     "records": 92,
     "payments": [
       {

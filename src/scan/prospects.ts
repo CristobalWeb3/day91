@@ -73,7 +73,17 @@ export interface ProspectsResult {
   facilitators: { address: string; label: string; records: number; payments: number; buyers: number; services: number; readMs: number }[];
   removed: { zeroAmount: number; day91Payments: number; day91Wallets: string[] };
   market: { total: MarketRow; excludingTestTraffic: MarketRow; buyersOnTwoOrMoreFacilitators: number };
-  share: { payments: number; buyers: number; paymentsPct: number; buyersPct: number; buyersPctExcludingTestTraffic: number; buyersOfTarget: string[] };
+  share: {
+    payments: number;
+    buyers: number;
+    /** Sobre el mercado total. */
+    paymentsPct: number;
+    buyersPct: number;
+    /** Sobre el mercado sin tráfico de prueba probable: usar este par cuando se citan pagos y compradores juntos. */
+    paymentsPctExcludingTestTraffic: number;
+    buyersPctExcludingTestTraffic: number;
+    buyersOfTarget: string[];
+  };
   testTrafficServices: ServiceRow[];
   topServices: ServiceRow[];
   candidates: { total: number; excludedTestTrafficBuyers: number; ranked: number };
@@ -231,6 +241,7 @@ export async function prospects(payTo: string, windowDays = 90): Promise<Prospec
       buyers: buyersOfTarget.length,
       paymentsPct: pct(targetPayments.length, all.length),
       buyersPct: pct(buyersOfTarget.length, byBuyer.size),
+      paymentsPctExcludingTestTraffic: pct(targetPayments.length, real.length),
       buyersPctExcludingTestTraffic: pct(buyersOfTarget.length, realBuyers.size),
       buyersOfTarget,
     },
@@ -262,7 +273,8 @@ export function toProspectsMarkdown(r: ProspectsResult): string {
   L.push("");
 
   L.push("## Share of this payTo", "");
-  L.push(`- **${r.share.payments} of ${m.total.payments} payments (${r.share.paymentsPct}%)** and **${r.share.buyers} of ${m.total.buyers} buyers (${r.share.buyersPct}%; ${r.share.buyersPctExcludingTestTraffic}% of the ${m.excludingTestTraffic.buyers} buyers outside likely test traffic)**, Day91's wallets excluded.`);
+  L.push(`- Of the whole window: **${r.share.payments} of ${m.total.payments} payments (${r.share.paymentsPct}%)** and **${r.share.buyers} of ${m.total.buyers} buyers (${r.share.buyersPct}%)**, Day91's wallets excluded.`);
+  L.push(`- Outside likely test traffic: **${r.share.payments} of ${m.excludingTestTraffic.payments} payments (${r.share.paymentsPctExcludingTestTraffic}%)** and **${r.share.buyers} of ${m.excludingTestTraffic.buyers} buyers (${r.share.buyersPctExcludingTestTraffic}%)**.`);
   if (r.share.buyersOfTarget.length) L.push(`- Buyers of this payTo in the window: ${r.share.buyersOfTarget.map(acct).join(", ")}.`);
   L.push("");
 
