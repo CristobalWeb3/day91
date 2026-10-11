@@ -14,7 +14,7 @@ Only ~7.6% of ~962 Stellar hackathon submissions show commits 90 days after the 
 
 Scan: `day91 scan <payTo>` pulls the full payment history of the service's payout address from Horizon, classifies payers as linked (received funds from the payTo), day91 (ours) or external, profiles each external buyer (other x402 services it pays, CCTP bridging) and analyses the cohort of the operator that created it. Diagnose: a report for the author, every number linked to evidence. Activate: three buyer agents on the unmodified @x402 client, each with its own policy: A pays only if a plain GET is not enough; B buys only with ≥ 3 independent payers in 90 days; C never needs to pay. Measure: a static page reads Horizon live and shows before/after by payer class.
 
-Findings on RenderGate: 97.5% of historical payments came from the author's own harness; one independent buyer in 180 days, who spent 2% of its x402 budget there, so price isn't the blocker; one paid render that added nothing over a plain GET (refund suggested); the operator behind that buyer onboarded 40 wallets, 5 of which pay for x402. Three real paid renders, all verified on-chain and labelled as Day91's own.
+Findings on RenderGate: 97.5% of historical payments came from the author's own harness; one independent buyer in 180 days, who spent 2% of its x402 budget there, so price isn't the blocker; one paid render that added nothing over a plain GET (refund suggested); the operator behind that buyer onboarded 40 wallets, 5 of which pay for x402. Four real paid renders, all verified on-chain and labelled as Day91's own.
 
 **Links:**
 

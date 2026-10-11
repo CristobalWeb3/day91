@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-10T21:54:40.395Z",
+  "generatedAt": "2026-10-11T14:55:58.339Z",
   "payTo": "GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO",
   "cutoff": {
     "at": "2026-10-10T20:18:37Z",
@@ -12,7 +12,7 @@
     "account": {
       "createdAt": "2026-04-13T04:11:30Z",
       "funder": "GAIH3ULLFQ4DGSECF2AR555KZ4KNDGEKN4AFI4SU2M7B43MGK3QJZNSR",
-      "usdcBalance": "0.0780000"
+      "usdcBalance": "0.0790000"
     },
     "linked": [
       {
@@ -135,9 +135,9 @@
     "after": {
       "label": "desde 2026-10-10T20:18:37Z",
       "total": {
-        "payments": 3,
+        "payments": 4,
         "payers": 1,
-        "amount": "0.0030000"
+        "amount": "0.0040000"
       },
       "byClass": {
         "vinculado": {
@@ -146,9 +146,9 @@
           "amount": "0.0000000"
         },
         "day91": {
-          "payments": 3,
+          "payments": 4,
           "payers": 1,
-          "amount": "0.0030000"
+          "amount": "0.0040000"
         },
         "externo": {
           "payments": 0,
@@ -160,10 +160,10 @@
         {
           "address": "GBNS6VZIEZEFIXJXIOL2PA4K3WDCF3R2O5IVHYRIJHSERZMJU764Q4PI",
           "class": "day91",
-          "payments": 3,
-          "amount": "0.0030000",
+          "payments": 4,
+          "amount": "0.0040000",
           "first": "2026-10-10T20:18:37Z",
-          "last": "2026-10-10T21:51:07Z"
+          "last": "2026-10-11T14:19:57Z"
         }
       ],
       "byDay": [
@@ -175,10 +175,19 @@
             "day91": 3,
             "externo": 0
           }
+        },
+        {
+          "day": "2026-10-11",
+          "payments": 1,
+          "byClass": {
+            "vinculado": 0,
+            "day91": 1,
+            "externo": 0
+          }
         }
       ],
       "firstPayment": "2026-10-10T20:18:37Z",
-      "lastPayment": "2026-10-10T21:51:07Z",
+      "lastPayment": "2026-10-11T14:19:57Z",
       "lastExternalPayment": null
     },
     "daysWithoutExternalSales": 20,
@@ -705,10 +714,10 @@
   ],
   "probe": {
     "serviceUrl": "https://tantk-rendergate.hf.space",
-    "probedAt": "2026-10-10T21:54:37.318Z",
+    "probedAt": "2026-10-11T14:55:55.231Z",
     "listing": {
       "status": 200,
-      "latencyMs": 752,
+      "latencyMs": 690,
       "body": {
         "service": "RenderGate",
         "description": "Pay-per-render headless browser API on Stellar x402",
@@ -720,7 +729,7 @@
     "challenge": {
       "url": "https://tantk-rendergate.hf.space/render?url=https%3A%2F%2Fexample.com",
       "status": 402,
-      "latencyMs": 481,
+      "latencyMs": 505,
       "x402Version": 2,
       "resource": {
         "url": "http://tantk-rendergate.hf.space/render?url=https%3A%2F%2Fexample.com",

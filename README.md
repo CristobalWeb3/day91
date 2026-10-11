@@ -42,7 +42,7 @@ independent buyers, and a way for later buyers to see that those first ones exis
 |---|---:|---:|---:|
 | Before the cutoff: linked (author's harness) | 79 | 1 | 0.0790000 |
 | Before the cutoff: external | 2 | 1 | 0.0020000 |
-| After the cutoff: day91 | 3 | 1 | 0.0030000 |
+| After the cutoff: day91 | 4 | 1 | 0.0040000 |
 
 - **97.5%** of historical payments came from a wallet created 5 seconds after the payTo by the same friendbot and later refunded by it.
   One independent buyer in 180 days; 20 days without an external sale at the cutoff.
@@ -50,12 +50,14 @@ independent buyers, and a way for later buyers to see that those first ones exis
 - Agent A paid twice: `app.soroswap.finance` (plain GET 176 useful chars → render 170, charged without gain) and
   `testnet.stellarchain.io/accounts/<payTo>` (73 → 693). Agent B found 1 independent payer and did not buy. Agent C never needed to pay.
 - The operator that created the one external buyer onboarded 40 wallets in five days; 5 of them pay for x402 services, 1 paid RenderGate.
-- One hypothesis under measurement: the first paid call returned 402 after 68 s without charging, which is consistent with settlement after
-  a slow render exceeding the 60-second authorization window. Seen once.
+- One hypothesis, one occurrence: the first paid call, after ~20 days without payments to the service, returned 402 after 68 s without
+  charging, consistent with settlement after a slow render exceeding the 60-second authorization window. A deliberate retry after ~16.5 h
+  idle worked in 10.7 s. Not reproduced; probably a sleeping Space rather than the browser.
 
 Transactions: [d8453fc3…](https://stellar.expert/explorer/testnet/tx/d8453fc3e3ecf8234606fdb06621629996b98f304fceb9dd5a9b0d9e239945da)
 (cutoff), [69603878…](https://stellar.expert/explorer/testnet/tx/69603878693153fca79d0ffcf46356370087dcf9ee3dfb5f9c488413bc85c886),
-[7132753a…](https://stellar.expert/explorer/testnet/tx/7132753a567a78e7b832e4c0e88c44b0b40f6d4e6a0c333922da5f526a318255).
+[7132753a…](https://stellar.expert/explorer/testnet/tx/7132753a567a78e7b832e4c0e88c44b0b40f6d4e6a0c333922da5f526a318255),
+[2d51114c…](https://stellar.expert/explorer/testnet/tx/2d51114c066e26cb513d09be21c236906fc0aa18d30cfb0e2faa1fe14b800eb4) (cold-start check).
 
 ## How to run
 

@@ -132,8 +132,8 @@ day91/
 
 ## Estado (10-oct-2026, cierre del bloque 5: solo falta el video)
 
-- **On-chain:** wallet `GBNS6VZI…Q4PI` (~19.997 USDC). 3 pagos de Day91 a RenderGate (0.0010000 c/u) en `/payments` del payTo: `d8453fc3…` (20:18:37Z, **marca de corte**,
-  `data/activation.json`), `69603878…` (A, Soroswap, 176 → 170 chars, cobrado sin aportar), `7132753a…` (A, stellarchain, 73 → 693). Después del corte: 3 day91 / 0 externos.
+- **On-chain:** wallet `GBNS6VZI…Q4PI` (~19.996 USDC). 4 pagos de Day91 a RenderGate (0.0010000 c/u) en `/payments` del payTo: `d8453fc3…` (20:18:37Z, **marca de corte**,
+  `data/activation.json`), `69603878…` (A, Soroswap, 176 → 170, cobrado sin aportar), `7132753a…` (A, stellarchain, 73 → 693), `2d51114c…` (11-oct, medición en frío). Después del corte: 4 day91 / 0 externos.
   stellarchain verificado gratis con Playwright local (`data/stellarchain-local-render.txt`): 689 chars con dirección y saldos; sin lista de pagos.
 - **Agentes (`data/decisions.jsonl`, 4 líneas, no se edita más):** C no paga (9 561 chars ≥ 500); B no compra (1 pagador externo en 90 días, política ≥ 3); A paga 2 veces.
   Salida de consola, `task` y `reason` en inglés para corridas futuras; `DAY91_DRY_RUN=1` decide e imprime sin grabar (usado para comprobar B y C).
@@ -143,5 +143,5 @@ day91/
   con evidencia + 5 acciones; declara redacción por LLM; publicar a mano como issue en tantk/rendergate), `docs/submission.md` (short ≤ 300, long ≤ 1500, links).
 - **Ejecutar:** `npm run setup-buyer` · `buy-render -- [url] [agente]` · `day91 -- scan <payTo> [--service] [--cutoff]` · `agent-a|b|c` · `funnel-data` · `typecheck`.
 - **Decisiones fuera del plan:** `src/x402/paid-get.ts` compartido. stellar-sdk ^16. Hash desde `payment-response` o Horizon por `from`. Montos BigInt, 7 decimales. "x402" = enviado por un facilitator. LICENSE MIT a nombre de "CristobalWeb3".
-- **Hipótesis abierta (sin medir, una sola ocurrencia):** 1.er intento 402 tras 68 s (`simulation_failed`, sin cobro); liquidación después del render con firma de 60 s; arranque en frío en HF.
+- **Hipótesis (una ocurrencia, no reproducida):** 1.er intento 402 tras 68 s (`simulation_failed`, sin cobro) tras ~20 días sin pagos; tras ~16,5 h sin uso funcionó en 10,7 s (request pagada 7,98 s). Probablemente Space dormido, no el navegador.
 - **Pendiente:** video ≤ 3 min (guion: scan → diagnóstico → agentes → funnel), publicar el issue en RenderGate, completar el formulario con `docs/submission.md`.

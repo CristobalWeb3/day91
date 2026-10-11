@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-10T23:12:05.687Z",
+  "generatedAt": "2026-10-11T14:55:59.605Z",
   "network": "testnet",
   "service": {
     "name": "RenderGate",
@@ -22,7 +22,7 @@
       "createdSecondsAfterPayTo": 5
     }
   ],
-  "scanGeneratedAt": "2026-10-10T21:54:40.395Z",
+  "scanGeneratedAt": "2026-10-11T14:55:58.339Z",
   "decisions": [
     {
       "agent": "agent-c",

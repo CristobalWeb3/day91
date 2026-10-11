@@ -7,7 +7,7 @@
 
 Hi, and congrats on the 3rd place at Stellar Hacks: Agents. We used RenderGate as the first target for Day91, a small tool that
 reads a service's payTo history on Horizon, works out why it isn't selling, and sends a few real buyer agents at it. We paid for
-three renders (0.003 USDC total, testnet) and read everything else from the public ledger. Here is what we found. Take what is
+four renders (0.004 USDC total, testnet) and read everything else from the public ledger. Here is what we found. Take what is
 useful, ignore the rest.
 
 Addresses used below: payTo `GAUJ54…25GO`, your harness wallet `GDMJ5B…IQR3`, the one independent buyer `GBUQ25…M3L6`,
@@ -65,20 +65,23 @@ Evidence: [decisions.jsonl](https://github.com/CristobalWeb3/day91/blob/main/dat
 [tx 7132753a… (stellarchain)](https://stellar.expert/explorer/testnet/tx/7132753a567a78e7b832e4c0e88c44b0b40f6d4e6a0c333922da5f526a318255) ·
 [local reference render](https://github.com/CristobalWeb3/day91/blob/main/data/stellarchain-local-render.txt).
 
-## 4. Hypothesis, still being measured: settlement after a slow render can fall outside the 60-second window
+## 4. Hypothesis, one occurrence: a very cold start can push settlement outside the 60-second window
 
-Our very first paid call returned **402 after 68 seconds** with `invalid_exact_stellar_payload_simulation_failed` and no charge. The retry a few
-minutes later took 6.8 s end to end; later calls took 13.3 s and 8.8 s. The 402 advertises `maxTimeoutSeconds: 60`, and the client signs an
-authorization that expires after roughly that many ledgers. As we read `server.js`, the handler renders first and the payment is settled when
-the response goes out, so a render that takes longer than the window (cold browser, slow target) would make the facilitator's simulation fail
-after the work was done.
+Our very first paid call, made when the service had gone **about 20 days without a payment**, returned **402 after 68 seconds** with
+`invalid_exact_stellar_payload_simulation_failed` and no charge. The retry a few minutes later took 6.8 s end to end; later calls took 13.3 s and
+8.8 s. The 402 advertises `maxTimeoutSeconds: 60`, and the client signs an authorization that expires after roughly that many ledgers. As we read
+`server.js`, the handler renders first and the payment is settled when the response goes out, so a render that takes longer than the window would
+make the facilitator's simulation fail after the work was done.
 
-We saw this **once** and have not reproduced it, so please treat it as a hypothesis. If it is real, the cost is a buyer's first impression:
-the slowest call is usually the first one after idle time.
+We then tried to reproduce it deliberately: one call after **about 16.5 hours idle** worked, HTTP 200 in 10.7 s (the paid request itself took 7.98 s).
+So a normal overnight idle is fine; whatever happened the first time needed a longer sleep, which points at the Space itself being asleep rather
+than at the browser. **One occurrence, not reproduced**: please treat it as a hypothesis. If it is real, the cost is a buyer's first impression after
+weeks without traffic, which for a service in this state is most of the first impressions.
 
 Evidence: [failed-calls.jsonl](https://github.com/CristobalWeb3/day91/blob/main/data/failed-calls.jsonl) ·
 [probe-402.json](https://github.com/CristobalWeb3/day91/blob/main/data/probe-402.json) (`maxTimeoutSeconds`) ·
-[paid-calls.jsonl](https://github.com/CristobalWeb3/day91/blob/main/data/paid-calls.jsonl).
+[paid-calls.jsonl](https://github.com/CristobalWeb3/day91/blob/main/data/paid-calls.jsonl) ·
+[tx 2d51114c… (after 16.5 h idle)](https://stellar.expert/explorer/testnet/tx/2d51114c066e26cb513d09be21c236906fc0aa18d30cfb0e2faa1fe14b800eb4).
 
 ## 5. Where the probable buyers are
 
