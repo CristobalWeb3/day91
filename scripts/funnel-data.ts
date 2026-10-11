@@ -100,6 +100,17 @@ const hero = {
     : { value: "—", label: "no paid render yet" },
 };
 
+// Títulos de los hallazgos del reporte GTM, leídos del .md (no se escriben a mano), con el ancla que GitHub genera.
+const REPORT_PATH = "reasoning/rendergate-gtm.md";
+const githubSlug = (s: string) => s.toLowerCase().replace(/[^a-z0-9 \-]/g, "").trim().replace(/ /g, "-");
+const findings = existsSync(REPORT_PATH)
+  ? [...readFileSync(REPORT_PATH, "utf8").matchAll(/^## (\d+)\. (.+?)\s*$/gm)].map((m) => ({
+      n: Number(m[1]),
+      title: m[2],
+      url: `${REPO}/blob/main/${REPORT_PATH}#${githubSlug(`${m[1]}. ${m[2]}`)}`,
+    }))
+  : [];
+
 // Snapshot de los pagos USDC recibidos, clasificados, por si Horizon no responde en el navegador.
 const day91 = new Set(readWallets().map((w) => w.publicKey));
 const linked = new Set<string>(scan.baseline.linked.map((l: any) => l.address));
@@ -121,6 +132,9 @@ const data = {
     prospectsMd: `${REPO}/blob/main/data/prospects-${payTo}.md`,
     scanMd: `${REPO}/blob/main/data/scan-${payTo}.md`,
   },
+  headline: `${activation.service ?? "RenderGate"} works. Almost nobody is buying.`,
+  subline: "Day91 reads the ledger, finds the market, sends buyer agents, and measures what happens.",
+  accountCreatedAt: scan.baseline.account.createdAt,
   cutoff: activation.cutoff,
   firstDay91Tx: activation.firstDay91Tx,
   day91Wallets: [...day91],
@@ -158,6 +172,7 @@ const data = {
           })),
       }
     : null,
+  findings,
   decisions: decisionsOut,
   snapshot: { takenAt: new Date().toISOString(), records: records.length, payments: snapshotPayments },
 };
@@ -168,3 +183,4 @@ console.log(
     `snapshot ${snapshotPayments.length} pagos, mercado ${data.market ? "sí" : "no"}`,
 );
 console.log("hero:", JSON.stringify(hero));
+console.log(`findings: ${findings.length}`, findings.map((f) => `${f.n}. ${f.title.slice(0, 40)}…`).join(" | "));

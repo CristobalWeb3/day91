@@ -138,7 +138,9 @@ day91/
 - **Prospección (`day91 prospects <payTo>`):** 90 días de los 3 facilitators de `src/config.ts` (~5 s). Sin nuestras wallets: 2 296 pagos, 224 compradores, 113 servicios, 804.76 USDC;
   sin tráfico de prueba probable (precio medio ≤ 0.0001, 12 servicios, incluye el bloque 7×60×11): 1 851 / 129 / 101. RenderGate 2 pagos / 1 comprador (0,09 % / 0,45 % del total; 0,11 % / 0,78 % sin tráfico de prueba; citar siempre el par con la misma base); 9 prospectos →
   `data/prospects-<payTo>.{json,md}`; el 1.º es un contrato que paga exactamente 1 USDC a 4 servicios vía los gemelos (posible infraestructura de prueba, dicho en el reporte). Bridge a Base: attestation emitida (27 → 6), nada acuñado.
-- **Funnel (`docs/`, https://cristobalweb3.github.io/day91/):** Horizon en vivo + `data.json` (`npm run funnel-data`: corte, wallets, vinculados, decisiones con `summary`). Probado en navegador.
+- **Funnel (`docs/`, https://cristobalweb3.github.io/day91/):** titular + 4 cifras (conteo animado) y 5 secciones: 01 Scan (línea de tiempo SVG anotada, barras) · 02 Prospect (embudo
+  129 → 9 → 1, tabla) · 03 Diagnose (títulos leídos del .md del reporte) · 04 Activate (tarjetas) · 05 Measure. Horizon en vivo; snapshot en `data.json` si falla o tarda > 10 s.
+  Space Grotesk + IBM Plex Mono (Google Fonts, con fallback); paleta validada claro/oscuro. Capturas en `docs/screenshots/` (escritorio, móvil 390, oscuro, fallback).
 - **Documentos:** `README.md` (5 pasos, limitaciones, roadmap), `reasoning/rendergate-gtm.md` (7 hallazgos + 6 acciones; redactado por LLM; issue manual en tantk/rendergate), `docs/submission.md`.
 - **Ejecutar:** `setup-buyer` · `buy-render -- [url] [agente]` · `day91 -- scan|prospects <payTo>` · `agent-a|b|c` · `funnel-data` · `typecheck`.
 - **Decisiones fuera del plan:** `src/x402/paid-get.ts` compartido. stellar-sdk ^16. Hash desde `payment-response` o Horizon por `from`. Montos BigInt, 7 decimales. "x402" = enviado por un facilitator. LICENSE MIT a nombre de "CristobalWeb3".

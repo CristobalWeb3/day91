@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-11T16:33:22.457Z",
+  "generatedAt": "2026-10-11T18:13:07.547Z",
   "network": "testnet",
   "service": {
     "name": "RenderGate",
@@ -13,6 +13,9 @@
     "prospectsMd": "https://github.com/CristobalWeb3/day91/blob/main/data/prospects-GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO.md",
     "scanMd": "https://github.com/CristobalWeb3/day91/blob/main/data/scan-GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO.md"
   },
+  "headline": "RenderGate works. Almost nobody is buying.",
+  "subline": "Day91 reads the ledger, finds the market, sends buyer agents, and measures what happens.",
+  "accountCreatedAt": "2026-04-13T04:11:30Z",
   "cutoff": "2026-10-10T20:18:37Z",
   "firstDay91Tx": "d8453fc3e3ecf8234606fdb06621629996b98f304fceb9dd5a9b0d9e239945da",
   "day91Wallets": [
@@ -207,6 +210,43 @@
       }
     ]
   },
+  "findings": [
+    {
+      "n": 1,
+      "title": "Cold start: 97.5% of all payments came from your own harness",
+      "url": "https://github.com/CristobalWeb3/day91/blob/main/reasoning/rendergate-gtm.md#1-cold-start-975-of-all-payments-came-from-your-own-harness"
+    },
+    {
+      "n": 2,
+      "title": "Price is not the problem",
+      "url": "https://github.com/CristobalWeb3/day91/blob/main/reasoning/rendergate-gtm.md#2-price-is-not-the-problem"
+    },
+    {
+      "n": 3,
+      "title": "A paid render that did not beat a plain GET (and was not refunded)",
+      "url": "https://github.com/CristobalWeb3/day91/blob/main/reasoning/rendergate-gtm.md#3-a-paid-render-that-did-not-beat-a-plain-get-and-was-not-refunded"
+    },
+    {
+      "n": 4,
+      "title": "Hypothesis, one occurrence: a very cold start can push settlement outside the 60-second window",
+      "url": "https://github.com/CristobalWeb3/day91/blob/main/reasoning/rendergate-gtm.md#4-hypothesis-one-occurrence-a-very-cold-start-can-push-settlement-outside-the-60-second-window"
+    },
+    {
+      "n": 5,
+      "title": "Where the probable buyers are",
+      "url": "https://github.com/CristobalWeb3/day91/blob/main/reasoning/rendergate-gtm.md#5-where-the-probable-buyers-are"
+    },
+    {
+      "n": 6,
+      "title": "Why a cautious agent does not buy today",
+      "url": "https://github.com/CristobalWeb3/day91/blob/main/reasoning/rendergate-gtm.md#6-why-a-cautious-agent-does-not-buy-today"
+    },
+    {
+      "n": 7,
+      "title": "The market, and who is buying in it",
+      "url": "https://github.com/CristobalWeb3/day91/blob/main/reasoning/rendergate-gtm.md#7-the-market-and-who-is-buying-in-it"
+    }
+  ],
   "decisions": [
     {
       "agent": "agent-c",
@@ -274,7 +314,7 @@
     }
   ],
   "snapshot": {
-    "takenAt": "2026-10-11T16:33:22.458Z",
+    "takenAt": "2026-10-11T18:13:07.548Z",
     "records": 92,
     "payments": [
       {

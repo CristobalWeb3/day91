@@ -4,142 +4,229 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Day91 Funnel</title>
-<meta name="description" content="Before/after view of a dormant x402 service on Stellar testnet, read live from Horizon, with the market around it and the buyer agents' decisions." />
+<meta name="description" content="A dormant x402 service on Stellar testnet, read live from Horizon: the ledger, the market around it, the buyer agents' decisions and what changed." />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%230b5fff'/%3E%3Ctext x='16' y='21' font-size='14' font-family='sans-serif' font-weight='700' fill='white' text-anchor='middle'%3E91%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
   :root {
     color-scheme: light;
-    --bg: #f7f7f5; --card: #ffffff; --fg: #1a1a1a; --fg-2: #52514e; --muted: #6b6b66; --line: #e2e2dd; --accent: #0b5fff;
-    /* Class colors: validated with the dataviz palette checker on this surface (light: pass; CVD pair in the 6–8 band → legend + 2px gaps + tables). */
+    --bg: #f7f7f5; --card: #ffffff; --fg: #141413; --fg-2: #52514e; --muted: #7a7974; --line: #e2e2dd; --line-2: #cfcfc8; --accent: #0b5fff;
+    /* Class colors, validated with the dataviz palette checker on this surface. */
     --linked: #b45309; --external: #15803d; --day91: #0b5fff;
-    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --display: "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
       color-scheme: dark;
-      --bg: #121214; --card: #1b1b1f; --fg: #ececea; --fg-2: #c3c2b7; --muted: #9a9a94; --line: #2a2a2e; --accent: #6b9bff;
+      --bg: #121214; --card: #1b1b1f; --fg: #ececea; --fg-2: #c3c2b7; --muted: #8f8f89; --line: #2a2a2e; --line-2: #3a3a40; --accent: #6b9bff;
       --linked: #d95926; --external: #199e70; --day91: #3987e5;
     }
   }
   :root[data-theme="dark"] {
     color-scheme: dark;
-    --bg: #121214; --card: #1b1b1f; --fg: #ececea; --fg-2: #c3c2b7; --muted: #9a9a94; --line: #2a2a2e; --accent: #6b9bff;
+    --bg: #121214; --card: #1b1b1f; --fg: #ececea; --fg-2: #c3c2b7; --muted: #8f8f89; --line: #2a2a2e; --line-2: #3a3a40; --accent: #6b9bff;
     --linked: #d95926; --external: #199e70; --day91: #3987e5;
   }
   * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-  main { max-width: 1040px; margin: 0 auto; padding: 24px 16px 64px; }
-  a { color: var(--accent); }
-  h1 { font-size: 1.5rem; margin: 0; }
-  h2 { font-size: 1.1rem; margin: 40px 0 12px; }
-  h3 { margin: 0 0 8px; font-size: 1rem; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.55 var(--body); -webkit-font-smoothing: antialiased; }
+  main { max-width: 1080px; margin: 0 auto; padding: 20px 16px 80px; }
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
   p { margin: 0 0 8px; }
   .muted { color: var(--muted); }
-  .mono { font-family: var(--mono); font-size: 0.85em; word-break: break-all; }
+  .mono { font-family: var(--mono); font-size: 0.86em; }
+  .wrap { word-break: break-all; }
   .nowrap { white-space: nowrap; }
-  header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; margin-bottom: 8px; }
-  nav { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 0.92rem; }
-  .status { font-size: 0.9rem; margin: 4px 0 16px; }
-  .status.warn { color: var(--linked); }
+  .display { font-family: var(--display); font-weight: 700; letter-spacing: -0.02em; }
 
-  .hero { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 16px 0 8px; }
-  .tile { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px 16px 14px; min-width: 0; }
-  .tile .value { font-size: 2.6rem; font-weight: 600; line-height: 1.1; letter-spacing: -0.01em; }
-  .tile .label { color: var(--fg-2); font-size: 0.92rem; margin-top: 6px; }
-  @media (max-width: 720px) { .hero { grid-template-columns: 1fr 1fr; } .tile .value { font-size: 1.9rem; } }
+  /* Header + hero */
+  .top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+  .brand { font-family: var(--mono); font-size: 0.85rem; color: var(--fg-2); display: flex; align-items: center; gap: 10px; }
+  .pill { display: inline-flex; align-items: center; gap: 6px; padding: 2px 10px; border-radius: 999px; border: 1px solid var(--line-2); font-family: var(--mono); font-size: 0.75rem; color: var(--fg-2); }
+  .pill::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--muted); }
+  .pill.live::before { background: var(--external); } .pill.snapshot::before { background: var(--linked); }
+  nav { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 0.92rem; }
+  .hero { padding: 56px 0 24px; }
+  h1 { font-family: var(--display); font-weight: 700; letter-spacing: -0.03em; line-height: 1.02; font-size: clamp(2.2rem, 6.2vw, 4.4rem); margin: 0 0 18px; max-width: 16ch; }
+  .sub { font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: var(--fg-2); max-width: 60ch; margin: 0; }
+  .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); margin: 36px 0 0; }
+  .tile { background: var(--card); padding: 22px 20px 18px; min-width: 0; }
+  .tile .value { font-family: var(--mono); font-weight: 500; font-size: clamp(1.9rem, 3.4vw, 2.9rem); line-height: 1.05; letter-spacing: -0.02em; white-space: nowrap; }
+  .tile .label { color: var(--fg-2); font-size: 0.92rem; margin-top: 10px; line-height: 1.4; }
+  @media (max-width: 760px) { .tiles { grid-template-columns: 1fr 1fr; } .tile { padding: 16px 14px 14px; } }
 
-  dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; margin: 0; font-size: 0.92rem; }
-  dt { color: var(--muted); } dd { margin: 0; min-width: 0; }
-  .legend { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 0.9rem; }
-  .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: baseline; }
+  /* Sections */
+  section.step { display: grid; grid-template-columns: 120px 1fr; gap: 16px 32px; padding: 56px 0 8px; border-top: 1px solid var(--line); margin-top: 40px; }
+  section.step > div { min-width: 0; }
+  section.step .stepnum { font-family: var(--mono); font-size: clamp(2.6rem, 5vw, 4rem); line-height: 1; color: var(--line-2); font-weight: 500; }
+  section.step h2 { font-family: var(--display); font-weight: 700; letter-spacing: -0.02em; font-size: clamp(1.5rem, 2.6vw, 2rem); margin: 0 0 6px; line-height: 1.15; }
+  section.step .lead { color: var(--fg-2); font-size: 1.02rem; max-width: 64ch; margin: 0 0 22px; }
+  @media (max-width: 760px) { section.step { grid-template-columns: 1fr; gap: 6px; padding-top: 36px; } section.step .stepnum { font-size: 2.2rem; } }
+
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 20px; min-width: 0; }
+  .card h3 { font-family: var(--display); font-weight: 700; letter-spacing: -0.01em; font-size: 1.05rem; margin: 0 0 6px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 760px) { .grid2 { grid-template-columns: 1fr; } }
+  .legend { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 0.88rem; color: var(--fg-2); }
+  .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; vertical-align: 0; }
   .dot.linked { background: var(--linked); } .dot.external { background: var(--external); } .dot.day91 { background: var(--day91); }
 
-  .grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
-  @media (min-width: 720px) { .grid { grid-template-columns: 1fr 1fr; } }
-  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px; min-width: 0; }
-  .bar { display: flex; gap: 2px; height: 20px; margin: 10px 0 8px; background: var(--card); }
+  /* Timeline + funnel SVG */
+  .chart { width: 100%; display: block; }
+  .chart text { font-family: var(--body); font-size: 12px; fill: var(--fg-2); }
+  .chart text.anno { font-family: var(--display); font-weight: 500; font-size: 13px; fill: var(--fg); }
+  .chart text.anno-sub { font-family: var(--mono); font-size: 11px; fill: var(--muted); }
+  .chart .axis { stroke: var(--line-2); stroke-width: 1; }
+  .chart .tick { stroke: var(--line); stroke-width: 1; }
+  .chart .leader { stroke: var(--fg-2); stroke-width: 1; fill: none; }
+  .chart .pt.linked { fill: var(--linked); } .chart .pt.external { fill: var(--external); } .chart .pt.day91 { fill: var(--day91); }
+  .chart .pt { stroke: var(--card); stroke-width: 2; }
+  .chart .band { fill: var(--fg); opacity: 0.08; }
+  .chart .band.hot { fill: var(--external); opacity: 0.9; }
+  .chart text.fval { font-family: var(--mono); font-size: 26px; font-weight: 500; fill: var(--fg); }
+  .chart text.flabel { font-size: 13px; fill: var(--fg-2); }
+  .caption { font-size: 0.85rem; color: var(--muted); margin-top: 8px; }
+
+  /* Bars */
+  .bar { display: flex; gap: 2px; height: 18px; margin: 10px 0 8px; background: var(--card); }
   .seg { height: 100%; min-width: 0; }
   .seg.linked { background: var(--linked); } .seg.external { background: var(--external); } .seg.day91 { background: var(--day91); }
   .seg.last { border-radius: 0 4px 4px 0; }
-  .bar.empty { border: 1px dashed var(--line); }
-  .counts { display: flex; flex-wrap: wrap; gap: 2px 14px; font-size: 0.9rem; color: var(--fg-2); font-variant-numeric: tabular-nums; }
-  .note { font-size: 0.9rem; color: var(--fg-2); margin-top: 8px; }
+  .bar.empty { border: 1px dashed var(--line-2); }
+  .counts { display: flex; flex-wrap: wrap; gap: 2px 14px; font-size: 0.88rem; color: var(--fg-2); font-variant-numeric: tabular-nums; }
+  .note { font-size: 0.9rem; color: var(--fg-2); margin-top: 10px; padding-left: 10px; border-left: 2px solid var(--line-2); }
   details { margin-top: 12px; }
-  summary { cursor: pointer; color: var(--accent); font-size: 0.92rem; }
+  summary { cursor: pointer; color: var(--accent); font-size: 0.9rem; }
   .tablewrap { overflow-x: auto; margin-top: 8px; }
   table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
-  th { color: var(--muted); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.03em; }
+  th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 500; font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; }
   td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
   tr.total td { font-weight: 600; border-bottom: none; }
+  .tag { display: inline-block; padding: 0 7px; border-radius: 999px; font-family: var(--mono); font-size: 0.72rem; border: 1px solid var(--line-2); color: var(--fg-2); white-space: nowrap; }
 
-  .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 12px; }
-  .kpis .tile .value { font-size: 2rem; }
-  @media (max-width: 720px) { .kpis { grid-template-columns: 1fr 1fr 1fr; } .kpis .tile .value { font-size: 1.4rem; } .kpis .tile { padding: 12px; } }
+  /* Findings */
+  ol.findings { list-style: none; margin: 0; padding: 0; counter-reset: f; border-top: 1px solid var(--line); }
+  ol.findings li { display: grid; grid-template-columns: 44px 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+  ol.findings .n { font-family: var(--mono); color: var(--muted); font-size: 0.9rem; }
+  ol.findings a { color: var(--fg); text-decoration: none; font-family: var(--display); font-weight: 500; font-size: 1.05rem; }
+  ol.findings a:hover { color: var(--accent); text-decoration: underline; }
 
-  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  /* Agent cards */
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   @media (max-width: 860px) { .cards { grid-template-columns: 1fr; } }
-  .verdict { font-size: 1.6rem; font-weight: 600; line-height: 1.2; margin: 2px 0 6px; }
+  .agent { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); display: flex; justify-content: space-between; gap: 8px; }
+  .verdict { font-family: var(--display); font-weight: 700; letter-spacing: -0.02em; font-size: 2rem; line-height: 1.1; margin: 8px 0 10px; }
   .verdict.pay { color: var(--day91); } .verdict.skip { color: var(--fg-2); }
-  .agent { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); }
-  .task { font-size: 0.92rem; margin: 0 0 8px; }
-  .summary { font-size: 0.95rem; }
-  .secondary { font-size: 0.88rem; color: var(--fg-2); margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--line); }
-  .tag { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 0.78rem; border: 1px solid var(--line); white-space: nowrap; }
-  footer { margin-top: 48px; font-size: 0.85rem; color: var(--muted); }
+  .task { font-size: 0.92rem; color: var(--fg-2); margin: 0 0 12px; }
+  .summary { font-size: 0.98rem; margin: 0 0 6px; }
+  .target { font-family: var(--mono); font-size: 0.74rem; color: var(--muted); word-break: break-all; }
+  .cmp { margin: 12px 0 8px; display: grid; gap: 6px; }
+  .cmp .row { display: grid; grid-template-columns: 76px 1fr 56px; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--fg-2); }
+  .cmp .track { height: 12px; background: var(--line); border-radius: 0 3px 3px 0; overflow: visible; }
+  .cmp .fill { height: 100%; border-radius: 0 3px 3px 0; background: var(--muted); }
+  .cmp .fill.render { background: var(--day91); }
+  .cmp .v { font-family: var(--mono); text-align: right; color: var(--fg); }
+  .secondary { font-size: 0.88rem; color: var(--fg-2); margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line); }
+
+  footer { margin-top: 64px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 0.85rem; color: var(--muted); }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 </style>
 </head>
 <body>
 <main>
-  <header>
-    <h1>Day91 · <span id="svc-name">…</span></h1>
+  <div class="top">
+    <div class="brand"><span>Day91</span><span class="muted">·</span><span id="svc-name">…</span><span class="muted">·</span><span>Stellar testnet</span><span class="pill" id="pill">loading</span></div>
     <nav id="nav"></nav>
-  </header>
-  <p class="muted">A market activation layer for the ecosystem's dormant supply. Payments below are read live from Horizon (Stellar testnet); the cutoff, Day91's own wallets, the linked addresses, the market and the agents' decisions come from <a href="data.json">data.json</a>.</p>
-  <p class="status muted" id="status">Loading…</p>
-
-  <section class="hero" id="hero" aria-label="Key figures"></section>
-
-  <dl id="facts" hidden>
-    <dt>Service</dt><dd><a id="svc-url" target="_blank" rel="noopener"></a></dd>
-    <dt>payTo</dt><dd><a id="payto" class="mono" target="_blank" rel="noopener"></a></dd>
-    <dt>Cutoff</dt><dd><span id="cutoff"></span> <span class="muted">(first Day91 payment)</span></dd>
-    <dt>Classes</dt><dd class="legend"><span><span class="dot linked"></span>linked = received funds from the payTo itself</span><span><span class="dot external"></span>external = everyone else</span><span><span class="dot day91"></span>day91 = Day91's own buyer wallets</span></dd>
-  </dl>
-
-  <h2>Payments before and after the activation cutoff</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>Before</h3>
-      <p class="muted" id="before-range"></p>
-      <div class="bar" id="before-bar" role="img"></div>
-      <div class="counts" id="before-counts"></div>
-      <details><summary>Table by class</summary><div class="tablewrap"><table id="before-table"></table></div></details>
-    </div>
-    <div class="card">
-      <h3>After</h3>
-      <p class="muted" id="after-range"></p>
-      <div class="bar" id="after-bar" role="img"></div>
-      <div class="counts" id="after-counts"></div>
-      <p class="note">These payments are Day91's own test buyers, labelled as such.</p>
-      <details><summary>Table by class</summary><div class="tablewrap"><table id="after-table"></table></div></details>
-      <details><summary>Day91 payments, one by one</summary><div class="tablewrap"><table id="day91-table"></table></div></details>
-    </div>
   </div>
 
-  <section id="market-section" hidden>
-    <h2>The market</h2>
-    <p class="muted" id="market-caption"></p>
-    <div class="kpis" id="market-kpis"></div>
-    <div class="card">
-      <h3>Probable buyers</h3>
-      <p class="muted" id="prospects-caption"></p>
-      <div class="tablewrap"><table id="prospects-table"></table></div>
+  <div class="hero">
+    <h1 id="headline">&nbsp;</h1>
+    <p class="sub" id="subline"></p>
+    <div class="tiles" id="hero" aria-label="Key figures"></div>
+  </div>
+
+  <section class="step" id="scan">
+    <div class="stepnum">01</div>
+    <div>
+      <h2>Scan</h2>
+      <p class="lead">Every USDC payment the service's payout address ever received, read from Horizon and classified by who sent it.</p>
+      <div class="card">
+        <svg class="chart" id="timeline" role="img" aria-label="Payments over time, one dot per payment, coloured by payer class"></svg>
+        <div class="legend" style="margin-top:8px"><span><span class="dot linked"></span>linked = received funds from the payTo itself</span><span><span class="dot external"></span>external = everyone else</span><span><span class="dot day91"></span>day91 = Day91's own buyer wallets</span></div>
+        <p class="caption" id="timeline-caption"></p>
+      </div>
+      <div class="grid2" style="margin-top:16px">
+        <div class="card">
+          <h3>Before the cutoff</h3>
+          <p class="muted" id="before-range" style="font-size:0.88rem"></p>
+          <div class="bar" id="before-bar" role="img"></div>
+          <div class="counts" id="before-counts"></div>
+          <details><summary>Table by class</summary><div class="tablewrap"><table id="before-table"></table></div></details>
+        </div>
+        <div class="card">
+          <h3>After the cutoff</h3>
+          <p class="muted" id="after-range" style="font-size:0.88rem"></p>
+          <div class="bar" id="after-bar" role="img"></div>
+          <div class="counts" id="after-counts"></div>
+          <p class="note">These payments are Day91's own test buyers, labelled as such.</p>
+          <details><summary>Table by class</summary><div class="tablewrap"><table id="after-table"></table></div></details>
+        </div>
+      </div>
     </div>
   </section>
 
-  <h2>What the buyer agents did</h2>
-  <div class="cards" id="cards"></div>
+  <section class="step" id="prospect" hidden>
+    <div class="stepnum">02</div>
+    <div>
+      <h2>Prospect</h2>
+      <p class="lead" id="prospect-lead"></p>
+      <div class="card">
+        <svg class="chart" id="funnel" role="img" aria-label="Funnel: market buyers, multi-service buyers, buyers reached by this service"></svg>
+        <p class="caption">Band widths on a square-root scale so the small end stays visible; the numbers are the data.</p>
+      </div>
+      <div class="card" style="margin-top:16px">
+        <h3>Probable buyers</h3>
+        <p class="muted" id="prospects-caption" style="font-size:0.9rem"></p>
+        <div class="tablewrap"><table id="prospects-table"></table></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="step" id="diagnose" hidden>
+    <div class="stepnum">03</div>
+    <div>
+      <h2>Diagnose</h2>
+      <p class="lead" id="diagnose-lead"></p>
+      <ol class="findings" id="findings"></ol>
+    </div>
+  </section>
+
+  <section class="step" id="activate">
+    <div class="stepnum">04</div>
+    <div>
+      <h2>Activate</h2>
+      <p class="lead">Three buyer agents on the unmodified x402 client, each with its own purchasing policy. Real payments on testnet.</p>
+      <div class="cards" id="cards"></div>
+    </div>
+  </section>
+
+  <section class="step" id="measure">
+    <div class="stepnum">05</div>
+    <div>
+      <h2>Measure</h2>
+      <p class="lead">What changed on the ledger, and what did not.</p>
+      <div class="card">
+        <p id="status" class="mono" style="margin:0 0 12px">Loading…</p>
+        <div class="tablewrap"><table id="day91-table"></table></div>
+        <p class="note" id="honest"></p>
+      </div>
+    </div>
+  </section>
 
   <footer id="footer"></footer>
 </main>
@@ -151,6 +238,7 @@
   const USDC_ISSUER = "GBBD47IF6LWK7P7MDEVSCWR7DPUWV3NY3DTQEVFL4NAT4AQH3ZLLFLA5";
   const CLASSES = ["linked", "external", "day91"];
   const LIVE_TIMEOUT_MS = 10000;
+  const REDUCED = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const short = (a) => a.slice(0, 6) + "…" + a.slice(-4);
@@ -158,17 +246,30 @@
   const acct = (a) => `<a class="mono nowrap" target="_blank" rel="noopener" href="${acctUrl(a)}">${short(a)}</a>`;
   const txLink = (h, text) => `<a class="mono nowrap" target="_blank" rel="noopener" href="${EXPLORER}/tx/${h}">${text ?? h.slice(0, 8) + "…"}</a>`;
   const ext = (href, text) => `<a target="_blank" rel="noopener" href="${href}">${text}</a>`;
+  const SVG = "http://www.w3.org/2000/svg";
+  const el = (name, attrs = {}, text) => { const n = document.createElementNS(SVG, name); for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v); if (text !== undefined) n.textContent = text; return n; };
 
-  // Amounts as BigInt stroops (7 decimals) so sums are exact.
   const toStroops = (s) => { const [i, f = ""] = s.split("."); return BigInt(i) * 10000000n + BigInt((f + "0000000").slice(0, 7)); };
   const fmt = (n) => `${n / 10000000n}.${(n % 10000000n).toString().padStart(7, "0")}`;
-
   const dtf = new Intl.DateTimeFormat("en-US", { timeZone: "UTC", month: "short", day: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit", hourCycle: "h23" });
-  function fmtDate(iso) {
-    const p = Object.fromEntries(dtf.formatToParts(new Date(iso)).map((x) => [x.type, x.value]));
-    return `${p.month} ${p.day}, ${p.year} ${p.hour}:${p.minute} UTC`;
+  const parts = (iso) => Object.fromEntries(dtf.formatToParts(new Date(iso)).map((x) => [x.type, x.value]));
+  const fmtDate = (iso) => { const p = parts(iso); return `${p.month} ${p.day}, ${p.year} ${p.hour}:${p.minute} UTC`; };
+  const fmtDay = (iso) => { const p = parts(iso); return `${p.month} ${p.day}, ${p.year}`; };
+  const fmtShort = (iso) => { const p = parts(iso); return `${p.month} ${p.day}`; };
+
+  // Count-up for the hero figures: every numeric token in the value animates from 0; off under reduced motion.
+  function countUp(node, text) {
+    if (REDUCED) { node.textContent = text; return; }
+    const tokens = text.split(/(\d+(?:\.\d+)?)/);
+    const start = performance.now(), dur = 1100;
+    const ease = (t) => 1 - Math.pow(1 - t, 3);
+    const frame = (now) => {
+      const k = ease(Math.min(1, (now - start) / dur));
+      node.textContent = tokens.map((t, i) => (i % 2 ? (t.includes(".") ? (Number(t) * k).toFixed(t.split(".")[1].length) : String(Math.round(Number(t) * k))) : t)).join("");
+      if (k < 1) requestAnimationFrame(frame); else node.textContent = text;
+    };
+    requestAnimationFrame(frame);
   }
-  const fmtDay = (iso) => { const p = Object.fromEntries(dtf.formatToParts(new Date(iso)).map((x) => [x.type, x.value])); return `${p.month} ${p.day}, ${p.year}`; };
 
   async function livePayments(payTo) {
     const ctrl = new AbortController();
@@ -187,9 +288,7 @@
         url = body._links.next.href;
       }
       return out;
-    } finally {
-      clearTimeout(timer);
-    }
+    } finally { clearTimeout(timer); }
   }
 
   function incomingUsdc(records, payTo) {
@@ -209,18 +308,11 @@
     return out;
   }
 
-  function byClass(list) {
-    return CLASSES.map((cls) => {
-      const sub = list.filter((p) => p.cls === cls);
-      return { cls, payments: sub.length, payers: new Set(sub.map((p) => p.from)).size, usdc: sub.reduce((a, p) => a + p.amount, 0n) };
-    });
-  }
+  const byClass = (list) => CLASSES.map((cls) => { const sub = list.filter((p) => p.cls === cls); return { cls, payments: sub.length, payers: new Set(sub.map((p) => p.from)).size, usdc: sub.reduce((a, p) => a + p.amount, 0n) }; });
 
   function stackedBar(barEl, countsEl, list) {
-    const rows = byClass(list);
-    const total = list.length;
-    barEl.innerHTML = "";
-    barEl.classList.toggle("empty", total === 0);
+    const rows = byClass(list), total = list.length;
+    barEl.innerHTML = ""; barEl.classList.toggle("empty", total === 0);
     const visible = rows.filter((r) => r.payments > 0);
     visible.forEach((r, i) => {
       const seg = document.createElement("div");
@@ -234,39 +326,105 @@
       `<span class="muted">total <strong>${total}</strong> · ${fmt(list.reduce((a, p) => a + p.amount, 0n))} USDC</span>`;
   }
 
-  function classTable(el, list) {
-    const rows = byClass(list);
-    const total = list.length;
-    el.innerHTML = `<thead><tr><th>class</th><th class="num">payments</th><th class="num">payers</th><th class="num">USDC</th><th class="num">share</th></tr></thead><tbody>` +
+  function classTable(tbl, list) {
+    const rows = byClass(list), total = list.length;
+    tbl.innerHTML = `<thead><tr><th>class</th><th class="num">payments</th><th class="num">payers</th><th class="num">USDC</th><th class="num">share</th></tr></thead><tbody>` +
       rows.map((r) => `<tr><td><span class="dot ${r.cls}"></span>${r.cls}</td><td class="num">${r.payments}</td><td class="num">${r.payers}</td><td class="num mono">${fmt(r.usdc)}</td><td class="num">${total ? (100 * r.payments / total).toFixed(1) + "%" : "—"}</td></tr>`).join("") +
       `<tr class="total"><td>total</td><td class="num">${total}</td><td class="num">${new Set(list.map((p) => p.from)).size}</td><td class="num mono">${fmt(list.reduce((a, p) => a + p.amount, 0n))}</td><td class="num">${total ? "100%" : "—"}</td></tr></tbody>`;
   }
 
-  function tile(value, label, href) {
-    const v = href ? `<a target="_blank" rel="noopener" href="${href}" style="color:inherit;text-decoration:none">${esc(value)}</a>` : esc(value);
-    return `<div class="tile"><div class="value">${v}</div><div class="label">${esc(label)}</div></div>`;
+  // Timeline: one dot per payment, same-day payments stacked; drawn in real pixels so text never shrinks.
+  function drawTimeline(svg, payments, t0iso, cutoff) {
+    const W = Math.max(300, svg.parentElement.clientWidth - 40), H = 262;
+    const padL = 12, padR = 12, top = 74, y0 = H - 44, maxCol = y0 - top - 8;
+    svg.setAttribute("viewBox", `0 0 ${W} ${H}`); svg.setAttribute("width", W); svg.setAttribute("height", H);
+    svg.innerHTML = "";
+    const t0 = Date.parse(t0iso ?? payments[0]?.at ?? cutoff), t1 = Date.now();
+    const x = (iso) => padL + ((Date.parse(iso) - t0) / (t1 - t0)) * (W - padL - padR);
+    // month ticks
+    const d = new Date(t0); d.setUTCDate(1); d.setUTCHours(0, 0, 0, 0); d.setUTCMonth(d.getUTCMonth() + 1);
+    for (; d.getTime() < t1; d.setUTCMonth(d.getUTCMonth() + 1)) {
+      const xx = x(d.toISOString());
+      svg.appendChild(el("line", { x1: xx, x2: xx, y1: y0, y2: y0 + 5, class: "axis" }));
+      svg.appendChild(el("text", { x: xx, y: y0 + 19, "text-anchor": "middle" }, d.toLocaleString("en-US", { month: "short", timeZone: "UTC" }) + (d.getUTCMonth() === 0 ? ` ${d.getUTCFullYear()}` : "")));
+    }
+    svg.appendChild(el("line", { x1: padL, x2: W - padR, y1: y0, y2: y0, class: "axis" }));
+    svg.appendChild(el("text", { x: padL, y: y0 + 36, class: "anno-sub" }, `account created ${fmtDay(new Date(t0).toISOString())}`));
+    svg.appendChild(el("text", { x: W - padR, y: y0 + 36, "text-anchor": "end", class: "anno-sub" }, `today ${fmtDay(new Date(t1).toISOString())}`));
+    // cutoff line
+    const xc = x(cutoff);
+    svg.appendChild(el("line", { x1: xc, x2: xc, y1: top - 6, y2: y0, class: "tick", "stroke-dasharray": "3 3" }));
+    // dots
+    const days = new Map();
+    for (const p of payments) { const k = p.at.slice(0, 10); days.set(k, [...(days.get(k) ?? []), p]); }
+    const colTop = new Map();
+    for (const [day, list] of days) {
+      const n = list.length, step = Math.min(9, maxCol / n), xx = x(day + "T12:00:00Z");
+      list.sort((a, b) => a.at.localeCompare(b.at)).forEach((p, i) => {
+        const c = el("circle", { cx: xx, cy: y0 - 5 - i * step, r: 4, class: `pt ${p.cls}` });
+        c.appendChild(el("title", {}, `${fmtDate(p.at)} · ${p.cls} · ${fmt(p.amount)} USDC · ${short(p.from)}`));
+        svg.appendChild(c);
+      });
+      colTop.set(day, y0 - 5 - (n - 1) * step - 4);
+    }
+    // annotations, derived from the data
+    const linkedDays = [...days.entries()].map(([k, l]) => [k, l.filter((p) => p.cls === "linked").length]).sort((a, b) => b[1] - a[1]);
+    const firstExt = payments.filter((p) => p.cls === "external").sort((a, b) => a.at.localeCompare(b.at))[0];
+    // Two label rows above the plot; each annotation flips its anchor if it would leave the drawing.
+    const annos = [];
+    if (linkedDays[0]?.[1]) annos.push({ day: linkedDays[0][0], label: "author's harness", sub: `${linkedDays[0][1]} payments, ${fmtShort(linkedDays[0][0] + "T00:00:00Z")}`, row: 0 });
+    annos.push({ day: cutoff.slice(0, 10), label: "Day91 activation", sub: fmtShort(cutoff), row: 0 });
+    if (firstExt) annos.push({ day: firstExt.at.slice(0, 10), label: "first independent buyer", sub: fmtShort(firstExt.at), row: 1 });
+    for (const a of annos) {
+      const xx = x(a.day + "T12:00:00Z"), yTop = colTop.get(a.day) ?? y0 - 10;
+      const estW = Math.max(a.label.length, a.sub.length) * 7.2;
+      const anchor = xx + 10 + estW > W - padR ? "end" : "start", tx = anchor === "start" ? xx + 10 : xx - 8;
+      const yLabel = a.row === 0 ? 18 : 48, ySub = yLabel + 14, yLeaderTop = ySub + 6;
+      svg.appendChild(el("path", { d: `M${xx},${yTop - 2} V${yLeaderTop}`, class: "leader" }));
+      svg.appendChild(el("text", { x: tx, y: yLabel, "text-anchor": anchor, class: "anno" }, a.label));
+      svg.appendChild(el("text", { x: tx, y: ySub, "text-anchor": anchor, class: "anno-sub" }, a.sub));
+    }
+  }
+
+  // Funnel: three bands, widths on a sqrt scale so 1 of 129 is still visible; numbers carry the truth.
+  function drawFunnel(svg, levels) {
+    const W = Math.max(300, svg.parentElement.clientWidth - 40), textH = 30, bandH = 30, gap = 18;
+    const H = levels.length * (textH + bandH + gap) - gap + 4;
+    svg.setAttribute("viewBox", `0 0 ${W} ${H}`); svg.setAttribute("width", W); svg.setAttribute("height", H);
+    svg.innerHTML = "";
+    const max = Math.sqrt(Math.max(1, levels[0].value));
+    levels.forEach((lv, i) => {
+      const yText = i * (textH + bandH + gap) + 22, yBand = yText + 10;
+      const w = Math.max(12, (Math.sqrt(lv.value) / max) * W), xx = (W - w) / 2;
+      const val = el("text", { x: 0, y: yText, class: "fval" }, lv.value.toLocaleString("en-US"));
+      svg.appendChild(val);
+      svg.appendChild(el("text", { x: 0, y: yText, class: "flabel", dx: String(lv.value).length * 15 + 12 }, lv.label));
+      svg.appendChild(el("rect", { x: xx, y: yBand, width: w, height: bandH, rx: 3, class: `band${i === levels.length - 1 ? " hot" : ""}` }));
+    });
   }
 
   const VERDICT = { "agent-a": ["Paid", "pay"], "agent-b": ["Didn't buy", "skip"], "agent-c": ["Didn't need to", "skip"] };
-  function verdictFor(agent, decs) {
-    if (decs.some((d) => d.decision === "pay")) return ["Paid", "pay"];
-    return VERDICT[agent] ?? ["Didn't buy", "skip"];
-  }
-
   function decisionCards(decisions) {
     const agents = [...new Set(decisions.map((d) => d.agent))].sort();
     return agents.map((agent) => {
       const decs = decisions.filter((d) => d.agent === agent).sort((a, b) => (b.renderGainChars ?? -Infinity) - (a.renderGainChars ?? -Infinity));
-      const [verdict, cls] = verdictFor(agent, decs);
-      const primary = decs[0];
+      const [verdict, cls] = decs.some((d) => d.decision === "pay") ? ["Paid", "pay"] : (VERDICT[agent] ?? ["Didn't buy", "skip"]);
+      const p = decs[0];
       const secondary = decs.slice(1).filter((d) => d.decision === "pay" && (d.renderGainChars ?? 0) <= 0);
+      const cmp = p.plainUsefulChars !== null && p.renderUsefulChars !== null ? (() => {
+        const max = Math.max(p.plainUsefulChars, p.renderUsefulChars, 1);
+        return `<div class="cmp" aria-label="useful characters, plain GET versus paid render">
+          <div class="row"><span>plain GET</span><div class="track"><div class="fill" style="width:${(100 * p.plainUsefulChars / max).toFixed(1)}%"></div></div><span class="v">${p.plainUsefulChars}</span></div>
+          <div class="row"><span>paid render</span><div class="track"><div class="fill render" style="width:${(100 * p.renderUsefulChars / max).toFixed(1)}%"></div></div><span class="v">${p.renderUsefulChars}</span></div>
+        </div>`; })() : "";
       return `<div class="card">
-        <div class="agent">${esc(agent)} · ${esc(fmtDate(primary.timestamp))}</div>
+        <div class="agent"><span>${esc(agent)}</span><span>${esc(fmtDate(p.timestamp))}</span></div>
         <div class="verdict ${cls}">${verdict}</div>
-        <p class="task">${esc(primary.taskSummary ?? primary.task)}</p>
-        <p class="summary">${esc(primary.summary ?? primary.reason)}${primary.tx ? ` · ${txLink(primary.tx)}` : ""}</p>
-        <p class="muted mono" style="font-size:0.8rem">${esc(primary.target)}</p>
-        ${secondary.map((d) => `<div class="secondary">${d.renderGainChars !== null ? `1 render charged without gain: ${d.plainUsefulChars} → ${d.renderUsefulChars}` : esc(d.summary)} · ${d.tx ? txLink(d.tx) : ""}<br><span class="mono" style="font-size:0.78rem">${esc(d.target)}</span></div>`).join("")}
+        <p class="task">${esc(p.taskSummary ?? p.task)}</p>
+        ${cmp}
+        <p class="summary">${esc(p.summary ?? p.reason)}${p.tx ? ` · ${txLink(p.tx)}` : ""}</p>
+        <div class="target">${esc(p.target)}</div>
+        ${secondary.map((d) => `<div class="secondary">1 render charged without gain: <span class="mono">${d.plainUsefulChars} → ${d.renderUsefulChars}</span>${d.tx ? ` · ${txLink(d.tx)}` : ""}<div class="target">${esc(d.target)}</div></div>`).join("")}
       </div>`;
     }).join("");
   }
@@ -276,59 +434,72 @@
     const payTo = data.service.payTo;
     $("svc-name").textContent = data.service.name;
     $("nav").innerHTML = [["Repo", data.links.repo], ["README", data.links.readme], ["GTM report", data.links.report], ["Prospects", data.links.prospectsMd]].map(([t, h]) => ext(h, t)).join("");
-    $("svc-url").textContent = data.service.url; $("svc-url").href = data.service.url;
-    $("payto").textContent = payTo; $("payto").href = acctUrl(payTo);
-    $("cutoff").textContent = fmtDate(data.cutoff);
-    $("facts").hidden = false;
+    $("headline").textContent = data.headline;
+    $("subline").textContent = data.subline;
 
     const h = data.hero;
-    $("hero").innerHTML = tile(h.harness.value, h.harness.label) + tile(h.market.value, h.market.label) + tile(h.prospects.value, h.prospects.label) + tile(h.render.value, h.render.label, h.render.tx ? `${EXPLORER}/tx/${h.render.tx}` : null);
+    $("hero").innerHTML = [h.harness, h.market, h.prospects, h.render].map((t, i) => `<div class="tile"><div class="value" id="hv${i}">${t.tx ? `<a target="_blank" rel="noopener" href="${EXPLORER}/tx/${t.tx}" style="color:inherit;text-decoration:none"></a>` : ""}</div><div class="label">${esc(t.label)}</div></div>`).join("");
+    [h.harness, h.market, h.prospects, h.render].forEach((t, i) => { const v = $(`hv${i}`); countUp(v.firstElementChild ?? v, t.value); });
 
-    const day91 = new Set(data.day91Wallets);
-    const linked = new Set(data.linked.map((l) => l.address));
+    const day91 = new Set(data.day91Wallets), linked = new Set(data.linked.map((l) => l.address));
     const classify = (from) => (day91.has(from) ? "day91" : linked.has(from) ? "linked" : "external");
 
-    let payments, source;
+    let payments, source, live = true;
     try {
       const records = await livePayments(payTo);
       payments = incomingUsdc(records, payTo).map((p) => ({ ...p, cls: classify(p.from) }));
       source = `Live from Horizon: ${records.length} payment records, ${payments.length} USDC payments received · data.json generated ${fmtDate(data.generatedAt)}`;
     } catch (err) {
+      live = false;
       console.warn("live ledger unavailable, using snapshot", err);
       payments = data.snapshot.payments.map((p) => ({ ...p, amount: toStroops(p.amount) }));
       source = `Showing snapshot from ${fmtDate(data.snapshot.takenAt)}; live ledger unavailable (${err.name === "AbortError" ? `no answer in ${LIVE_TIMEOUT_MS / 1000} s` : err.message}).`;
-      $("status").classList.add("warn");
     }
     $("status").textContent = source;
+    $("pill").textContent = live ? "live" : "snapshot"; $("pill").className = `pill ${live ? "live" : "snapshot"}`;
 
-    const before = payments.filter((p) => p.at < data.cutoff);
-    const after = payments.filter((p) => p.at >= data.cutoff);
-    stackedBar($("before-bar"), $("before-counts"), before);
-    stackedBar($("after-bar"), $("after-counts"), after);
-    classTable($("before-table"), before);
-    classTable($("after-table"), after);
+    const before = payments.filter((p) => p.at < data.cutoff), after = payments.filter((p) => p.at >= data.cutoff);
+    const render = () => { drawTimeline($("timeline"), payments, data.accountCreatedAt, data.cutoff); if (data.market) drawFunnel($("funnel"), funnelLevels); };
+    stackedBar($("before-bar"), $("before-counts"), before); stackedBar($("after-bar"), $("after-counts"), after);
+    classTable($("before-table"), before); classTable($("after-table"), after);
     $("before-range").textContent = before.length ? `${fmtDate(before[0].at)} → ${fmtDate(before.at(-1).at)}` : "no payments";
     $("after-range").textContent = after.length ? `${fmtDate(after[0].at)} → ${fmtDate(after.at(-1).at)}` : "no payments yet";
+    $("timeline-caption").textContent = `${payments.length} payments from ${fmtDay(data.accountCreatedAt ?? payments[0]?.at)} to today; dashed line = activation cutoff (${fmtDate(data.cutoff)}). Hover a dot for the payment.`;
+
+    let funnelLevels = [];
+    if (data.market) {
+      const m = data.market;
+      funnelLevels = [
+        { value: m.excludingTestTraffic.buyers, label: `buyer wallets in the market, ${m.windowDays} days` },
+        { value: m.prospects.length, label: "buy from two or more services" },
+        { value: m.share.buyers, label: `reached by ${data.service.name}` },
+      ];
+      $("prospect").hidden = false;
+      $("prospect-lead").textContent = `The whole x402 market on testnet, read from the facilitators' ledgers: ${m.excludingTestTraffic.payments.toLocaleString("en-US")} payments, ${m.excludingTestTraffic.buyers} buyer wallets, ${m.excludingTestTraffic.services} services in ${m.windowDays} days. ${data.service.name} has ${m.share.payments} of those payments (${m.share.paymentsPctExcludingTestTraffic}%).`;
+      $("prospects-caption").innerHTML = `Wallets that paid two or more distinct services, ordered by last activity. ${ext(data.links.prospectsMd, "Full report with the reasoning per wallet")}. Wallets, not contacts.`;
+      $("prospects-table").innerHTML = `<thead><tr><th class="num">#</th><th>buyer</th><th class="num">services</th><th class="num">payments</th><th class="num">USDC</th><th>first</th><th>last</th><th>paid ${esc(data.service.name)}</th></tr></thead><tbody>` +
+        m.prospects.map((p) => `<tr><td class="num">${p.rank}</td><td>${acct(p.address)}${p.isContract ? ` <span class="tag">contract</span>` : ""}</td><td class="num">${p.services}</td><td class="num">${p.payments}</td><td class="num mono">${esc(p.usdc)}</td><td class="nowrap">${fmtDay(p.first)}</td><td class="nowrap">${fmtDay(p.last)}</td><td>${p.paidTarget ? "yes" : "no"}</td></tr>`).join("") + `</tbody>`;
+    }
+    render();
+    let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(render, 150); });
+
+    if (data.findings?.length) {
+      $("diagnose").hidden = false;
+      $("diagnose-lead").innerHTML = `${data.findings.length} findings for the author, every number linked to its evidence, in the ${ext(data.links.report, "GTM report")}.`;
+      $("findings").innerHTML = data.findings.map((f) => `<li><span class="n">${String(f.n).padStart(2, "0")}</span>${ext(f.url, esc(f.title))}</li>`).join("");
+    }
+
+    $("cards").innerHTML = decisionCards(data.decisions);
 
     const mine = payments.filter((p) => p.cls === "day91");
     $("day91-table").innerHTML = `<thead><tr><th>time</th><th>from</th><th class="num">USDC</th><th>transaction</th></tr></thead><tbody>` +
       (mine.length ? mine.map((p) => `<tr><td class="nowrap">${fmtDate(p.at)}</td><td>${acct(p.from)}</td><td class="num mono">${fmt(p.amount)}</td><td>${txLink(p.tx)}</td></tr>`).join("") : `<tr><td colspan="4" class="muted">none</td></tr>`) + `</tbody>`;
-
-    if (data.market) {
-      const m = data.market;
-      $("market-section").hidden = false;
-      $("market-caption").textContent = `Last ${m.windowDays} days, read from the x402 facilitators' ledgers on ${fmtDate(m.generatedAt)}. Likely test traffic removed (${m.testTrafficServices} services, ${m.testTrafficRule}); Day91's own payments excluded.`;
-      $("market-kpis").innerHTML = tile(m.excludingTestTraffic.payments.toLocaleString("en-US"), "x402 payments") + tile(m.excludingTestTraffic.buyers.toLocaleString("en-US"), "buyer wallets") + tile(m.excludingTestTraffic.services.toLocaleString("en-US"), "services");
-      $("prospects-caption").innerHTML = `Wallets that paid two or more distinct services in the window, ordered by last activity. ${m.prospects.length} ranked · ${ext(data.links.prospectsMd, "full report with the reasoning per wallet")}. Wallets, not contacts.`;
-      $("prospects-table").innerHTML = `<thead><tr><th class="num">#</th><th>buyer</th><th class="num">services</th><th class="num">payments</th><th class="num">USDC</th><th>first</th><th>last</th><th>paid ${esc(data.service.name)}</th></tr></thead><tbody>` +
-        m.prospects.map((p) => `<tr><td class="num">${p.rank}</td><td>${acct(p.address)}${p.isContract ? ` <span class="tag">contract</span>` : ""}</td><td class="num">${p.services}</td><td class="num">${p.payments}</td><td class="num mono">${esc(p.usdc)}</td><td class="nowrap">${fmtDay(p.first)}</td><td class="nowrap">${fmtDay(p.last)}</td><td>${p.paidTarget ? "yes" : "no"}</td></tr>`).join("") + `</tbody>`;
-    }
-
-    $("cards").innerHTML = decisionCards(data.decisions);
-    $("footer").innerHTML = `Testnet only. Source and evidence: ${ext(data.links.repo, "github.com/CristobalWeb3/day91")} · scan report: ${ext(data.links.scanMd, "data/scan-<payTo>.md")} · MIT.`;
+    const extAfter = after.filter((p) => p.cls === "external").length;
+    $("honest").textContent = `After the cutoff: ${after.length} payment${after.length === 1 ? "" : "s"}, ${mine.length} of them Day91's own test buyers and ${extAfter} from independent buyers. Day91 did not bring ${data.service.name} an external customer; it measured how buyer agents with different policies react to it, and what they leave on-chain.`;
+    $("footer").innerHTML = `Testnet only. Source and evidence: ${ext(data.links.repo, "github.com/CristobalWeb3/day91")} · ${ext(data.links.scanMd, "scan report")} · ${ext(data.links.prospectsMd, "prospects report")} · MIT.`;
   } catch (err) {
     $("status").textContent = `Error: ${err.message}`;
-    $("status").classList.add("warn");
+    $("pill").textContent = "error";
     console.error(err);
   }
 })();
