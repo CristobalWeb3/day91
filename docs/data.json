@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-11T21:12:43.457Z",
+  "generatedAt": "2026-10-12T22:58:41.743Z",
   "network": "testnet",
   "service": {
     "name": "RenderGate",
@@ -11,7 +11,9 @@
     "readme": "https://github.com/CristobalWeb3/day91#readme",
     "report": "https://github.com/CristobalWeb3/day91/blob/main/reasoning/rendergate-gtm.md",
     "prospectsMd": "https://github.com/CristobalWeb3/day91/blob/main/data/prospects-GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO.md",
-    "scanMd": "https://github.com/CristobalWeb3/day91/blob/main/data/scan-GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO.md"
+    "scanMd": "https://github.com/CristobalWeb3/day91/blob/main/data/scan-GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO.md",
+    "video": "https://youtu.be/pcEAPKgzaTQ",
+    "issue": "https://github.com/tantk/rendergate/issues/2"
   },
   "headline": "RenderGate works. Almost nobody is buying.",
   "subline": "Day91 reads the ledger, finds the market, sends buyer agents, and measures what happens.",
@@ -32,7 +34,7 @@
       "createdSecondsAfterPayTo": 5
     }
   ],
-  "scanGeneratedAt": "2026-10-11T21:12:41.130Z",
+  "scanGeneratedAt": "2026-10-12T22:44:31.743Z",
   "hero": {
     "harness": {
       "value": "97.5%",
@@ -53,20 +55,20 @@
     }
   },
   "market": {
-    "generatedAt": "2026-10-11T16:33:17.006Z",
+    "generatedAt": "2026-10-12T22:44:33.349Z",
     "windowDays": 90,
     "total": {
-      "payments": 2296,
+      "payments": 2349,
       "buyers": 224,
       "services": 113,
-      "usdc": "804.7632514",
-      "buyersActiveLast14d": 128
+      "usdc": "805.2122514",
+      "buyersActiveLast14d": 80
     },
     "excludingTestTraffic": {
-      "payments": 1851,
+      "payments": 1904,
       "buyers": 129,
       "services": 101,
-      "usdc": "804.7587312",
+      "usdc": "805.2077312",
       "buyersActiveLast14d": 35
     },
     "share": {
@@ -311,11 +313,107 @@
       "renderUsefulChars": 693,
       "renderGainChars": 620,
       "renderTimeMs": 3510
+    },
+    {
+      "agent": "agent-a",
+      "timestamp": "2026-10-12T02:50:13.619Z",
+      "task": "Extract the visible content of a SPA (tokens, pools, navigation) for a downstream task",
+      "taskSummary": "Needs the visible content of a JS-rendered page (SPA). Tries a plain GET first; pays for a render only if the useful text is below 500 chars.",
+      "target": "https://testnet.stellarchain.io/accounts/GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO",
+      "decision": "pay",
+      "reason": "the plain GET lacks the SPA content (73 chars); the render has it (692 chars)",
+      "summary": "Plain GET: 73 useful chars. Paid render: 692 chars (+619).",
+      "tx": "2b91ca74de01d7515428be0ea601d04481cf14c117e9331fdae315ac6dfc522f",
+      "amount": "0.0010000",
+      "plainUsefulChars": 73,
+      "renderUsefulChars": 692,
+      "renderGainChars": 619,
+      "renderTimeMs": 4301
+    },
+    {
+      "agent": "agent-c",
+      "timestamp": "2026-10-12T16:19:22.036Z",
+      "task": "Read the docs of an x402 service (static page) to summarize its API and price",
+      "taskSummary": "Needs a static page (the service's README). A plain GET is enough, so it never pays.",
+      "target": "https://raw.githubusercontent.com/tantk/rendergate/HEAD/README.md",
+      "decision": "skip",
+      "reason": "static page: the plain GET returns the full text; rendering adds nothing",
+      "summary": "Plain GET: 9561 useful chars (threshold 500); no render needed.",
+      "tx": null,
+      "amount": null,
+      "plainUsefulChars": 9561,
+      "renderUsefulChars": null,
+      "renderGainChars": null,
+      "renderTimeMs": null
+    },
+    {
+      "agent": "agent-a",
+      "timestamp": "2026-10-12T16:22:26.549Z",
+      "task": "Extract the visible content of a SPA (tokens, pools, navigation) for a downstream task",
+      "taskSummary": "Needs the visible content of a JS-rendered page (SPA). Tries a plain GET first; pays for a render only if the useful text is below 500 chars.",
+      "target": "https://testnet.stellarchain.io/accounts/GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO",
+      "decision": "pay",
+      "reason": "the plain GET lacks the SPA content (73 chars); the render has it (693 chars)",
+      "summary": "Plain GET: 73 useful chars. Paid render: 693 chars (+620).",
+      "tx": "7df11fd2e84447b3189519dc4981f7405b66a9fe93000cb477091bc8ad97735c",
+      "amount": null,
+      "plainUsefulChars": 73,
+      "renderUsefulChars": 693,
+      "renderGainChars": 620,
+      "renderTimeMs": 4343
+    },
+    {
+      "agent": "agent-c",
+      "timestamp": "2026-10-12T17:13:06.942Z",
+      "task": "Read the docs of an x402 service (static page) to summarize its API and price",
+      "taskSummary": "Needs a static page (the service's README). A plain GET is enough, so it never pays.",
+      "target": "https://raw.githubusercontent.com/tantk/rendergate/HEAD/README.md",
+      "decision": "skip",
+      "reason": "static page: the plain GET returns the full text; rendering adds nothing",
+      "summary": "Plain GET: 9561 useful chars (threshold 500); no render needed.",
+      "tx": null,
+      "amount": null,
+      "plainUsefulChars": 9561,
+      "renderUsefulChars": null,
+      "renderGainChars": null,
+      "renderTimeMs": null
+    },
+    {
+      "agent": "agent-b",
+      "timestamp": "2026-10-12T17:13:45.340Z",
+      "task": "Buy a render only if the service shows independent demand: ≥ 3 external payers in 90 days",
+      "taskSummary": "Buys only with evidence of independent demand: ≥ 3 external payers in the last 90 days, excluding linked and Day91 wallets, read live from Horizon.",
+      "target": "GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO",
+      "decision": "skip",
+      "reason": "only 1 external payer(s) in 90 days; policy requires ≥ 3",
+      "summary": "1 independent payer in 90 days; policy requires ≥ 3.",
+      "tx": null,
+      "amount": null,
+      "plainUsefulChars": null,
+      "renderUsefulChars": null,
+      "renderGainChars": null,
+      "renderTimeMs": null
+    },
+    {
+      "agent": "agent-a",
+      "timestamp": "2026-10-12T17:16:47.456Z",
+      "task": "Extract the visible content of a SPA (tokens, pools, navigation) for a downstream task",
+      "taskSummary": "Needs the visible content of a JS-rendered page (SPA). Tries a plain GET first; pays for a render only if the useful text is below 500 chars.",
+      "target": "https://testnet.stellarchain.io/accounts/GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO",
+      "decision": "pay",
+      "reason": "the plain GET lacks the SPA content (73 chars); the render has it (693 chars)",
+      "summary": "Plain GET: 73 useful chars. Paid render: 693 chars (+620).",
+      "tx": "bf2fe04942844f20b06bc96007ac52d21dbd6373b4f92773bfe34aade29e9539",
+      "amount": null,
+      "plainUsefulChars": 73,
+      "renderUsefulChars": 693,
+      "renderGainChars": 620,
+      "renderTimeMs": 3667
     }
   ],
   "snapshot": {
-    "takenAt": "2026-10-11T21:12:43.458Z",
-    "records": 93,
+    "takenAt": "2026-10-12T22:58:41.744Z",
+    "records": 96,
     "payments": [
       {
         "at": "2026-04-13T04:32:22Z",
@@ -915,6 +1013,27 @@
       {
         "at": "2026-10-11T21:11:12Z",
         "tx": "9106dbae6e0440245a33c598e5e599d356914e894142ad2d80fd73f63f78cbbf",
+        "from": "GBNS6VZIEZEFIXJXIOL2PA4K3WDCF3R2O5IVHYRIJHSERZMJU764Q4PI",
+        "amount": "0.0010000",
+        "cls": "day91"
+      },
+      {
+        "at": "2026-10-12T02:50:17Z",
+        "tx": "2b91ca74de01d7515428be0ea601d04481cf14c117e9331fdae315ac6dfc522f",
+        "from": "GBNS6VZIEZEFIXJXIOL2PA4K3WDCF3R2O5IVHYRIJHSERZMJU764Q4PI",
+        "amount": "0.0010000",
+        "cls": "day91"
+      },
+      {
+        "at": "2026-10-12T16:21:07Z",
+        "tx": "7df11fd2e84447b3189519dc4981f7405b66a9fe93000cb477091bc8ad97735c",
+        "from": "GBNS6VZIEZEFIXJXIOL2PA4K3WDCF3R2O5IVHYRIJHSERZMJU764Q4PI",
+        "amount": "0.0010000",
+        "cls": "day91"
+      },
+      {
+        "at": "2026-10-12T17:15:27Z",
+        "tx": "bf2fe04942844f20b06bc96007ac52d21dbd6373b4f92773bfe34aade29e9539",
         "from": "GBNS6VZIEZEFIXJXIOL2PA4K3WDCF3R2O5IVHYRIJHSERZMJU764Q4PI",
         "amount": "0.0010000",
         "cls": "day91"

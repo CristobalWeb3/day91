@@ -1,29 +1,29 @@
 # Day91 prospects: RenderGate (payTo)
 
-- payTo: `GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO` · window: last 90 days (since 2026-07-13T16:33:17Z) · generated 2026-10-11T16:33:17.006Z
+- payTo: `GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO` · window: last 90 days (since 2026-07-14T22:44:33Z) · generated 2026-10-12T22:44:33.349Z
 - Source: /payments of 3 known x402 facilitators on Horizon testnet (a facilitator submits the payment on the buyer's behalf, so its history is the sales ledger of every service that uses it).
-- Removed before counting: 0 zero-amount payments and 4 payments from Day91's own wallets (GBNS6V…Q4PI).
+- Removed before counting: 0 zero-amount payments and 8 payments from Day91's own wallets (GBNS6V…Q4PI).
 - Amounts in USDC, 7 decimals. Buyers are wallets, not people: one operator can run many wallets.
 
 ## Market
 
 |  | payments | buyers | services | USDC | buyers active last 14 d |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| total | 2296 | 224 | 113 | 804.7632514 | 128 |
-| excluding likely test traffic | 1851 | 129 | 101 | 804.7587312 | 35 |
+| total | 2349 | 224 | 113 | 805.2122514 | 80 |
+| excluding likely test traffic | 1904 | 129 | 101 | 805.2077312 | 35 |
 
 Buyers seen on ≥ 2 facilitators: 4.
 
 | facilitator | records read | x402 payments | buyers | services | read time |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| [GC6CSX…YN3K](https://stellar.expert/explorer/testnet/account/GC6CSXBV4C6RL3HEDTW57KXYXSSXKAWKGYDEOSATXM3XNKXSR2VRYN3K) (facilitator x402 (x402.org)) | 2324 | 1953 | 192 | 83 | 3.3 s |
-| [GCGKCI…NDYL](https://stellar.expert/explorer/testnet/account/GCGKCIJE7S22OLQUWURUIL7OFMTVJY77RDZIO6ZJADVFLRUMRW6MNDYL) (facilitator (twin A, 2025-12-22)) | 186 | 172 | 17 | 15 | 1.1 s |
-| [GA6QLQ…O67I](https://stellar.expert/explorer/testnet/account/GA6QLQOQFN36EV6NRIZAGMNA42MFG2XGCX23KYF6VE5DTBXPPS5RO67I) (facilitator (twin B, 2025-12-22)) | 187 | 175 | 21 | 19 | 1.1 s |
+| [GC6CSX…YN3K](https://stellar.expert/explorer/testnet/account/GC6CSXBV4C6RL3HEDTW57KXYXSSXKAWKGYDEOSATXM3XNKXSR2VRYN3K) (facilitator x402 (x402.org)) | 2378 | 2011 | 193 | 84 | 3.1 s |
+| [GCGKCI…NDYL](https://stellar.expert/explorer/testnet/account/GCGKCIJE7S22OLQUWURUIL7OFMTVJY77RDZIO6ZJADVFLRUMRW6MNDYL) (facilitator (twin A, 2025-12-22)) | 186 | 172 | 17 | 15 | 1.0 s |
+| [GA6QLQ…O67I](https://stellar.expert/explorer/testnet/account/GA6QLQOQFN36EV6NRIZAGMNA42MFG2XGCX23KYF6VE5DTBXPPS5RO67I) (facilitator (twin B, 2025-12-22)) | 186 | 174 | 20 | 18 | 1.0 s |
 
 ## Share of this payTo
 
-- Of the whole window: **2 of 2296 payments (0.09%)** and **1 of 224 buyers (0.45%)**, Day91's wallets excluded.
-- Outside likely test traffic: **2 of 1851 payments (0.11%)** and **1 of 129 buyers (0.78%)**.
+- Of the whole window: **2 of 2349 payments (0.09%)** and **1 of 224 buyers (0.45%)**, Day91's wallets excluded.
+- Outside likely test traffic: **2 of 1904 payments (0.11%)** and **1 of 129 buyers (0.78%)**.
 - Buyers of this payTo in the window: [GBUQ25…M3L6](https://stellar.expert/explorer/testnet/account/GBUQ25LH4BARXR4RAJZVA7QYVFTIRZD63YXYVAETETYGKMNZF5PKM3L6).
 
 ## Likely test traffic
@@ -57,7 +57,7 @@ Buyers seen on ≥ 2 facilitators: 4.
 | [GDEIIJ…TZ7Z](https://stellar.expert/explorer/testnet/account/GDEIIJVYMY4DQJI5HFCM4ES52GWT6SDRBD3SPXUEPN3D3D7ZUATXTZ7Z) | 4 | 12 | 0.1200000 | 0.0100000 |
 | [GBNDGY…I6V6](https://stellar.expert/explorer/testnet/account/GBNDGYUJS5TB24JEBHJDNNAKFQNKJ7T62VQWZFVH72JGVUCHOOA4I6V6) | 3 | 16 | 0.1600000 | 0.0100000 |
 | [GD67Z4…N6WS](https://stellar.expert/explorer/testnet/account/GD67Z44A7J7VG5MGJ3FRC65WI2OQOQWXP5ZVO63MWYEMHQU7G3OON6WS) | 3 | 9 | 7.1000000 | 0.7888888 |
-| [GAWSYB…L5V7](https://stellar.expert/explorer/testnet/account/GAWSYBSG7GQYH77SRM7MPFMWMPUBCFBLQRYCDAEGELP6IFIUGSNYL5V7) | 2 | 303 | 2.4720000 | 0.0081584 |
+| [GAWSYB…L5V7](https://stellar.expert/explorer/testnet/account/GAWSYBSG7GQYH77SRM7MPFMWMPUBCFBLQRYCDAEGELP6IFIUGSNYL5V7) | 2 | 353 | 2.8820000 | 0.0081643 |
 | [GDXKBO…GWQU](https://stellar.expert/explorer/testnet/account/GDXKBOCCIUWIJ4O355O3YUSB46G5TGCOJ2LSADU7KB67EBT23KMAGWQU) | 2 | 9 | 0.0900000 | 0.0100000 |
 
 ## Prospects
@@ -66,15 +66,15 @@ Buyers that paid **≥ 2 distinct services** with a price > 0 in the window: 9 (
 
 | # | buyer | services | payments | USDC | first | last | facilitator(s) | paid this payTo | why |
 | ---: | --- | ---: | ---: | ---: | --- | --- | --- | --- | --- |
-| 1 | [CDFLOE…DMQN](https://stellar.expert/explorer/testnet/contract/CDFLOE4HGKNV3JJQGIS3Y7BT2K2DTT4SBF2NKARMBVB4RBJZ5YJLDMQN) | 4 | 4 | 4.0000004 | 2026-09-08 | 2026-10-10 | GCGKCI…NDYL, GA6QLQ…O67I | no | 4 services, 4 payments, 4.0000004 USDC over 32 days; last active 0 days ago; has not tried this service; contract address, not a wallet; pays exactly 1.0000001 USDC to every service; may be test infrastructure rather than a customer |
-| 2 | [GAVPQ7…BDB4](https://stellar.expert/explorer/testnet/account/GAVPQ7VRQK5TK5ZJCFPYZHWOOSSDYVDPAH7LW4ME4PC7VLMZ4JUGBDB4) | 2 | 3 | 0.0030000 | 2026-09-27 | 2026-09-27 | GC6CSX…YN3K | no | 2 services, 3 payments, 0.0030000 USDC over 1 day; last active 13 days ago; has not tried this service; pays exactly 0.0010000 USDC to every service |
-| 3 | [GAURYW…UTEZ](https://stellar.expert/explorer/testnet/account/GAURYWKSSNA7IWU4S6VYHIU6TFOEUGO72BULFXNBKJ2IGXHR22ANUTEZ) | 3 | 48 | 1.5900000 | 2026-09-25 | 2026-09-25 | GC6CSX…YN3K | no | 3 services, 48 payments, 1.5900000 USDC over 1 day; last active 16 days ago; has not tried this service |
-| 4 | [GBUQ25…M3L6](https://stellar.expert/explorer/testnet/account/GBUQ25LH4BARXR4RAJZVA7QYVFTIRZD63YXYVAETETYGKMNZF5PKM3L6) | 3 | 12 | 0.1020000 | 2026-09-20 | 2026-09-20 | GC6CSX…YN3K, GCGKCI…NDYL, GA6QLQ…O67I | yes | 3 services, 12 payments, 0.1020000 USDC over 1 day; last active 21 days ago; already tried this service |
-| 5 | [GBAVTB…MXV6](https://stellar.expert/explorer/testnet/account/GBAVTBA7T7FLNBPGNJXUBMBZV4J4N7L3JCKMWNVFPMK267C46FLJMXV6) | 2 | 5 | 0.4500000 | 2026-09-19 | 2026-09-20 | GC6CSX…YN3K | no | 2 services, 5 payments, 0.4500000 USDC over 1 day; last active 21 days ago; has not tried this service |
-| 6 | [GDSGS5…6JDT](https://stellar.expert/explorer/testnet/account/GDSGS53IUWOSFIW7EWW5NJ4WJLUNVRSH3MYQ3YFGWEJI7VZCVE3C6JDT) | 6 | 18 | 0.3300000 | 2026-09-18 | 2026-09-19 | GC6CSX…YN3K | no | 6 services, 18 payments, 0.3300000 USDC over 1 day; last active 21 days ago; has not tried this service |
-| 7 | [GBPA6I…KWZG](https://stellar.expert/explorer/testnet/account/GBPA6I6PQAYXADRROHMGYGPRY7NVHXL5Q7QT3L6SOAUSIBWV27AJKWZG) | 2 | 5 | 0.4010000 | 2026-09-19 | 2026-09-19 | GC6CSX…YN3K | no | 2 services, 5 payments, 0.4010000 USDC over 1 day; last active 21 days ago; has not tried this service |
-| 8 | [GBRZSG…UTV7](https://stellar.expert/explorer/testnet/account/GBRZSG7K6ZXJRCMYM2O2HO2DKR7RO2ACZ5FARBMQZBB4YZMDFDXFUTV7) | 2 | 3 | 2.3389016 | 2026-09-13 | 2026-09-17 | GC6CSX…YN3K | no | 2 services, 3 payments, 2.3389016 USDC over 4 days; last active 23 days ago; has not tried this service |
-| 9 | [GBH4IB…K6A7](https://stellar.expert/explorer/testnet/account/GBH4IBWTCU3ARMY33PILVW6SMBMKYWSUKONNLJN5IZGXBAQFVJWJK6A7) | 2 | 4 | 0.0400000 | 2026-08-04 | 2026-08-04 | GC6CSX…YN3K | no | 2 services, 4 payments, 0.0400000 USDC over 1 day; last active 68 days ago; has not tried this service; pays exactly 0.0100000 USDC to every service |
+| 1 | [CDFLOE…DMQN](https://stellar.expert/explorer/testnet/contract/CDFLOE4HGKNV3JJQGIS3Y7BT2K2DTT4SBF2NKARMBVB4RBJZ5YJLDMQN) | 4 | 4 | 4.0000004 | 2026-09-08 | 2026-10-10 | GCGKCI…NDYL, GA6QLQ…O67I | no | 4 services, 4 payments, 4.0000004 USDC over 32 days; last active 2 days ago; has not tried this service; contract address, not a wallet; pays exactly 1.0000001 USDC to every service; may be test infrastructure rather than a customer |
+| 2 | [GAVPQ7…BDB4](https://stellar.expert/explorer/testnet/account/GAVPQ7VRQK5TK5ZJCFPYZHWOOSSDYVDPAH7LW4ME4PC7VLMZ4JUGBDB4) | 2 | 3 | 0.0030000 | 2026-09-27 | 2026-09-27 | GC6CSX…YN3K | no | 2 services, 3 payments, 0.0030000 USDC over 1 day; last active 15 days ago; has not tried this service; pays exactly 0.0010000 USDC to every service |
+| 3 | [GAURYW…UTEZ](https://stellar.expert/explorer/testnet/account/GAURYWKSSNA7IWU4S6VYHIU6TFOEUGO72BULFXNBKJ2IGXHR22ANUTEZ) | 3 | 48 | 1.5900000 | 2026-09-25 | 2026-09-25 | GC6CSX…YN3K | no | 3 services, 48 payments, 1.5900000 USDC over 1 day; last active 17 days ago; has not tried this service |
+| 4 | [GBUQ25…M3L6](https://stellar.expert/explorer/testnet/account/GBUQ25LH4BARXR4RAJZVA7QYVFTIRZD63YXYVAETETYGKMNZF5PKM3L6) | 3 | 12 | 0.1020000 | 2026-09-20 | 2026-09-20 | GC6CSX…YN3K, GCGKCI…NDYL, GA6QLQ…O67I | yes | 3 services, 12 payments, 0.1020000 USDC over 1 day; last active 22 days ago; already tried this service |
+| 5 | [GBAVTB…MXV6](https://stellar.expert/explorer/testnet/account/GBAVTBA7T7FLNBPGNJXUBMBZV4J4N7L3JCKMWNVFPMK267C46FLJMXV6) | 2 | 5 | 0.4500000 | 2026-09-19 | 2026-09-20 | GC6CSX…YN3K | no | 2 services, 5 payments, 0.4500000 USDC over 1 day; last active 22 days ago; has not tried this service |
+| 6 | [GDSGS5…6JDT](https://stellar.expert/explorer/testnet/account/GDSGS53IUWOSFIW7EWW5NJ4WJLUNVRSH3MYQ3YFGWEJI7VZCVE3C6JDT) | 6 | 18 | 0.3300000 | 2026-09-18 | 2026-09-19 | GC6CSX…YN3K | no | 6 services, 18 payments, 0.3300000 USDC over 1 day; last active 23 days ago; has not tried this service |
+| 7 | [GBPA6I…KWZG](https://stellar.expert/explorer/testnet/account/GBPA6I6PQAYXADRROHMGYGPRY7NVHXL5Q7QT3L6SOAUSIBWV27AJKWZG) | 2 | 5 | 0.4010000 | 2026-09-19 | 2026-09-19 | GC6CSX…YN3K | no | 2 services, 5 payments, 0.4010000 USDC over 1 day; last active 23 days ago; has not tried this service |
+| 8 | [GBRZSG…UTV7](https://stellar.expert/explorer/testnet/account/GBRZSG7K6ZXJRCMYM2O2HO2DKR7RO2ACZ5FARBMQZBB4YZMDFDXFUTV7) | 2 | 3 | 2.3389016 | 2026-09-13 | 2026-09-17 | GC6CSX…YN3K | no | 2 services, 3 payments, 2.3389016 USDC over 4 days; last active 25 days ago; has not tried this service |
+| 9 | [GBH4IB…K6A7](https://stellar.expert/explorer/testnet/account/GBH4IBWTCU3ARMY33PILVW6SMBMKYWSUKONNLJN5IZGXBAQFVJWJK6A7) | 2 | 4 | 0.0400000 | 2026-08-04 | 2026-08-04 | GC6CSX…YN3K | no | 2 services, 4 payments, 0.0400000 USDC over 1 day; last active 69 days ago; has not tried this service; pays exactly 0.0100000 USDC to every service |
 
 - Note on #1 [CDFLOE…DMQN](https://stellar.expert/explorer/testnet/contract/CDFLOE4HGKNV3JJQGIS3Y7BT2K2DTT4SBF2NKARMBVB4RBJZ5YJLDMQN): contract address, not a wallet; pays exactly 1.0000001 USDC to every service; may be test infrastructure rather than a customer (via GCGKCI…NDYL and GA6QLQ…O67I).
 

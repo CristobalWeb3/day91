@@ -8,7 +8,9 @@ import { paidGet } from "../x402/paid-get.js";
 import { MIN_USEFUL_CHARS, appendDecision, plainGet, renderEndpoint, usefulText } from "./common.js";
 
 const AGENT = "agent-a";
-const target = process.argv[2] ?? "https://app.soroswap.finance/";
+// Por defecto, la página del payTo de RenderGate en un explorador client-rendered (73 → 693 chars en la demo).
+// Pasar https://app.soroswap.finance/ como argumento reproduce el caso de render cobrado sin aporte (176 → 170).
+const target = process.argv[2] ?? "https://testnet.stellarchain.io/accounts/GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO";
 const task = "Extract the visible content of a SPA (tokens, pools, navigation) for a downstream task";
 
 async function main() {

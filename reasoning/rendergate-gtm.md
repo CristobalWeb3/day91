@@ -7,7 +7,7 @@
 
 Hi, and congrats on the 3rd place at Stellar Hacks: Agents. We used RenderGate as the first target for Day91, a small tool that
 reads a service's payTo history on Horizon, works out why it isn't selling, and sends a few real buyer agents at it. We paid for
-five renders (0.005 USDC total, testnet) and read everything else from the public ledger. Here is what we found. Take what is
+a handful of renders (0.008 USDC in total on testnet, rehearsals for a demo video included) and read everything else from the public ledger. Here is what we found. Take what is
 useful, ignore the rest.
 
 Addresses used below: payTo `GAUJ54…25GO`, your harness wallet `GDMJ5B…IQR3`, the one independent buyer `GBUQ25…M3L6`,
@@ -117,11 +117,11 @@ Evidence: [decisions.jsonl](https://github.com/CristobalWeb3/day91/blob/main/dat
 We read the last 90 days of the three x402 facilitators we know on testnet (a facilitator submits the payment on the buyer's behalf, so its
 history is the sales ledger of every service that uses it). After dropping our own four payments:
 
-- **2,296 x402 payments, 224 buyer wallets, 113 services, 804.76 USDC** in total. Removing likely test traffic (12 services whose average
-  price is ≤ 0.0001 USDC, among them a block of seven that each took exactly 60 payments from 11 wallets at 0.00001 USDC between 2026-09-28
-  and 10-09): **1,851 payments, 129 buyer wallets, 101 services.** 35 of those 129 wallets paid something in the last 14 days; only 4 used more
-  than one facilitator.
-- **RenderGate: 2 of 2,296 payments (0.09%) and 1 of 224 buyers (0.45%).** Outside likely test traffic: 2 of 1,851 payments (0.11%) and
+- **2,349 x402 payments, 224 buyer wallets, 113 services, 805.21 USDC** in total (window ending 2026-10-12). Removing likely test traffic
+  (12 services whose average price is ≤ 0.0001 USDC, among them a block of seven that each took exactly 60 payments from 11 wallets at
+  0.00001 USDC between 2026-09-28 and 10-09): **1,904 payments, 129 buyer wallets, 101 services.** 35 of those 129 wallets paid something in
+  the last 14 days; only 4 used more than one facilitator.
+- **RenderGate: 2 of 2,349 payments (0.09%) and 1 of 224 buyers (0.45%).** Outside likely test traffic: 2 of 1,904 payments (0.11%) and
   1 of 129 buyers (0.78%).
 - The market is lumpy. `GDABGS…6S2P` has the most buyers (15 wallets, 37 payments at ~0.30 USDC). `CAT76P…KSKL` is a contract taking 6 payments
   averaging 35.8 USDC.

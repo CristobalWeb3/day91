@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-10-11T16:33:17.006Z",
+  "generatedAt": "2026-10-12T22:44:33.349Z",
   "payTo": "GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO",
   "windowDays": 90,
-  "since": "2026-07-13T16:33:17.006Z",
+  "since": "2026-07-14T22:44:33.349Z",
   "testTrafficRule": "service average price ≤ 0.0001000 USDC",
   "facilitators": [
     {
       "address": "GC6CSXBV4C6RL3HEDTW57KXYXSSXKAWKGYDEOSATXM3XNKXSR2VRYN3K",
       "label": "x402.org facilitator",
-      "records": 2324,
-      "payments": 1953,
-      "buyers": 192,
-      "services": 83,
-      "readMs": 3250
+      "records": 2378,
+      "payments": 2011,
+      "buyers": 193,
+      "services": 84,
+      "readMs": 3101
     },
     {
       "address": "GCGKCIJE7S22OLQUWURUIL7OFMTVJY77RDZIO6ZJADVFLRUMRW6MNDYL",
@@ -21,38 +21,38 @@
       "payments": 172,
       "buyers": 17,
       "services": 15,
-      "readMs": 1109
+      "readMs": 1024
     },
     {
       "address": "GA6QLQOQFN36EV6NRIZAGMNA42MFG2XGCX23KYF6VE5DTBXPPS5RO67I",
       "label": "facilitator (twin B, 2025-12-22)",
-      "records": 187,
-      "payments": 175,
-      "buyers": 21,
-      "services": 19,
-      "readMs": 1106
+      "records": 186,
+      "payments": 174,
+      "buyers": 20,
+      "services": 18,
+      "readMs": 997
     }
   ],
   "removed": {
     "zeroAmount": 0,
-    "day91Payments": 4,
+    "day91Payments": 8,
     "day91Wallets": [
       "GBNS6VZIEZEFIXJXIOL2PA4K3WDCF3R2O5IVHYRIJHSERZMJU764Q4PI"
     ]
   },
   "market": {
     "total": {
-      "payments": 2296,
+      "payments": 2349,
       "buyers": 224,
       "services": 113,
-      "usdc": "804.7632514",
-      "buyersActiveLast14d": 128
+      "usdc": "805.2122514",
+      "buyersActiveLast14d": 80
     },
     "excludingTestTraffic": {
-      "payments": 1851,
+      "payments": 1904,
       "buyers": 129,
       "services": 101,
-      "usdc": "804.7587312",
+      "usdc": "805.2077312",
       "buyersActiveLast14d": 35
     },
     "buyersOnTwoOrMoreFacilitators": 4
@@ -254,10 +254,10 @@
     {
       "to": "GAWSYBSG7GQYH77SRM7MPFMWMPUBCFBLQRYCDAEGELP6IFIUGSNYL5V7",
       "label": null,
-      "payments": 303,
+      "payments": 353,
       "buyers": 2,
-      "usdc": "2.4720000",
-      "avgPrice": "0.0081584",
+      "usdc": "2.8820000",
+      "avgPrice": "0.0081643",
       "testTraffic": false
     },
     {
@@ -289,7 +289,7 @@
       ],
       "first": "2026-09-08T21:04:17Z",
       "last": "2026-10-10T20:56:57Z",
-      "daysSinceLast": 0,
+      "daysSinceLast": 2,
       "facilitators": [
         "GCGKCIJE7S22OLQUWURUIL7OFMTVJY77RDZIO6ZJADVFLRUMRW6MNDYL",
         "GA6QLQOQFN36EV6NRIZAGMNA42MFG2XGCX23KYF6VE5DTBXPPS5RO67I"
@@ -301,7 +301,7 @@
         "pays exactly 1.0000001 USDC to every service",
         "may be test infrastructure rather than a customer"
       ],
-      "why": "4 services, 4 payments, 4.0000004 USDC over 32 days; last active 0 days ago; has not tried this service; contract address, not a wallet; pays exactly 1.0000001 USDC to every service; may be test infrastructure rather than a customer"
+      "why": "4 services, 4 payments, 4.0000004 USDC over 32 days; last active 2 days ago; has not tried this service; contract address, not a wallet; pays exactly 1.0000001 USDC to every service; may be test infrastructure rather than a customer"
     },
     {
       "rank": 2,
@@ -316,7 +316,7 @@
       ],
       "first": "2026-09-27T17:00:32Z",
       "last": "2026-09-27T17:06:12Z",
-      "daysSinceLast": 13,
+      "daysSinceLast": 15,
       "facilitators": [
         "GC6CSXBV4C6RL3HEDTW57KXYXSSXKAWKGYDEOSATXM3XNKXSR2VRYN3K"
       ],
@@ -325,7 +325,7 @@
       "notes": [
         "pays exactly 0.0010000 USDC to every service"
       ],
-      "why": "2 services, 3 payments, 0.0030000 USDC over 1 day; last active 13 days ago; has not tried this service; pays exactly 0.0010000 USDC to every service"
+      "why": "2 services, 3 payments, 0.0030000 USDC over 1 day; last active 15 days ago; has not tried this service; pays exactly 0.0010000 USDC to every service"
     },
     {
       "rank": 3,
@@ -342,14 +342,14 @@
       ],
       "first": "2026-09-25T10:54:47Z",
       "last": "2026-09-25T16:26:02Z",
-      "daysSinceLast": 16,
+      "daysSinceLast": 17,
       "facilitators": [
         "GC6CSXBV4C6RL3HEDTW57KXYXSSXKAWKGYDEOSATXM3XNKXSR2VRYN3K"
       ],
       "paidTarget": false,
       "excluded": null,
       "notes": [],
-      "why": "3 services, 48 payments, 1.5900000 USDC over 1 day; last active 16 days ago; has not tried this service"
+      "why": "3 services, 48 payments, 1.5900000 USDC over 1 day; last active 17 days ago; has not tried this service"
     },
     {
       "rank": 4,
@@ -365,7 +365,7 @@
       ],
       "first": "2026-09-20T00:29:02Z",
       "last": "2026-09-20T07:44:07Z",
-      "daysSinceLast": 21,
+      "daysSinceLast": 22,
       "facilitators": [
         "GC6CSXBV4C6RL3HEDTW57KXYXSSXKAWKGYDEOSATXM3XNKXSR2VRYN3K",
         "GCGKCIJE7S22OLQUWURUIL7OFMTVJY77RDZIO6ZJADVFLRUMRW6MNDYL",
@@ -374,7 +374,7 @@
       "paidTarget": true,
       "excluded": null,
       "notes": [],
-      "why": "3 services, 12 payments, 0.1020000 USDC over 1 day; last active 21 days ago; already tried this service"
+      "why": "3 services, 12 payments, 0.1020000 USDC over 1 day; last active 22 days ago; already tried this service"
     },
     {
       "rank": 5,
@@ -390,14 +390,14 @@
       ],
       "first": "2026-09-19T15:38:52Z",
       "last": "2026-09-20T07:16:47Z",
-      "daysSinceLast": 21,
+      "daysSinceLast": 22,
       "facilitators": [
         "GC6CSXBV4C6RL3HEDTW57KXYXSSXKAWKGYDEOSATXM3XNKXSR2VRYN3K"
       ],
       "paidTarget": false,
       "excluded": null,
       "notes": [],
-      "why": "2 services, 5 payments, 0.4500000 USDC over 1 day; last active 21 days ago; has not tried this service"
+      "why": "2 services, 5 payments, 0.4500000 USDC over 1 day; last active 22 days ago; has not tried this service"
     },
     {
       "rank": 6,
@@ -414,14 +414,14 @@
       ],
       "first": "2026-09-18T16:27:57Z",
       "last": "2026-09-19T17:55:32Z",
-      "daysSinceLast": 21,
+      "daysSinceLast": 23,
       "facilitators": [
         "GC6CSXBV4C6RL3HEDTW57KXYXSSXKAWKGYDEOSATXM3XNKXSR2VRYN3K"
       ],
       "paidTarget": false,
       "excluded": null,
       "notes": [],
-      "why": "6 services, 18 payments, 0.3300000 USDC over 1 day; last active 21 days ago; has not tried this service"
+      "why": "6 services, 18 payments, 0.3300000 USDC over 1 day; last active 23 days ago; has not tried this service"
     },
     {
       "rank": 7,
@@ -437,14 +437,14 @@
       ],
       "first": "2026-09-19T12:27:57Z",
       "last": "2026-09-19T17:40:12Z",
-      "daysSinceLast": 21,
+      "daysSinceLast": 23,
       "facilitators": [
         "GC6CSXBV4C6RL3HEDTW57KXYXSSXKAWKGYDEOSATXM3XNKXSR2VRYN3K"
       ],
       "paidTarget": false,
       "excluded": null,
       "notes": [],
-      "why": "2 services, 5 payments, 0.4010000 USDC over 1 day; last active 21 days ago; has not tried this service"
+      "why": "2 services, 5 payments, 0.4010000 USDC over 1 day; last active 23 days ago; has not tried this service"
     },
     {
       "rank": 8,
@@ -461,14 +461,14 @@
       ],
       "first": "2026-09-13T10:03:17Z",
       "last": "2026-09-17T19:22:32Z",
-      "daysSinceLast": 23,
+      "daysSinceLast": 25,
       "facilitators": [
         "GC6CSXBV4C6RL3HEDTW57KXYXSSXKAWKGYDEOSATXM3XNKXSR2VRYN3K"
       ],
       "paidTarget": false,
       "excluded": null,
       "notes": [],
-      "why": "2 services, 3 payments, 2.3389016 USDC over 4 days; last active 23 days ago; has not tried this service"
+      "why": "2 services, 3 payments, 2.3389016 USDC over 4 days; last active 25 days ago; has not tried this service"
     },
     {
       "rank": 9,
@@ -483,7 +483,7 @@
       ],
       "first": "2026-08-04T04:31:17Z",
       "last": "2026-08-04T04:38:08Z",
-      "daysSinceLast": 68,
+      "daysSinceLast": 69,
       "facilitators": [
         "GC6CSXBV4C6RL3HEDTW57KXYXSSXKAWKGYDEOSATXM3XNKXSR2VRYN3K"
       ],
@@ -492,7 +492,7 @@
       "notes": [
         "pays exactly 0.0100000 USDC to every service"
       ],
-      "why": "2 services, 4 payments, 0.0400000 USDC over 1 day; last active 68 days ago; has not tried this service; pays exactly 0.0100000 USDC to every service"
+      "why": "2 services, 4 payments, 0.0400000 USDC over 1 day; last active 69 days ago; has not tried this service; pays exactly 0.0100000 USDC to every service"
     }
   ],
   "warnings": []

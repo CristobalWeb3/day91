@@ -1,9 +1,9 @@
 # Day91 scan: RenderGate (payTo)
 
 - payTo: `GAUJ54FOJLO62JPBURZMCFIGR4KZB2PVD6J6SHKRTJXCZKFWXAUL25GO` (red: stellar:testnet)
-- Generado: 2026-10-11T21:12:41.130Z
+- Generado: 2026-10-12T22:44:31.743Z
 - Marca de corte de la activación: **2026-10-10T20:18:37Z** (primer pago de Day91: [d8453fc3…](https://stellar.expert/explorer/testnet/tx/d8453fc3e3ecf8234606fdb06621629996b98f304fceb9dd5a9b0d9e239945da)). Fuente: `data/activation.json`.
-- Cuenta creada 2026-04-13T04:11:30Z por [GAIH3U…ZNSR](https://stellar.expert/explorer/testnet/account/GAIH3ULLFQ4DGSECF2AR555KZ4KNDGEKN4AFI4SU2M7B43MGK3QJZNSR) (friendbot (testnet)). Saldo USDC actual: 0.0800000.
+- Cuenta creada 2026-04-13T04:11:30Z por [GAIH3U…ZNSR](https://stellar.expert/explorer/testnet/account/GAIH3ULLFQ4DGSECF2AR555KZ4KNDGEKN4AFI4SU2M7B43MGK3QJZNSR) (friendbot (testnet)). Saldo USDC actual: 0.0830000.
 - Clasificación de pagadores: **vinculado** = recibió fondos del propio payTo; **day91** = está en `data/day91-wallets.json`; **externo** = el resto.
 - Todos los montos en USDC con 7 decimales.
 
@@ -53,13 +53,13 @@
 | clase | pagos | pagadores | monto USDC | % de pagos |
 | --- | ---: | ---: | ---: | ---: |
 | vinculado | 0 | 0 | 0.0000000 | 0.0% |
-| day91 | 5 | 1 | 0.0050000 | 100.0% |
+| day91 | 8 | 1 | 0.0080000 | 100.0% |
 | externo | 0 | 0 | 0.0000000 | 0.0% |
-| **total** | 5 | 1 | 0.0050000 | 100% |
+| **total** | 8 | 1 | 0.0080000 | 100% |
 
 | pagador | clase | pagos | monto USDC | primero | último |
 | --- | --- | ---: | ---: | --- | --- |
-| [GBNS6V…Q4PI](https://stellar.expert/explorer/testnet/account/GBNS6VZIEZEFIXJXIOL2PA4K3WDCF3R2O5IVHYRIJHSERZMJU764Q4PI) | day91 | 5 | 0.0050000 | 2026-10-10T20:18:37Z | 2026-10-11T21:11:12Z |
+| [GBNS6V…Q4PI](https://stellar.expert/explorer/testnet/account/GBNS6VZIEZEFIXJXIOL2PA4K3WDCF3R2O5IVHYRIJHSERZMJU764Q4PI) | day91 | 8 | 0.0080000 | 2026-10-10T20:18:37Z | 2026-10-12T17:15:27Z |
 
 ## Compradores externos
 
@@ -108,8 +108,8 @@ Otras salidas USDC de la cohorte (no x402):
 
 ## Sondeo del servicio
 
-- Ficha `GET https://tantk-rendergate.hf.space/` → 200 en 652 ms: `{"service":"RenderGate","description":"Pay-per-render headless browser API on Stellar x402","price":"$0.001","network":"stellar:testnet","usage":"GET /render?url=<encoded_url>"}`
-- 402 `GET https://tantk-rendergate.hf.space/render?url=https%3A%2F%2Fexample.com` → 402 en 518 ms (x402 v2).
+- Ficha `GET https://tantk-rendergate.hf.space/` → 200 en 819 ms: `{"service":"RenderGate","description":"Pay-per-render headless browser API on Stellar x402","price":"$0.001","network":"stellar:testnet","usage":"GET /render?url=<encoded_url>"}`
+- 402 `GET https://tantk-rendergate.hf.space/render?url=https%3A%2F%2Fexample.com` → 402 en 522 ms (x402 v2).
 
 | scheme | red | asset | payTo | amount (raw) | amount USDC | maxTimeoutSeconds | extra |
 | --- | --- | --- | --- | ---: | ---: | ---: | --- |

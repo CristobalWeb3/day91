@@ -14,11 +14,12 @@ Only ~7.6% of ~962 Stellar hackathon submissions show commits 90 days after the 
 
 Scan: `day91 scan <payTo>` pulls the payout address's full payment history from Horizon, classifies payers as linked (funded by the payTo), day91 (ours) or external, and profiles each external buyer and its operator's cohort. Prospect: `day91 prospects` reads the x402 facilitators' ledgers and ranks wallets that buy from several services. Diagnose: a report for the author, every number linked to evidence. Activate: three buyer agents on the unmodified @x402 client: A pays only if a plain GET is not enough; B buys only with ≥ 3 independent payers in 90 days; C never needs to pay. Measure: a static page reads Horizon live and shows before/after by payer class.
 
-Findings on RenderGate: 97.5% of historical payments came from the author's own harness; one independent buyer in 180 days, who spent 2% of its x402 budget there, so price isn't the blocker; one paid render that added nothing over a plain GET. In a 90-day x402 market of 1,851 payments and 129 buyer wallets (test traffic removed), RenderGate is 0.11% of payments; 9 wallets buy from several services and are the ranked prospects. Five paid renders, verified on-chain, labelled as Day91's own. Prospects are wallets, not contacts; outreach stays manual.
+Findings on RenderGate: 97.5% of historical payments came from the author's own harness; one independent buyer in 180 days, who spent 2% of its x402 budget there, so price isn't the blocker; one paid render that added nothing over a plain GET. In a 90-day x402 market of 1,904 payments and 129 buyer wallets (test traffic removed), RenderGate is 0.11% of payments; 9 wallets buy from several services and are the ranked prospects. All payments after the cutoff are Day91's own, verified on-chain. Prospects are wallets, not contacts; outreach stays manual.
 
 **Links:**
 
 - Repository (MIT): https://github.com/CristobalWeb3/day91
 - Funnel page (live from Horizon): https://cristobalweb3.github.io/day91/
 - Report for the RenderGate author: https://github.com/CristobalWeb3/day91/blob/main/reasoning/rendergate-gtm.md
-- Video pitch (≤ 3 min): _to be added_
+- Video pitch (≤ 3 min): https://youtu.be/pcEAPKgzaTQ
+- Report posted to the RenderGate author: https://github.com/tantk/rendergate/issues/2

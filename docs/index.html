@@ -487,7 +487,7 @@
     const data = await (await fetch("data.json", { cache: "no-store" })).json();
     const payTo = data.service.payTo;
     $("svc-name").textContent = data.service.name;
-    $("nav").innerHTML = [["Repo", data.links.repo], ["README", data.links.readme], ["GTM report", data.links.report], ["Prospects", data.links.prospectsMd]].map(([t, h]) => ext(h, t)).join("");
+    $("nav").innerHTML = [["Video", data.links.video], ["Repo", data.links.repo], ["README", data.links.readme], ["GTM report", data.links.report], ["Issue", data.links.issue], ["Prospects", data.links.prospectsMd]].filter(([, h]) => h).map(([t, h]) => ext(h, t)).join("");
     { const i = data.headline.indexOf(". "); $("headline").innerHTML = i > 0 ? `${esc(data.headline.slice(0, i + 1))}<br>${esc(data.headline.slice(i + 2))}` : esc(data.headline); }
     $("subline").textContent = data.subline;
 

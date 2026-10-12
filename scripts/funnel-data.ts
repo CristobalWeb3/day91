@@ -131,6 +131,8 @@ const data = {
     report: `${REPO}/blob/main/reasoning/rendergate-gtm.md`,
     prospectsMd: `${REPO}/blob/main/data/prospects-${payTo}.md`,
     scanMd: `${REPO}/blob/main/data/scan-${payTo}.md`,
+    video: "https://youtu.be/pcEAPKgzaTQ",
+    issue: "https://github.com/tantk/rendergate/issues/2",
   },
   headline: `${activation.service ?? "RenderGate"} works. Almost nobody is buying.`,
   subline: "Day91 reads the ledger, finds the market, sends buyer agents, and measures what happens.",
